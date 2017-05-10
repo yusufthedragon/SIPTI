@@ -43,12 +43,28 @@
     <script type="text/javascript" src="js/jquery-ui.js"></script>
     <script type="text/javascript" src="js/datepicker-id.js"></script>
     <script type="text/javascript" src="js/sweetalert.js"></script>
+    <script type="text/javascript">
+      function status() {
+        <?php
+          if($query) {
+            echo "swal({
+                  title: 'INPUT DATA BERHASIL!',
+                  text: 'Data telah masuk ke database.',
+                  timer: 3000,
+                  type: 'success',
+                  showConfirmButton: false
+                });";
+          }
+        ?>
+      }
+    </script>
   </head>
-  <body>
+
+  <body onload="status()">
 
     <nav>
         <div class="nav-wrapper grey darken-3">
-            <a href="index.html" class="brand-logo">Logo</a>
+            <a href="index.php" class="brand-logo">Logo</a>
             <ul id="nav-mobile" class="right hide-on-med-and-down">
                 <li class="active"><a href="#">Transaksi</a></li>
                 <li><a href="">Edit Transaksi</a></li>
@@ -80,7 +96,6 @@
               <input type="text" class="validate" id="faktur" name="faktur" value="<?php echo $no_faktur; ?>" readonly />
             </div>
         </div>
-        <div class="row"></div>
         <div class="col s12">
             Nama Toko :
             <div class="input-field inline">
@@ -90,7 +105,8 @@
       </div>
       <div class="row">
         <div class="col s12">
-          <table class="centered">
+          Daftar Pembelian :
+          <table class="centered bordered">
             <thead>
               <tr>
                 <th>Kode Barang</th>
@@ -121,7 +137,17 @@
             <input type="text" class="validate" value="<?php echo $total; ?>" readonly />
           </div>
         </div>
+        <div class="row"></div>
+        <div class="row"></div>
+        <div class="col s6 center">
+          <a class="waves-effect waves-light btn" href="pembelian.php">Input Kembali</a>
+        </div>
+        <div class="col s6 center">
+          <a class="waves-effect waves-light btn" href="index.php">Kembali Ke Menu</a>
+        </div>
       </div>
+      <div class="row"></div>
+      <div class="row"></div>
     </div>
   </body>
 </html>

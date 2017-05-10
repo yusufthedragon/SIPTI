@@ -1,6 +1,6 @@
 var counter = 2; //Variabel untuk dynamic input box
 var obj2; //Variabel untuk menghitung total secara otomatis
-var total = 0; //Variabel untuk menyimpan total harga
+var total1;
 
 function upperCaseF(a) { //Fungsi untuk membuat input kapital secara otomatis
   setTimeout(function() {
@@ -43,6 +43,7 @@ function autofill(x) { //Fungsi untuk mengisi input nama barang secara otomatis 
 }
 
 function autohitung() { //Fungsi untuk mengisi input total secara otomatis
+  var total2 = 0; //Variabel untuk menyimpan total harga
   var diskon = 1;
   if (document.getElementById('toko1').checked) { //Mengecek apakah Toko Sartika dipilih atau tidak
     diskon = 0.9;
@@ -55,8 +56,9 @@ function autohitung() { //Fungsi untuk mengisi input total secara otomatis
     if ((!$('#hitung' + n).length) || (!$('#hitung' + n).val(""))) { //Jika input box dynamic belum dibuat / belum ada
       break;
     } else {
-      total = total + (parseInt($('#harga' + n).val()) * $('#jumlah' + n).val() * diskon);
-      $('#total').val(total);
+      total2 = total2 + (parseInt($('#harga' + n).val()) * $('#jumlah' + n).val() * diskon);
+      total1 = total2;
+      $('#total').val(total2.toLocaleString('id-ID')); //Membuat format uang indonesia
     }
   }
 }
@@ -75,7 +77,7 @@ $(document).ready(function() {
         '<center>' +
           '<label>No. Barang #' + counter + '</label>' +
           '</center>' +
-          '<input type="text" name="no' + counter + '" id="no' + counter + '" class="validate" onkeyup="autofill(this), autohitung()" />' +
+          '<input type="text" name="no' + counter + '" id="no' + counter + '" class="validate" onkeyup="autofill(this), autohitung(), upperCaseF(this)" />' +
       '</div>' +
       '<div class="col s4">' +
         '<center>' +
@@ -116,7 +118,6 @@ $(document).ready(function() {
     var kosong = true;
     for (var y = 11; y >= counter - 1; y--) {
       $('#hitung' + y).val($('#no' + y).val());
-      console.log($('#hitung' + y).val());
       if (!$('#hitung' + y).val() == "") {
         kosong = false;
       }
@@ -166,6 +167,7 @@ $(document).ready(function() {
           closeOnConfirm: false
         }, function(isConfirm) {
           if (isConfirm) {
+            $('#total').val(total1);
             document.forms["myform"].submit();
           }
         });

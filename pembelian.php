@@ -5,13 +5,13 @@
   $query->execute();
   $row = $query->fetch();
   $baris = $query->rowCount();
-  
+
   if ($baris < 1) {
     $row[0] = "PM0000";
   }
 ?>
 
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 
 <head>
@@ -92,7 +92,7 @@
                 <div id="pembelian1">
                     <div class="col s4">
                         <center><label>No. Barang #1</label></center>
-                        <input type="text" id="no1" name="no1" class="autocomplete" onkeyup="autofill(this), autohitung()" />
+                        <input type="text" id="no1" name="no1" class="autocomplete" onkeyup="autofill(this), autohitung(), upperCaseF(this)" />
                     </div>
                     <div class="col s4">
                         <center><label>Nama Barang</label></center>
@@ -117,7 +117,7 @@
             <div class="col s12">
                 Total Harga : Rp.
                 <div class="input-field inline">
-                    <input type="text" id="total" name="total" class="validate" readonly />
+                  <input type="text" id="total" name="total" class="validate" value="0" readonly />
                 </div>
             </div>
             <div class="row"></div>

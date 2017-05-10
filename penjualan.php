@@ -46,7 +46,7 @@
     <div class="container">
         <h3 class="center">TRANSAKSI PENJUALAN</h3>
         <div class="row">
-          <form action="sukses_penjualan" method="post">
+          <form name="myform" action="sukses_penjualan.php" method="post">
             <div class="col s12">
                 No. Transaksi :
                 <div class="input-field inline">
@@ -80,7 +80,7 @@
                 <div id="penjualan1">
                     <div class="col s4">
                         <center><label>No. Barang #1</label></center>
-                        <input type="text" name="no1" id="no1" class="autocomplete" onkeyup="autofill(this), autohitung()" />
+                        <input type="text" name="no1" id="no1" class="autocomplete" onkeyup="autofill(this), autohitung(), upperCaseF(this)" />
                     </div>
                     <div class="col s4">
                         <center><label>Nama Barang</label></center>
@@ -107,44 +107,48 @@
                 Pilih Kurir :
                 <div class="inline">
                     <p>
-                        <input name="kurir" type="radio" id="jne_reguler" />
-                        <label for="jne_reguler" style="color:black;">JNE REGULER</label>
+                        <input name="kurir" type="radio" id="kurir1" />
+                        <label for="kurir1" style="color:black;">JNE REGULER</label>
                     </p>
                     <p>
-                        <input name="kurir" type="radio" id="jne_yes" />
-                        <label for="jne_yes" style="color:black;">JNE YES</label>
+                        <input name="kurir" type="radio" id="kurir2" />
+                        <label for="kurir2" style="color:black;">JNE YES</label>
                     </p>
                     <p>
-                        <input name="kurir" type="radio" id="pos_kilat" />
-                        <label for="pos_kilat" style="color:black;">POS KILAT</label>
+                        <input name="kurir" type="radio" id="kurir3" />
+                        <label for="kurir3" style="color:black;">POS KILAT</label>
+                    </p>
+                    <p>
+                        <input name="kurir" type="radio" id="kurir4" />
+                        <label for="kurir4" style="color:black;">TIKI</label>
                     </p>
                 </div>
             </div>
             <div class="col s12">
                 Ongkos Kirim : Rp.
                 <div class="input-field inline">
-                    <input type="text" class="validate" />
+                    <input type="text" id="ongkir" name="ongkir" class="validate" />
                 </div>
             </div>
             <div class="col s12">
                 Masukkan No. Resi :
                 <div class="input-field inline">
-                    <input type="text" id="resi" class="validate" onkeydown="upperCaseF(this)" />
+                    <input type="text" id="resi" name="resi" class="validate" onkeydown="upperCaseF(this)" />
                 </div>
             </div>
             <div class="col s12">
                 Total Harga : Rp.
                 <div class="input-field inline">
-                    <input type="text" id="total" class="validate" disabled />
+                    <input type="text" id="total" name="total" class="validate" value="0" readonly />
                 </div>
             </div>
             <div class="row"></div>
             <div class="row"></div>
             <div class="col s6 center">
-                <a class="waves-effect waves-light btn" href="konfirmasi.html">Konfirmasi</a>
+                <a class="waves-effect waves-light btn" id="konfirmasi">Konfirmasi</a>
             </div>
             <div class="col s6 center">
-                <button class="waves-effect waves-light btn" id="gajadi">Kembali</button>
+                <a class="waves-effect waves-light btn" id="gajadi">Kembali</a>
             </div>
             <div class="row"></div>
             <div class="row"></div>
