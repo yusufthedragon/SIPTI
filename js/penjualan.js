@@ -138,7 +138,7 @@ $(document).ready(function() {
     for (var x = 11; x >= counter - 1; x--) {
       $('#hitung' + x).val($('#barang' + x).val());
       if ((myform.tanggal.value == "") || (myform.nama.value == "")) {
-        swal("Error!", "Harap input seluruh data!", "error");
+        swal("Error!", "Harap masukkan data Tanggal, Nama Konsumen, dan Barang!", "error");
       } else if ($('#hitung' + x).val() == "") {
         swal({
           title: "Error!",
