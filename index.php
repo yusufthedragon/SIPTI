@@ -49,7 +49,7 @@
             <li class="divider"></li>
             <li><a href="penjualan.php">Penjualan</a></li>
             <li class="divider"></li>
-            <li><a href="#">Retur Pembelian</a></li>
+            <li><a href="retur_pembelian.php">Retur Pembelian</a></li>
             <li class="divider"></li>
             <li><a href="#">Retur Penjualan</a></li>
           </ul>

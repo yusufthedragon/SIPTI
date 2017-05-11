@@ -3,15 +3,27 @@
 
   $no_transaksi = $_POST['no_transaksi'];
   $tanggal = $_POST['tanggal'];
-  $no_faktur = $_POST['faktur'];
-  $toko = $_POST['toko'];
+  $nama = $_POST['nama'];
+  $alamat = $_POST['alamat'];
+  $ongkir = $_POST['ongkir'];
+  $no_resi = $_POST['resi'];
   $total = $_POST['total'];
 
-  $query = $koneksi->prepare("INSERT INTO pembelian VALUES (:no_transaksi, :tanggal, :faktur, :toko, :total)");
+  if(!isset($_POST['kurir'])) {
+    $kurir = "";
+  } else $kurir = $_POST['kurir'];
+  if($ongkir == "") {
+    $ongkir = 0;
+  }
+
+  $query = $koneksi->prepare("INSERT INTO penjualan VALUES (:no_transaksi, :tanggal, :nama, :alamat, :kurir, :ongkir, :resi, :total)");
   $query->bindParam(':no_transaksi', $no_transaksi);
   $query->bindParam(':tanggal', $tanggal);
-  $query->bindParam(':faktur', $no_faktur);
-  $query->bindParam(':toko', $toko);
+  $query->bindParam(':nama', $nama);
+  $query->bindParam(':alamat', $alamat);
+  $query->bindParam(':kurir', $kurir);
+  $query->bindParam(':ongkir', $ongkir);
+  $query->bindParam(':resi', $no_resi);
   $query->bindParam(':total', $total);
   $query->execute();
 
@@ -34,7 +46,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Pembelian <?php if($query) echo "SUKSES"; else echo "GAGAL"; ?></title>
+    <title>Penjualan <?php if($query) echo "SUKSES"; else echo "GAGAL"; ?></title>
     <link rel="stylesheet" href="css/jquery-ui.css" />
     <link rel="stylesheet" href="css/sweetalert.css" />
     <link rel="stylesheet" href="css/materialize.min.css" />
@@ -76,7 +88,7 @@
         </div>
     </nav>
     <div class="container">
-      <h3 class="center">PEMBELIAN <?php if($query) echo "SUKSES"; else echo "GAGAL"; ?></h3>
+      <h3 class="center">PENJUALAN <?php if($query) echo "SUKSES"; else echo "GAGAL"; ?></h3>
       <div class="row">
         <div class="col s12">
           No. Transaksi :
@@ -91,21 +103,49 @@
           </div>
         </div>
         <div class="col s12">
-            No. Faktur :
+            Nama Konsumen :
             <div class="input-field inline">
-              <input type="text" class="validate" id="faktur" name="faktur" value="<?php echo $no_faktur; ?>" readonly />
+              <input type="text" class="validate" name="faktur" value="<?php echo $nama; ?>" readonly />
             </div>
         </div>
-        <div class="col s12">
-            Nama Toko :
-            <div class="input-field inline">
-              <input type="text" class="validate" id="toko" value="<?php echo $toko; ?>" readonly />
+        <?php
+        if($alamat != "") {
+          echo "<div class='col s12'>
+              Alamat Konsumen :
+              <div class='input-field inline'>
+                <input type='text' class='validate' value=$alamat readonly />
+              </div>
+          </div>";
+        }
+        if ($kurir != "") {
+        echo "<div class='col s12'>
+          Kurir Pengiriman :
+          <div class='input-field inline'>
+            <input type='text' class='validate' value=$kurir readonly />
+          </div>
+        </div>";
+        }
+        if($ongkir != 0) {
+          echo "<div class='col s12'>
+            Ongkos Kirim : Rp.
+            <div class='input-field inline'>
+              <input type='text' class='validate' value=$ongkir readonly />
             </div>
-        </div>
+          </div>";
+        }
+        if($no_resi != "") {
+          echo "<div class='col s12'>
+            No. Resi :
+            <div class='input-field inline'>
+              <input type='text' class='validate' value=$no_resi readonly />
+            </div>
+          </div>";
+        }
+        ?>
       </div>
       <div class="row">
         <div class="col s12">
-          Daftar Pembelian :
+          Daftar Penjualan :
           <table class="centered bordered">
             <thead>
               <tr>
@@ -131,8 +171,9 @@
             </tbody>
           </table>
         </div>
+        <div class="row"></div>
         <div class="col s12">
-          Total Pembelian : Rp.
+          Total Penjualan : Rp.
           <div class="input-field inline">
             <input type="text" class="validate" value="<?php echo $total; ?>" readonly />
           </div>
@@ -140,7 +181,7 @@
         <div class="row"></div>
         <div class="row"></div>
         <div class="col s6 center">
-          <a class="waves-effect waves-light btn" href="pembelian.php">Input Kembali</a>
+          <a class="waves-effect waves-light btn" href="penjualan.php">Input Kembali</a>
         </div>
         <div class="col s6 center">
           <a class="waves-effect waves-light btn" href="index.php">Kembali Ke Menu</a>

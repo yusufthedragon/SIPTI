@@ -106,22 +106,17 @@
             <div class="col s12">
                 Pilih Kurir :
                 <div class="inline">
-                    <p>
-                        <input name="kurir" type="radio" id="kurir1" />
-                        <label for="kurir1" style="color:black;">JNE REGULER</label>
-                    </p>
-                    <p>
-                        <input name="kurir" type="radio" id="kurir2" />
-                        <label for="kurir2" style="color:black;">JNE YES</label>
-                    </p>
-                    <p>
-                        <input name="kurir" type="radio" id="kurir3" />
-                        <label for="kurir3" style="color:black;">POS KILAT</label>
-                    </p>
-                    <p>
-                        <input name="kurir" type="radio" id="kurir4" />
-                        <label for="kurir4" style="color:black;">TIKI</label>
-                    </p>
+                  <input name="kurir" type="radio" id="kurir1" value="JNE REGULER" />
+                  <label for="kurir1" style="color:black;">JNE REGULER</label>
+                  <br />
+                  <input name="kurir" type="radio" id="kurir2" value="JNE YES" />
+                  <label for="kurir2" style="color:black;">JNE YES</label>
+                  <br />
+                  <input name="kurir" type="radio" id="kurir3" value="POS KILAT" />
+                  <label for="kurir3" style="color:black;">POS KILAT</label>
+                  <br />
+                  <input name="kurir" type="radio" id="kurir4" value="TIKI" />
+                  <label for="kurir4" style="color:black;">TIKI</label>
                 </div>
             </div>
             <div class="col s12">
