@@ -147,7 +147,7 @@ $(document).ready(function() {
       $('#hitung' + x).val($('#barang' + x).val());
       if ((myform.tanggal.value == "") || (myform.faktur.value == "") ||
       ((myform.toko1.checked == false) && (myform.toko2.checked == false) && (myform.toko3.checked == false) && (myform.toko4.checked == false))) {
-        swal("Error!", "Harap input seluruh data!", "error");
+        swal("Error!", "Harap masukkan seluruh data!", "error");
       } else if ($('#hitung' + x).val() == "") {
         swal({
           title: "Error!",
