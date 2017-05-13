@@ -36,7 +36,7 @@
             <div class="col s12 l6">
                 No. Transaksi :
                 <div class="input-field inline">
-                    <input type="text" class="validate" name="no_transaksi" id="no_transaksi" onkeyup="upperCaseF(this), autofill_retur(), autofill_barang()" />
+                    <input type="text" class="validate" name="no_transaksi" id="no_transaksi" onkeydown="upperCaseF(this), autofill_retur(), autofill_barang()" />
                 </div>
             </div>
             <div class="col s12 l6">
@@ -63,13 +63,13 @@
                 Masukkan Retur Pembelian :
             </div>
             <div class="row"></div>
-            <table id="retur_barang" class="bordered centered">
+            <table class="bordered centered">
               <thead>
                 <th>Kode Barang</th>
                 <th>Nama Barang</th>
                 <th>Jumlah Barang</th>
               </thead>
-              <tbody>
+              <tbody id="retur_barang">
               </tbody>
             </table>
             <div class="col s12">
@@ -84,7 +84,7 @@
                 <a class="waves-effect waves-light btn" id="konfirmasi">Konfirmasi</a>
             </div>
             <div class="col s6 center">
-                <a class="waves-effect waves-light btn" id="gajadi">Kembali</a>
+                <a class="waves-effect waves-light btn" href="index.php" >Kembali</a>
             </div>
             <div class="row"></div>
             <div class="row"></div>

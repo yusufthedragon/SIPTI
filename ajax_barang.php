@@ -1,6 +1,6 @@
 <?php
   include 'koneksi.php';
-  $no = $_GET['no'];
+  $no = "9953010114";
   $query = $koneksi->prepare("SELECT nama_barang, harga FROM daftar_barang WHERE kode_barang='$no'");
   $query->execute();
   $inventori = $query->fetch();

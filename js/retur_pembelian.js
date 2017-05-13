@@ -27,7 +27,7 @@ function autofill_barang(x) { //Fungsi untuk mengisi input nama barang secara ot
     dataType: "html",
     data: "no_transaksi=" + no_transaksi,
   }).success(function(data) {
-        $('#retur_barang').append(data);
+        $('#retur_barang').html(data);
     });
     /*var json = data,
      obj = JSON.parse(json);
@@ -63,9 +63,6 @@ function autohitung() { //Fungsi untuk mengisi input total secara otomatis
     diskon = 0.9;
   }
   var n;
-  if (obj2.harga == null) {
-    obj2.harga = 0;
-  }
   for (n = 1; n < 11; n++) {
     if ((!$('#hitung' + n).length) || (!$('#hitung' + n).val(""))) { //Jika input box dynamic belum dibuat / belum ada
       break;
@@ -78,55 +75,6 @@ function autohitung() { //Fungsi untuk mengisi input total secara otomatis
 }
 
 $(document).ready(function() {
-
-  $("#tambah").click(function() {
-    if (counter > 10) { //Hanya dapat menginput 10 jenis barang
-      swal("Error", "Hanya dapat membeli 10 jenis barang!", "error");
-      return false;
-    }
-    var newPembelian = $(document.createElement('div')) //Membuat div baru untuk menempatkan input group baru
-      .attr("id", 'pembelian' + counter);
-    newPembelian.after().html('<div class="row"></div>' + //Menambahkan input group ke div yang baru dibuat barusan
-      '<div class="col s4">' +
-        '<center>' +
-          '<label>No. Barang #' + counter + '</label>' +
-          '</center>' +
-          '<input type="text" name="no' + counter + '" id="no' + counter + '" class="validate" onkeyup="autofill(this), autohitung(), upperCaseF(this)" />' +
-      '</div>' +
-      '<div class="col s4">' +
-        '<center>' +
-          '<label>Nama Barang</label>' +
-        '</center>' +
-        '<input type="text" name="barang' + counter + '" id="barang' + counter + '" class="validate" readonly />' +
-      '</div>' +
-      '<div class="col s4">' +
-        '<center>' +
-          '<label>Jumlah Barang</label>' +
-        '</center>' +
-        '<input type="text" name="jumlah' + counter + '" id="jumlah' + counter + '" class="center validate" onkeyup="autohitung()" />' +
-      '</div>' +
-      '<div class="col s3">' +
-        '<input type="text" name="harga' + counter + '" id="harga' + counter + '" class="center validate" hidden />' +
-      '</div>' +
-      '<div class="col s12">' +
-        '<input type="text" name="hitung' + counter + '" id="hitung' + counter + '" hidden />' +
-      '</div>');
-    newPembelian.appendTo("#gruppembelian"); //Menggabungkan div tadi ke dalam input group yang sudah ada
-    $("#no" + counter).autocomplete({ //Sama seperti fungsi di baris 17
-      source: 'search_barang.php'
-    });
-
-    counter++;
-  });
-
-  $("#hapus").click(function() {
-    if (counter == 2) { //Mengecek apakah user menghapus satu-satunya input group barang
-      swal("Error", "Minimal membeli 1 jenis barang!", "error");
-      return false;
-    }
-    counter--;
-    $("#pembelian" + counter).remove(); //Menghapus input group
-  });
 
   /*$("#gajadi").click(function() {
     var kosong = true;

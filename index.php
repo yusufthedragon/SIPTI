@@ -30,7 +30,7 @@
           <img src="images/edit.png" alt="Edit" />
           <br />
           <br />
-          <a class="btn waves-effect waves-light" href="daftar_inventory.html">Daftar Inventory</a>
+          <a class="btn waves-effect waves-light" href="daftar_barang.php">Daftar Inventory</a>
         </div>
         <div class="col s12 m6 l6 center">
           <img src="images/daftar-transaksi.png" />
