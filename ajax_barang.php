@@ -1,11 +1,12 @@
 <?php
   include 'koneksi.php';
-  $no = "9953010114";
-  $query = $koneksi->prepare("SELECT nama_barang, harga FROM daftar_barang WHERE kode_barang='$no'");
+  $no = $_GET['no'];
+  $query = $koneksi->prepare("SELECT nama_barang, harga, stok FROM inventory WHERE kode_barang='$no'");
   $query->execute();
   $inventori = $query->fetch();
   $data = array(
             'nama_barang' =>  $inventori['nama_barang'],
-            'harga'       =>  $inventori['harga'],);
+            'harga'       =>  $inventori['harga'],
+            'stok'        =>  $inventori['stok']);
   echo json_encode($data);
 ?>
