@@ -17,7 +17,7 @@ $(function() { //Fungsi tanggal
 
 $(function() { //Fungsi untuk mengambil daftar barang dari database
   $("#no1").autocomplete({ //dan mempopulasikannya di input kode barang secara otomatis
-    source: 'search.php'
+    source: 'search_barang.php'
   });
 });
 
@@ -26,7 +26,7 @@ function autofill(x) { //Fungsi untuk mengisi input nama barang secara otomatis 
   var no = $("#no" + angka).val();
   $("#jumlah" + angka).val(1); //Mengisi input jumlah secara otomatis
   $.ajax({
-    url: 'proses-ajax.php',
+    url: 'ajax_barang.php',
     dataType: "html",
     data: "no=" + no,
   }).success(function(data) {
@@ -99,7 +99,7 @@ $(document).ready(function() {
       '</div>');
     newPembelian.appendTo("#gruppembelian"); //Menggabungkan div tadi ke dalam input group yang sudah ada
     $("#no" + counter).autocomplete({ //Sama seperti fungsi di baris 17
-      source: 'search.php'
+      source: 'search_barang.php'
     });
 
     counter++;
