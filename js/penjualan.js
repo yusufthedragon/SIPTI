@@ -25,7 +25,7 @@ function autofill(x) { //Fungsi untuk mengisi input nama barang secara otomatis 
   var no = $("#no" + angka).val();
   $("#jumlah" + angka).val(1); //Mengisi input jumlah secara otomatis
   $.ajax({
-    url: 'proses-ajax.php',
+    url: 'ajax_barang.php',
     dataType: "html",
     data: "no=" + no,
   }).success(function(data) {
