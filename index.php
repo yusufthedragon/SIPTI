@@ -10,14 +10,8 @@
   <body>
     <nav>
       <div class="nav-wrapper grey darken-3">
-        <a href="index.php" class="brand-logo">Logo</a>
-        <ul id="nav-mobile" class="right hide-on-med-and-down">
-          <li><a class="dropdown-button" data-activates="dropdown-transaksi">Buat Transaksi</a></li>
-          <li><a href="#">Edit Inventory</a></li>
-          <li><a href="#">Daftar Inventory</a></li>
-          <li><a href="#">Daftar Transaksi</a></li>
-          <li><a href="#">Laporan Inventory</a></li>
-        </ul>
+        <img src="images/edit.png" width="50px" class="brand-logo" style="float:right;" />
+        <a href="index.php" class="brand-logo center">Sistem Informasi Manajemen Inventory</a>
       </div>
     </nav>
     <div class="container">
