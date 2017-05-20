@@ -30,7 +30,12 @@
           <img src="images/daftar-transaksi.png" />
           <br />
           <br />
-          <a class="btn waves-effect waves-light" href="daftar_transaksi.html">Daftar Transaksi</a>
+          <a class='dropdown-button btn waves-effect waves-light' data-activates='dropdown-daftar'>Daftar Transaksi</a>
+          <ul id='dropdown-daftar' class='dropdown-content'>
+            <li><a href="daftar_pembelian.php">Daftar Pembelian</a></li>
+            <li class="divider"></li>
+            <li><a href="daftar_penjualan.php">Daftar Penjualan</a></li>
+          </ul>
         </div>
       </div>
       <div class="row">

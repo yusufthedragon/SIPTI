@@ -78,5 +78,5 @@
     $(document).ready(function(){
       $('.mytable').DataTable();
     });
-    </script>
+  </script>
 </html>

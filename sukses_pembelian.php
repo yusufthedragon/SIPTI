@@ -134,7 +134,7 @@
         <div class="col s12">
           Total Pembelian : Rp.
           <div class="input-field inline">
-            <input type="text" class="validate" value="<?php echo $total; ?>" readonly />
+            <input type="text" class="validate" value="<?php echo number_format($total, 0, '', '.'); ?>" readonly />
           </div>
         </div>
         <div class="row"></div>

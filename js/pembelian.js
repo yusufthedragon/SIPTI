@@ -1,4 +1,4 @@
-var counter = 2; //Variabel untuk dynamic input box
+var counter = $("counter").val(); //Variabel untuk dynamic input box
 var obj2; //Variabel untuk menghitung total secara otomatis
 var total1;
 
@@ -66,6 +66,7 @@ function autohitung() { //Fungsi untuk mengisi input total secara otomatis
 $(document).ready(function() {
 
   $("#tambah").click(function() {
+    counter++;
     if (counter > 10) { //Hanya dapat menginput 10 jenis barang
       swal("Error", "Hanya dapat membeli 10 jenis barang!", "error");
       return false;
@@ -102,7 +103,6 @@ $(document).ready(function() {
       source: 'search_barang.php'
     });
 
-    counter++;
   });
 
   $("#hapus").click(function() {
