@@ -105,7 +105,7 @@
             </thead>
             <tbody>
               <?php
-                $query2 = $koneksi->prepare("SELECT * FROM transaksi_barang WHERE no_transaksi = '$no_transaksi'");
+                $query2 = $koneksi->prepare("SELECT * FROM pengaruh WHERE no_transaksi = '$no_transaksi'");
                 $query2->execute();
 
                 while($row2 = $query2->fetch()) {

@@ -3,7 +3,7 @@
 
   $no_transaksi = $_GET['no_transaksi'];
 
-  $query = $koneksi->prepare("DELETE pembelian.*, transaksi_barang.* FROM pembelian, transaksi_barang WHERE pembelian.no_transaksi = transaksi_barang.no_transaksi AND pembelian.no_transaksi = :no_transaksi;");
+  $query = $koneksi->prepare("DELETE pembelian.*, pengaruh.* FROM pembelian, pengaruh WHERE pembelian.no_transaksi = pengaruh.no_transaksi AND pembelian.no_transaksi = :no_transaksi;");
   $query->bindParam(":no_transaksi", $no_transaksi);
   $query->execute();
 

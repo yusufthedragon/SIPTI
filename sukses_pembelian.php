@@ -19,7 +19,7 @@
     if (!isset($_POST['no'.$n])) {
       break;
     } else {
-      $query = $koneksi->prepare("INSERT INTO transaksi_barang VALUES(:no_transaksi, :kode_barang, :nama_barang, :harga, :jumlah)");
+      $query = $koneksi->prepare("INSERT INTO pengaruh VALUES(:no_transaksi, :kode_barang, :nama_barang, :harga, :jumlah)");
       $query->bindParam(':no_transaksi', $no_transaksi);
       $query->bindParam(':kode_barang', $_POST['no'.$n]);
       $query->bindParam(':nama_barang', $_POST['barang'.$n]);
@@ -34,7 +34,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Pembelian <?php if($query) echo "SUKSES"; else echo "GAGAL"; ?></title>
+    <title>Pembelian <?php if($query) echo "Sukses"; else echo "Gagal"; ?></title>
     <link rel="stylesheet" href="css/jquery-ui.css" />
     <link rel="stylesheet" href="css/sweetalert.css" />
     <link rel="stylesheet" href="css/materialize.min.css" />

@@ -25,7 +25,6 @@
     <script type="text/javascript" src="js/jquery-ui.js"></script>
     <script type="text/javascript" src="js/datepicker-id.js"></script>
     <script type="text/javascript" src="js/sweetalert.js"></script>
-    <script type="text/javascript" src="js/pembelian.js"></script>
 </head>
 
 <body>
@@ -109,7 +108,7 @@
                         <input type="text" name="hitung1" id="hitung1" hidden/>
                     </div>
                 </div>
-                <input type="text" id="counter" value="1" hidden />
+                <input type="text" name="counter" id="counter" value=2 hidden />
             </div>
             <div class="col s12 center">
                 <input type='button' value='Tambah' id='tambah' class="waves-light btn">
@@ -135,6 +134,6 @@
           </form>
         </div>
     </div>
-</body>
-
+    <script type="text/javascript" src="js/pembelian.js"></script>
+  </body>
 </html>

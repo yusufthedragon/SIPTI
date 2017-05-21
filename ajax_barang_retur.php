@@ -1,7 +1,7 @@
 <?php
   include 'koneksi.php';
   $no_transaksi = $_GET['no_transaksi'];
-  $query = $koneksi->prepare("SELECT * FROM transaksi_barang WHERE no_transaksi='$no_transaksi'");
+  $query = $koneksi->prepare("SELECT * FROM pengaruh WHERE no_transaksi='$no_transaksi'");
   $query->execute();
   $counter = 1;
   while ($row = $query->fetch()) {

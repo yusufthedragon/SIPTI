@@ -22,7 +22,6 @@
     <script type="text/javascript" src="js/jquery-ui.js"></script>
     <script type="text/javascript" src="js/datepicker-id.js"></script>
     <script type="text/javascript" src="js/sweetalert.js"></script>
-    <script type="text/javascript" src="js/pembelian.js"></script>
 </head>
 
 <body>
@@ -43,7 +42,7 @@
     <div class="container">
         <h3 class="center">EDIT PEMBELIAN</h3>
         <div class="row">
-          <form name="myform" method="post">
+          <form name="myform" method="post" action="sukses_edit_pembelian.php">
             <div class="col s12">
                 No. Transaksi :
                 <div class="input-field inline">
@@ -87,7 +86,7 @@
             <div class="row"></div>
             <div id="gruppembelian">
               <?php
-                $query2 = $koneksi->prepare("SELECT * FROM transaksi_barang WHERE no_transaksi = '$no_transaksi'");
+                $query2 = $koneksi->prepare("SELECT * FROM pengaruh WHERE no_transaksi = '$no_transaksi'");
                 $query2->execute();
                 $i = 1;
 
@@ -130,7 +129,7 @@
             <div class="row"></div>
             <div class="row"></div>
             <div class="col s6 center">
-                <a class="waves-effect waves-light btn" id="konfirmasi">Konfirmasi</a>
+                <a class="waves-effect waves-light btn" id="edit">Perbarui</a>
             </div>
             <div class="col s6 center">
                 <a class="waves-effect waves-light btn" <?php echo "href = 'lihat_pembelian.php?no_transaksi=".$row['no_transaksi']."'" ?> >Batal</a>
@@ -141,6 +140,7 @@
           </form>
         </div>
     </div>
+    <script type="text/javascript" src="js/pembelian.js"></script>
 </body>
 
 </html>

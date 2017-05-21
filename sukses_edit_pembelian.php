@@ -3,27 +3,15 @@
 
   $no_transaksi = $_POST['no_transaksi'];
   $tanggal = $_POST['tanggal'];
-  $nama = $_POST['nama'];
-  $alamat = $_POST['alamat'];
-  $ongkir = $_POST['ongkir'];
-  $no_resi = $_POST['resi'];
+  $no_faktur = $_POST['faktur'];
+  $toko = $_POST['toko'];
   $total = $_POST['total'];
 
-  if(!isset($_POST['kurir'])) {
-    $kurir = "";
-  } else $kurir = $_POST['kurir'];
-  if($ongkir == "") {
-    $ongkir = 0;
-  }
-
-  $query = $koneksi->prepare("INSERT INTO penjualan VALUES (:no_transaksi, :tanggal, :nama, :alamat, :kurir, :ongkir, :resi, :total)");
+  $query = $koneksi->prepare("UPDATE pembelian SET tanggal = :tanggal, no_faktur = :faktur, toko = :toko, total = :total WHERE no_transaksi = :no_transaksi");
   $query->bindParam(':no_transaksi', $no_transaksi);
   $query->bindParam(':tanggal', $tanggal);
-  $query->bindParam(':nama', $nama);
-  $query->bindParam(':alamat', $alamat);
-  $query->bindParam(':kurir', $kurir);
-  $query->bindParam(':ongkir', $ongkir);
-  $query->bindParam(':resi', $no_resi);
+  $query->bindParam(':faktur', $no_faktur);
+  $query->bindParam(':toko', $toko);
   $query->bindParam(':total', $total);
   $query->execute();
 
@@ -31,7 +19,7 @@
     if (!isset($_POST['no'.$n])) {
       break;
     } else {
-      $query = $koneksi->prepare("INSERT INTO pengaruh VALUES(:no_transaksi, :kode_barang, :nama_barang, :harga, :jumlah)");
+      $query = $koneksi->prepare("UPDATE pengaruh SET kode_barang = :kode_barang, nama_barang = :nama_barang, harga = :harga, jumlah = :jumlah WHERE no_transaksi = :no_transaksi");
       $query->bindParam(':no_transaksi', $no_transaksi);
       $query->bindParam(':kode_barang', $_POST['no'.$n]);
       $query->bindParam(':nama_barang', $_POST['barang'.$n]);
@@ -46,21 +34,17 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Penjualan <?php if($query) echo "SUKSES"; else echo "GAGAL"; ?></title>
-    <link rel="stylesheet" href="css/jquery-ui.css" />
+    <title>Pembaruan <?php if($query) echo "Sukses"; else echo "Gagal"; ?></title>
     <link rel="stylesheet" href="css/sweetalert.css" />
     <link rel="stylesheet" href="css/materialize.min.css" />
     <script type="text/javascript" src="js/materialize.min.js"></script>
-    <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
-    <script type="text/javascript" src="js/jquery-ui.js"></script>
-    <script type="text/javascript" src="js/datepicker-id.js"></script>
     <script type="text/javascript" src="js/sweetalert.js"></script>
     <script type="text/javascript">
       function status() {
         <?php
           if($query) {
             echo "swal({
-                  title: 'INPUT DATA BERHASIL!',
+                  title: 'PEMBARUAN DATA BERHASIL!',
                   text: 'Data telah masuk ke database.',
                   timer: 3000,
                   type: 'success',
@@ -88,7 +72,7 @@
         </div>
     </nav>
     <div class="container">
-      <h3 class="center">PENJUALAN <?php if($query) echo "SUKSES"; else echo "GAGAL"; ?></h3>
+      <h3 class="center">PEMBARUAN <?php if($query) echo "SUKSES"; else echo "GAGAL"; ?></h3>
       <div class="row">
         <div class="col s12">
           No. Transaksi :
@@ -103,49 +87,21 @@
           </div>
         </div>
         <div class="col s12">
-            Nama Konsumen :
+            No. Faktur :
             <div class="input-field inline">
-              <input type="text" class="validate" name="faktur" value="<?php echo $nama; ?>" readonly />
+              <input type="text" class="validate" id="faktur" name="faktur" value="<?php echo $no_faktur; ?>" readonly />
             </div>
         </div>
-        <?php
-        if($alamat != "") {
-          echo "<div class='col s12'>
-              Alamat Konsumen :
-              <div class='input-field inline'>
-                <input type='text' class='validate' value=$alamat readonly />
-              </div>
-          </div>";
-        }
-        if ($kurir != "") {
-        echo "<div class='col s12'>
-          Kurir Pengiriman :
-          <div class='input-field inline'>
-            <input type='text' class='validate' value=$kurir readonly />
-          </div>
-        </div>";
-        }
-        if($ongkir != 0) {
-          echo "<div class='col s12'>
-            Ongkos Kirim : Rp.
-            <div class='input-field inline'>
-              <input type='text' class='validate' value=$ongkir readonly />
+        <div class="col s12">
+            Nama Toko :
+            <div class="input-field inline">
+              <input type="text" class="validate" id="toko" value="<?php echo $toko; ?>" readonly />
             </div>
-          </div>";
-        }
-        if($no_resi != "") {
-          echo "<div class='col s12'>
-            No. Resi :
-            <div class='input-field inline'>
-              <input type='text' class='validate' value=$no_resi readonly />
-            </div>
-          </div>";
-        }
-        ?>
+        </div>
       </div>
       <div class="row">
         <div class="col s12">
-          Daftar Penjualan :
+          Daftar Pembelian :
           <table class="centered bordered">
             <thead>
               <tr>
@@ -171,17 +127,16 @@
             </tbody>
           </table>
         </div>
-        <div class="row"></div>
         <div class="col s12">
-          Total Penjualan : Rp.
+          Total Pembelian : Rp.
           <div class="input-field inline">
-            <input type="text" class="validate" value="<?php echo $total; ?>" readonly />
+            <input type="text" class="validate" value="<?php echo number_format($total, 0, '', '.'); ?>" readonly />
           </div>
         </div>
         <div class="row"></div>
         <div class="row"></div>
         <div class="col s6 center">
-          <a class="waves-effect waves-light btn" href="penjualan.php">Input Kembali</a>
+          <a class="waves-effect waves-light btn" href="daftar_pembelian.php">Kembali Ke Daftar Pembelian</a>
         </div>
         <div class="col s6 center">
           <a class="waves-effect waves-light btn" href="index.php">Kembali Ke Menu</a>

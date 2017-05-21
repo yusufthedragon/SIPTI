@@ -1,4 +1,4 @@
-var counter = $("counter").val(); //Variabel untuk dynamic input box
+var counter = myform.counter.value; //Variabel untuk dynamic input box
 var obj2; //Variabel untuk menghitung total secara otomatis
 var total1;
 
@@ -65,8 +65,9 @@ function autohitung() { //Fungsi untuk mengisi input total secara otomatis
 
 $(document).ready(function() {
 
+
+
   $("#tambah").click(function() {
-    counter++;
     if (counter > 10) { //Hanya dapat menginput 10 jenis barang
       swal("Error", "Hanya dapat membeli 10 jenis barang!", "error");
       return false;
@@ -102,7 +103,7 @@ $(document).ready(function() {
     $("#no" + counter).autocomplete({ //Sama seperti fungsi di baris 17
       source: 'search_barang.php'
     });
-
+    counter++;
   });
 
   $("#hapus").click(function() {
@@ -143,6 +144,39 @@ $(document).ready(function() {
   });
 
   $("#konfirmasi").click(function() {
+    for (var x = 11; x >= counter - 1; x--) {
+      $('#hitung' + x).val($('#barang' + x).val());
+      if ((myform.tanggal.value == "") || (myform.faktur.value == "") ||
+      ((myform.toko1.checked == false) && (myform.toko2.checked == false) && (myform.toko3.checked == false) && (myform.toko4.checked == false))) {
+        swal("Error!", "Harap masukkan seluruh data!", "error");
+      } else if ($('#hitung' + x).val() == "") {
+        swal({
+          title: "Error!",
+          text: "Pastikan No. Barang #" + x + " terisi atau tersedia di database!",
+          type: "error"
+        });
+        break;
+      } else {
+        swal({
+          title: "Anda yakin?",
+          text: "Semua data akan dimasukkan ke database!",
+          type: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#DD6B55",
+          confirmButtonText: "Ya, saya yakin!",
+          cancelButtonText: "Batal",
+          closeOnConfirm: false
+        }, function(isConfirm) {
+          if (isConfirm) {
+            $('#total').val(total1);
+            document.forms["myform"].submit();
+          }
+        });
+      }
+    }
+  });
+
+  $("#edit").click(function() {
     for (var x = 11; x >= counter - 1; x--) {
       $('#hitung' + x).val($('#barang' + x).val());
       if ((myform.tanggal.value == "") || (myform.faktur.value == "") ||
