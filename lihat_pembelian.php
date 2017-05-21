@@ -61,6 +61,9 @@
             </ul>
         </div>
     </nav>
+
+    <div id="keterangan"></div>
+
     <div class="container">
       <h3 class="center">TRANSAKSI PEMBELIAN</h3>
       <div class="row">
@@ -126,13 +129,13 @@
         <div class="row"></div>
         <div class="row"></div>
         <div class="col s4 center">
-          <a class="waves-effect waves-light btn" >Hapus Pembelian</a>
+          <a class="waves-effect waves-light btn" onclick="hapus()">Hapus Pembelian</a>
         </div>
         <div class="col s4 center">
           <a class="waves-effect waves-light btn" <?php echo "href = 'edit_pembelian.php?no_transaksi=".$row['no_transaksi']."'"; ?>>Edit Pembelian</a>
         </div>
         <div class="col s4 center">
-          <a class="waves-effect waves-light btn" onclick="hapus()">Kembali</a>
+          <a class="waves-effect waves-light btn" href="daftar_pembelian.php">Kembali</a>
         </div>
       </div>
       <div class="row"></div>
