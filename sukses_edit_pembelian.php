@@ -15,11 +15,15 @@
   $query->bindParam(':total', $total);
   $query->execute();
 
+  $query = $koneksi->prepare("DELETE FROM pengaruh WHERE no_transaksi = :no_transaksi");
+  $query->bindParam(":no_transaksi", $no_transaksi);
+  $query->execute();
+
   for($n = 1; $n <11; $n++) {
     if (!isset($_POST['no'.$n])) {
       break;
-    } else {
-      $query = $koneksi->prepare("UPDATE pengaruh SET kode_barang = :kode_barang, nama_barang = :nama_barang, harga = :harga, jumlah = :jumlah WHERE no_transaksi = :no_transaksi");
+    } else {    
+      $query = $koneksi->prepare("INSERT INTO pengaruh VALUES(:no_transaksi, :kode_barang, :nama_barang, :harga, :jumlah)");
       $query->bindParam(':no_transaksi', $no_transaksi);
       $query->bindParam(':kode_barang', $_POST['no'.$n]);
       $query->bindParam(':nama_barang', $_POST['barang'.$n]);

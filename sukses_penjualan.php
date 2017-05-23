@@ -46,7 +46,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Penjualan <?php if($query) echo "SUKSES"; else echo "GAGAL"; ?></title>
+    <title>Penjualan <?php if($query) echo "Sukses"; else echo "Gagal"; ?></title>
     <link rel="stylesheet" href="css/jquery-ui.css" />
     <link rel="stylesheet" href="css/sweetalert.css" />
     <link rel="stylesheet" href="css/materialize.min.css" />

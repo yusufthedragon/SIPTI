@@ -7,6 +7,12 @@ function upperCaseF(a) { //Fungsi untuk membuat input kapital secara otomatis
   }, 1);
 }
 
+function firstUpperF(a) {
+  setTimeout(function() {
+    a.value = a.value.charAt(0).toUpperCase() + a.value.slice(1);
+  }, 1);
+}
+
 $(function() { //Fungsi tanggal
   $("#datepicker").datepicker({
     dateFormat: "dd MM yy",
@@ -16,7 +22,7 @@ $(function() { //Fungsi tanggal
 
 $(function() { //Fungsi untuk mengambil daftar barang dari database
   $("#no1").autocomplete({ //dan mempopulasikannya di input kode barang secara otomatis
-    source: 'search.php'
+    source: 'search_barang.php'
   });
 });
 
@@ -93,7 +99,7 @@ $(document).ready(function() {
         '</div>');
       newPenjualan.appendTo("#gruppenjualan"); //Menggabungkan div tadi ke dalam input group yang sudah ada
       $("#no" + counter).autocomplete({ //Sama seperti fungsi di baris 17
-        source: 'search.php'
+        source: 'search_barang.php'
       });
 
       counter++;

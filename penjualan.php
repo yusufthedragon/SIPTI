@@ -25,7 +25,6 @@
     <script type="text/javascript" src="js/jquery-ui.js"></script>
     <script type="text/javascript" src="js/datepicker-id.js"></script>
     <script type="text/javascript" src="js/sweetalert.js"></script>
-    <script type="text/javascript" src="js/penjualan.js"></script>
 </head>
 
 <body>
@@ -62,7 +61,7 @@
             <div class="col s12">
                 Masukkan Nama Konsumen :
                 <div class="input-field inline">
-                    <input type="text" id="nama" name="nama" class="validate" />
+                    <input type="text" id="nama" name="nama" class="validate" onkeyup="firstUpperF(this)"/>
                 </div>
             </div>
             <div class="col s12">
@@ -151,6 +150,7 @@
           </form>
         </div>
     </div>
+    <script type="text/javascript" src="js/penjualan.js"></script>
 </body>
 
 </html>
