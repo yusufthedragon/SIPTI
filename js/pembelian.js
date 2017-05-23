@@ -154,6 +154,8 @@ $(document).ready(function() {
       if ((myform.tanggal.value == "") || (myform.faktur.value == "") ||
       ((myform.toko1.checked == false) && (myform.toko2.checked == false) && (myform.toko3.checked == false) && (myform.toko4.checked == false))) {
         swal("Error!", "Harap masukkan seluruh data!", "error");
+      } else if (myform.faktur.value.length > 10 ){
+        swal("Error!", "Panjang No. Faktur maksimal 10 karakter!", "error");
       } else if ($('#hitung' + x).val() == "") {
         swal({
           title: "Error!",

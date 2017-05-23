@@ -1,31 +1,68 @@
 <?php
   include 'koneksi.php';
 
-  $no_transaksi = $_POST['no_transaksi'];
-  $tanggal = $_POST['tanggal'];
-  $no_faktur = $_POST['faktur'];
-  $toko = $_POST['toko'];
-  $total = $_POST['total'];
+  $no_transaksi = htmlspecialchars($_POST['no_transaksi']);
+  $tanggal = htmlspecialchars($_POST['tanggal']);
+  $no_faktur = htmlspecialchars($_POST['faktur']);
+  $toko = htmlspecialchars($_POST['toko']);
+  $total = htmlspecialchars($_POST['total']);
 
-  $query = $koneksi->prepare("INSERT INTO pembelian VALUES (:no_transaksi, :tanggal, :faktur, :toko, :total)");
-  $query->bindParam(':no_transaksi', $no_transaksi);
-  $query->bindParam(':tanggal', $tanggal);
-  $query->bindParam(':faktur', $no_faktur);
-  $query->bindParam(':toko', $toko);
-  $query->bindParam(':total', $total);
-  $query->execute();
-
-  for($n = 1; $n <11; $n++) {
-    if (!isset($_POST['no'.$n])) {
-      break;
+  try {
+    $query = $koneksi->prepare("INSERT INTO pembelian VALUES (:no_transaksi, :tanggal, :faktur, :toko, :total)");
+    $query->bindParam(':no_transaksi', $no_transaksi);
+    $query->bindParam(':tanggal', $tanggal);
+    $query->bindParam(':faktur', $no_faktur);
+    $query->bindParam(':toko', $toko);
+    $query->bindParam(':total', $total);
+    $query->execute();
+    throw new PDOException;
+  } catch (PDOException $e) {
+    if ($e->errorInfo[1] != 00000) {
+      echo "<script>
+            function status() {
+              swal({
+                title: 'Error!',
+                text: 'Input data gagal!',
+                timer: 3000,
+                type: 'error',
+                showConfirmButton: false
+              });
+            }
+            </script>";
     } else {
-      $query = $koneksi->prepare("INSERT INTO pengaruh VALUES(:no_transaksi, :kode_barang, :nama_barang, :harga, :jumlah)");
-      $query->bindParam(':no_transaksi', $no_transaksi);
-      $query->bindParam(':kode_barang', $_POST['no'.$n]);
-      $query->bindParam(':nama_barang', $_POST['barang'.$n]);
-      $query->bindParam(':harga', $_POST['harga'.$n]);
-      $query->bindParam(':jumlah', $_POST['jumlah'.$n]);
-      $query->execute();
+      echo "<script>
+            function status() {
+              swal({
+                title: 'INPUT DATA BERHASIL!',
+                text: 'Data telah masuk ke database.',
+                timer: 3000,
+                type: 'success',
+                showConfirmButton: false
+              });
+            }
+            </script>";
+      for($n = 1; $n <11; $n++) {
+        if (!isset($_POST['no'.$n])) {
+          break;
+        } else {
+          $query = $koneksi->prepare("INSERT INTO pengaruh VALUES(:no_transaksi, :kode_barang, :nama_barang, :harga, :jumlah)");
+          $query->bindParam(':no_transaksi', $no_transaksi);
+          $no = htmlspecialchars($_POST['no'.$n]);
+          $query->bindParam(':kode_barang', $no);
+          $barang = htmlspecialchars($_POST['barang'.$n]);
+          $query->bindParam(':nama_barang', $barang);
+          $harga = htmlspecialchars($_POST['harga'.$n]);
+          $query->bindParam(':harga', $harga);
+          $jumlah = htmlspecialchars($_POST['jumlah'.$n]);
+          $query->bindParam(':jumlah', $jumlah);
+          $query->execute();
+
+          $query = $koneksi->prepare("UPDATE inventory SET stok = stok + :jumlah WHERE kode_barang = :kode_barang");
+          $query->bindParam(':jumlah', $jumlah);
+          $query->bindParam(':kode_barang', $no);
+          $query->execute();
+        }
+      }
     }
   }
 ?>
@@ -34,30 +71,12 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Pembelian <?php if($query) echo "Sukses"; else echo "Gagal"; ?></title>
-    <link rel="stylesheet" href="css/jquery-ui.css" />
+    <title>Pembelian <?php if($e->errorInfo[1] == 00000) echo "Sukses"; else echo "Gagal"; ?></title>
     <link rel="stylesheet" href="css/sweetalert.css" />
     <link rel="stylesheet" href="css/materialize.min.css" />
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script type="text/javascript" src="js/materialize.min.js"></script>
-    <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
-    <script type="text/javascript" src="js/jquery-ui.js"></script>
-    <script type="text/javascript" src="js/datepicker-id.js"></script>
     <script type="text/javascript" src="js/sweetalert.js"></script>
-    <script type="text/javascript">
-      function status() {
-        <?php
-          if($query) {
-            echo "swal({
-                  title: 'INPUT DATA BERHASIL!',
-                  text: 'Data telah masuk ke database.',
-                  timer: 3000,
-                  type: 'success',
-                  showConfirmButton: false
-                });";
-          }
-        ?>
-      }
-    </script>
   </head>
 
   <body onload="status()">
@@ -74,9 +93,9 @@
         </a>
       </div>
     </nav>
-    
+
     <div class="container">
-      <h3 class="center">PEMBELIAN <?php if($query) echo "SUKSES"; else echo "GAGAL"; ?></h3>
+      <h3 class="center">PEMBELIAN <?php if($e->errorInfo[1] == 00000) echo "SUKSES"; else echo "GAGAL"; ?></h3>
       <div class="row">
         <div class="col s12">
           No. Transaksi :

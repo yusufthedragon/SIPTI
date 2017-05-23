@@ -50,13 +50,13 @@
             <div class="col s12">
                 Tanggal :
                 <div class="input-field inline">
-                    <input type="date" class="klik" id="datepicker" name="tanggal" />
+                    <input type="date" class="klik" id="datepicker" name="tanggal" autocomplete="off" />
                 </div>
             </div>
             <div class="col s12">
                 No. Faktur :
                 <div class="input-field inline">
-                    <input type="text" class="validate" id="faktur" name="faktur" />
+                    <input type="text" class="validate" id="faktur" name="faktur" autocomplete="off" />
                 </div>
             </div>
             <div class="row"></div>
