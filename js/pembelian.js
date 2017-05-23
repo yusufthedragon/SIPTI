@@ -21,6 +21,10 @@ $(function() { //Fungsi untuk mengambil daftar barang dari database
   });
 });
 
+$(".klik").keypress(function(event) {
+    return false;
+});
+
 function autofill(x) { //Fungsi untuk mengisi input nama barang secara otomatis berdasarkan input kode barang
   var angka = x.id.substr(2); //Mengambil nomor terakhir dari id input kode barang yang sedang aktif
   var no = $("#no" + angka).val();
@@ -79,7 +83,7 @@ $(document).ready(function() {
         '<center>' +
           '<label>No. Barang #' + counter + '</label>' +
           '</center>' +
-          '<input type="text" name="no' + counter + '" id="no' + counter + '" class="validate" onkeyup="autofill(this), autohitung(), upperCaseF(this)" />' +
+          '<input type="text" name="no' + counter + '" id="no' + counter + '" class="autocomplete" onkeyup="autofill(this), autohitung(), upperCaseF(this)" />' +
       '</div>' +
       '<div class="col s4">' +
         '<center>' +
@@ -113,6 +117,7 @@ $(document).ready(function() {
     }
     counter--;
     $("#pembelian" + counter).remove(); //Menghapus input group
+    autohitung();
   });
 
   $("#gajadi").click(function() {
@@ -157,6 +162,7 @@ $(document).ready(function() {
         });
         break;
       } else {
+        autohitung();
         swal({
           title: "Anda yakin?",
           text: "Semua data akan dimasukkan ke database!",

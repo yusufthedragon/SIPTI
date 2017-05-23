@@ -2,29 +2,42 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Sistem Informasi Manajemen Inventori</title>
+    <title>Home - Toko Adi Parts</title>
     <link rel="stylesheet" href="css/materialize.min.css" />
-    <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
-    <script type="text/javascript" src="js/materialize.min.js"></script>
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   </head>
   <body>
     <nav>
       <div class="nav-wrapper grey darken-3">
-        <img src="images/edit.png" width="50px" class="brand-logo" style="float:right;" />
-        <a href="index.php" class="brand-logo center">Sistem Informasi Manajemen Inventory</a>
+        <a href="index.php" class="brand-logo center">
+          <i class="material-icons left">shopping_cart</i>
+          <i class="material-icons left">event_note</i>
+          <i class="material-icons left">store</i>
+          <i class="material-icons right">exit_to_app</i>
+          <i class="material-icons right">account_circle</i>
+          <i class="material-icons right">assessment</i>TOKO ADI PARTS
+        </a>
       </div>
     </nav>
     <div class="container">
       <br />
       <br />
       <br />
-      <br />
       <div class="row">
         <div class="col s12 m6 l6 center">
-          <img src="images/edit.png" alt="Edit" />
+          <img src="images/transaksi.png" alt="Transaksi" />
           <br />
           <br />
-          <a class="btn waves-effect waves-light" href="daftar_barang.php">Daftar Inventory</a>
+          <a class='dropdown-button btn waves-effect waves-light' data-activates='dropdown-transaksi'>Buat Transaksi</a>
+          <ul id='dropdown-transaksi' class='dropdown-content'>
+            <li><a href="pembelian.php">Pembelian</a></li>
+            <li class="divider"></li>
+            <li><a href="penjualan.php">Penjualan</a></li>
+            <li class="divider"></li>
+            <li><a href="retur_pembelian.php">Retur Pembelian</a></li>
+            <li class="divider"></li>
+            <li><a href="#">Retur Penjualan</a></li>
+          </ul>
         </div>
         <div class="col s12 m6 l6 center">
           <img src="images/daftar-transaksi.png" />
@@ -39,21 +52,27 @@
         </div>
       </div>
       <div class="row">
-        <div class="col s12 m12 l12 center">
-          <img src="images/transaksi.png" alt="Transaksi" />
+        <div class="col s12 m6 l6 center">
+          <img src="images/edit.png" alt="Edit" />
           <br />
-          <a class='dropdown-button btn waves-effect waves-light' data-activates='dropdown-transaksi'>Buat Transaksi</a>
-          <ul id='dropdown-transaksi' class='dropdown-content'>
-            <li><a href="pembelian.php">Pembelian</a></li>
+          <br />
+          <a class="btn waves-effect waves-light" href="daftar_barang.php">Daftar Inventory</a>
+        </div>
+        <div class="col s12 m6 l6 center">
+          <img src="images/daftar-transaksi.png" />
+          <br />
+          <br />
+          <a class='dropdown-button btn waves-effect waves-light' data-activates='dropdown-laporan'>Laporan Toko</a>
+          <ul id='dropdown-laporan' class='dropdown-content'>
+            <li><a href="laporan_pembelian.php">Daftar Pembelian</a></li>
             <li class="divider"></li>
-            <li><a href="penjualan.php">Penjualan</a></li>
+            <li><a href="laporan_penjualan.php">Daftar Penjualan</a></li>
             <li class="divider"></li>
-            <li><a href="retur_pembelian.php">Retur Pembelian</a></li>
-            <li class="divider"></li>
-            <li><a href="#">Retur Penjualan</a></li>
+            <li><a href="laporan_inventory.php">Daftar Penjualan</a></li>
           </ul>
         </div>
       </div>
+
       <br />
       <br />
       <div class="row">
@@ -94,6 +113,8 @@
         </div>
       </div>
     </footer>
+    <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="js/materialize.js"></script>
   </body>
 
 </html>

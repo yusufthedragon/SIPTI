@@ -63,18 +63,18 @@
   <body onload="status()">
 
     <nav>
-        <div class="nav-wrapper grey darken-3">
-            <a href="index.php" class="brand-logo">Logo</a>
-            <ul id="nav-mobile" class="right hide-on-med-and-down">
-                <li class="active"><a href="#">Transaksi</a></li>
-                <li><a href="">Edit Transaksi</a></li>
-                <li><a href="">Edit Inventory</a></li>
-                <li><a href="">Daftar Transaksi</a></li>
-                <li><a href="">Daftar Inventory</a></li>
-                <li><a href="">Laporan Inventory</a></li>
-            </ul>
-        </div>
+      <div class="nav-wrapper grey darken-3">
+        <a href="index.php" class="brand-logo center">
+          <i class="material-icons left">shopping_cart</i>
+          <i class="material-icons left">event_note</i>
+          <i class="material-icons left">store</i>
+          <i class="material-icons right">exit_to_app</i>
+          <i class="material-icons right">account_circle</i>
+          <i class="material-icons right">assessment</i>TOKO ADI PARTS
+        </a>
+      </div>
     </nav>
+    
     <div class="container">
       <h3 class="center">PEMBELIAN <?php if($query) echo "SUKSES"; else echo "GAGAL"; ?></h3>
       <div class="row">
