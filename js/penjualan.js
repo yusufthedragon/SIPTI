@@ -13,6 +13,10 @@ function firstUpperF(a) {
   }, 1);
 }
 
+$(".klik").keypress(function(event) {
+    return false;
+});
+
 $(function() { //Fungsi tanggal
   $("#datepicker").datepicker({
     dateFormat: "dd MM yy",
@@ -22,7 +26,7 @@ $(function() { //Fungsi tanggal
 
 $(function() { //Fungsi untuk mengambil daftar barang dari database
   $("#no1").autocomplete({ //dan mempopulasikannya di input kode barang secara otomatis
-    source: 'search_barang.php'
+    source: 'search_barang_penjualan.php'
   });
 });
 
@@ -35,6 +39,7 @@ function autofill(x) { //Fungsi untuk mengisi input nama barang secara otomatis 
     dataType: "html",
     data: "no=" + no,
   }).success(function(data) {
+    var untung;
     var json = data,
       obj = JSON.parse(json);
     if (obj.harga == null) { //Karena menggunakan fungsi onkeyup,
@@ -42,8 +47,9 @@ function autofill(x) { //Fungsi untuk mengisi input nama barang secara otomatis 
     }
     obj2 = obj;
     $('#barang' + angka).val(obj.nama_barang);
-    $('#harga' + angka).val(obj.harga);
-    $('#hitung' + angka).val(obj.harga);
+    if (obj.harga > 300000) untung = 30000; else untung = obj.harga * 0.1;
+    $('#harga' + angka).val(obj.harga + untung);
+    $('#hitung' + angka).val(obj.harga + untung);
   });
 }
 
@@ -77,7 +83,7 @@ $(document).ready(function() {
           '<center>' +
             '<label>No. Barang #' + counter + '</label>' +
             '</center>' +
-            '<input type="text" name="no' + counter + '" id="no' + counter + '" class="validate" onkeyup="autofill(this), autohitung(), upperCaseF(this)" />' +
+            '<input type="text" name="no' + counter + '" id="no' + counter + '" class="autocomplete" onkeyup="autofill(this), autohitung(), upperCaseF(this)" />' +
         '</div>' +
         '<div class="col s4">' +
           '<center>' +
@@ -99,14 +105,14 @@ $(document).ready(function() {
         '</div>');
       newPenjualan.appendTo("#gruppenjualan"); //Menggabungkan div tadi ke dalam input group yang sudah ada
       $("#no" + counter).autocomplete({ //Sama seperti fungsi di baris 17
-        source: 'search_barang.php'
+        source: 'search_barang_penjualan.php'
       });
 
       counter++;
   });
   $("#hapus").click(function() {
     if (counter == 2) {
-        swal("Error", "Minimal membeli 1 barang!", "error");
+        swal("Error", "Minimal menjual 1 barang!", "error");
         return false;
     }
     counter--;
@@ -144,7 +150,7 @@ $(document).ready(function() {
     for (var x = 11; x >= counter - 1; x--) {
       $('#hitung' + x).val($('#barang' + x).val());
       if ((myform.tanggal.value == "") || (myform.nama.value == "")) {
-        swal("Error!", "Harap masukkan data Tanggal, Nama Konsumen, dan Barang!", "error");
+        swal("Error!", "Harap masukkan data Tanggal, Nama Konsumen, dan Penjualan!", "error");
       } else if ($('#hitung' + x).val() == "") {
         swal({
           title: "Error!",

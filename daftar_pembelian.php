@@ -14,20 +14,21 @@
     <link rel="stylesheet" href="css/jquery.dataTables.css" />
     <link rel="stylesheet" href="css/sweetalert.css" />
     <link rel="stylesheet" href="css/materialize.min.css" />
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   </head>
   <body>
 
     <nav>
         <div class="nav-wrapper grey darken-3">
-            <a href="index.php" class="brand-logo">Logo</a>
-            <ul id="nav-mobile" class="right hide-on-med-and-down">
-                <li class="active"><a href="#">Transaksi</a></li>
-                <li><a href="">Edit Transaksi</a></li>
-                <li><a href="">Edit Inventory</a></li>
-                <li><a href="">Daftar Transaksi</a></li>
-                <li><a href="">Daftar Inventory</a></li>
-                <li><a href="">Laporan Inventory</a></li>
-            </ul>
+          <a href="index.php" class="brand-logo center">
+            <i class="material-icons left">shopping_cart&nbsp;&nbsp;</i>
+            <i class="material-icons left">event_note&nbsp;&nbsp;</i>
+            <i class="material-icons left">store</i>
+            <i class="material-icons right">exit_to_app</i>
+            <i class="material-icons right">account_circle</i>
+            <i class="material-icons right">assessment</i>
+            TOKO ZATI PARTS
+          </a>
         </div>
     </nav>
 

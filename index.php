@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Home - Toko Adi Parts</title>
+    <title>Home - Toko Zati Parts</title>
     <link rel="stylesheet" href="css/materialize.min.css" />
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   </head>
@@ -10,12 +10,13 @@
     <nav>
       <div class="nav-wrapper grey darken-3">
         <a href="index.php" class="brand-logo center">
-          <i class="material-icons left">shopping_cart</i>
-          <i class="material-icons left">event_note</i>
+          <i class="material-icons left">shopping_cart&nbsp;&nbsp;</i>
+          <i class="material-icons left">event_note&nbsp;&nbsp;</i>
           <i class="material-icons left">store</i>
           <i class="material-icons right">exit_to_app</i>
           <i class="material-icons right">account_circle</i>
-          <i class="material-icons right">assessment</i>TOKO ADI PARTS
+          <i class="material-icons right">assessment</i>
+          TOKO ZATI PARTS
         </a>
       </div>
     </nav>

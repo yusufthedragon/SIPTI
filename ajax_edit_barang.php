@@ -1,10 +1,10 @@
 <?php
   include 'koneksi.php';
-  $kodelama = $_GET['kodelama'];
-  $kodebaru = $_GET['kodebaru'];
-  $nama_barang = $_GET['nama'];
-  $harga = $_GET['harga'];
-  $stok = $_GET['jumlah'];
+  $kodelama = htmlspecialchars($_GET['kodelama']);
+  $kodebaru = htmlspecialchars($_GET['kodebaru']);
+  $nama_barang = htmlspecialchars($_GET['nama']);
+  $harga = htmlspecialchars($_GET['harga']);
+  $stok = htmlspecialchars($_GET['jumlah']);
 
   try{
     $query = $koneksi->prepare("UPDATE inventory SET kode_barang = :kode, nama_barang = :nama_barang, harga = :harga_barang, stok = :stok_barang WHERE kode_barang = '$kodelama'");
@@ -13,6 +13,7 @@
     $query->bindParam(":harga_barang", $harga);
     $query->bindParam(":stok_barang", $stok);
     $query->execute();
+    $baris = $query->rowCount();
     throw new PDOException;
   } catch(PDOException $e) {
     if ($e->errorInfo[1] == 1062) {
@@ -39,4 +40,13 @@
     }
   }
 
+  if ($baris == 0) {
+    echo "<script>
+    swal({
+          title: 'EDIT DATA GAGAL!',
+          text: 'Pastikan Kode Barang Lama tersedia di database!',
+          type: 'error'
+        });
+    </script>";
+  }
 ?>

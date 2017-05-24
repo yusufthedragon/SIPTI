@@ -2,9 +2,15 @@
   include 'koneksi.php';
 
   $kode_barang = $_GET['kode'];
+
+  $query = $koneksi->prepare("DELETE FROM pengaruh WHERE kode_barang = :kode");
+  $query->bindParam(":kode", $kode_barang);
+  $query->execute();
+
   $query = $koneksi->prepare("DELETE FROM inventory WHERE kode_barang = :kode");
   $query->bindParam(":kode", $kode_barang);
   $query->execute();
+
   $count = $query->rowCount();
 
   if ($count == 0) {

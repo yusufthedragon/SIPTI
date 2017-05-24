@@ -1,4 +1,5 @@
 <?php
+  error_reporting(0);
   include 'koneksi.php';
 
   $no_transaksi = htmlspecialchars($_POST['no_transaksi']);
@@ -22,7 +23,7 @@
             function status() {
               swal({
                 title: 'Error!',
-                text: 'Input data gagal!',
+                text: 'Data tidak lengkap / berlebihan.',
                 timer: 3000,
                 type: 'error',
                 showConfirmButton: false
@@ -71,12 +72,10 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Pembelian <?php if($e->errorInfo[1] == 00000) echo "Sukses"; else echo "Gagal"; ?></title>
+    <title>Pembelian <?php if($e->errorInfo[1] == 00000) echo "Sukses"; else echo "Gagal"; ?> - Toko Zati Parts</title>
     <link rel="stylesheet" href="css/sweetalert.css" />
     <link rel="stylesheet" href="css/materialize.min.css" />
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <script type="text/javascript" src="js/materialize.min.js"></script>
-    <script type="text/javascript" src="js/sweetalert.js"></script>
   </head>
 
   <body onload="status()">
@@ -84,12 +83,12 @@
     <nav>
       <div class="nav-wrapper grey darken-3">
         <a href="index.php" class="brand-logo center">
-          <i class="material-icons left">shopping_cart</i>
-          <i class="material-icons left">event_note</i>
+          <i class="material-icons left">shopping_cart&nbsp;&nbsp;</i>
+          <i class="material-icons left">event_note&nbsp;&nbsp;</i>
           <i class="material-icons left">store</i>
           <i class="material-icons right">exit_to_app</i>
           <i class="material-icons right">account_circle</i>
-          <i class="material-icons right">assessment</i>TOKO ADI PARTS
+          <i class="material-icons right">assessment</i>TOKO ZATI PARTS
         </a>
       </div>
     </nav>
@@ -159,14 +158,16 @@
         <div class="row"></div>
         <div class="row"></div>
         <div class="col s6 center">
-          <a class="waves-effect waves-light btn" href="pembelian.php">Input Kembali</a>
+          <a class="waves-effect waves-light btn blue darken-1" href="pembelian.php"><i class="material-icons left">input</i>Input Kembali</a>
         </div>
         <div class="col s6 center">
-          <a class="waves-effect waves-light btn" href="index.php">Kembali Ke Menu</a>
+          <a class="waves-effect waves-light btn red" href="index.php"><i class="material-icons left">arrow_forward</i>Kembali Ke Menu</a>
         </div>
       </div>
       <div class="row"></div>
       <div class="row"></div>
     </div>
+    <script type="text/javascript" src="js/materialize.min.js"></script>
+    <script type="text/javascript" src="js/sweetalert.js"></script>
   </body>
 </html>

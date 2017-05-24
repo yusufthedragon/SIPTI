@@ -16,7 +16,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Transaksi Pembelian</title>
+    <title>Transaksi Pembelian - Toko Zati Parts</title>
     <link rel="stylesheet" href="css/jquery-ui.css" />
     <link rel="stylesheet" href="css/sweetalert.css" />
     <link rel="stylesheet" href="css/materialize.min.css" />
@@ -28,12 +28,13 @@
   <nav>
     <div class="nav-wrapper grey darken-3">
       <a href="index.php" class="brand-logo center">
-        <i class="material-icons left">shopping_cart</i>
-        <i class="material-icons left">event_note</i>
+        <i class="material-icons left">shopping_cart&nbsp;&nbsp;</i>
+        <i class="material-icons left">event_note&nbsp;&nbsp;</i>
         <i class="material-icons left">store</i>
         <i class="material-icons right">exit_to_app</i>
         <i class="material-icons right">account_circle</i>
-        <i class="material-icons right">assessment</i>TOKO ADI PARTS
+        <i class="material-icons right">assessment</i>
+        TOKO ZATI PARTS
       </a>
     </div>
   </nav>
@@ -105,10 +106,14 @@
                 </div>
                 <input type="text" name="counter" id="counter" value=2 hidden />
             </div>
-            <div class="col s12 center">
-                <input type='button' value='Tambah' id='tambah' class="waves-light btn">
-                <input type='button' value='Hapus' id='hapus' class="waves-light btn">
+            <div class="col s3"></div>
+            <div class="col s3 center">
+                <a class="waves-effect waves-light btn blue darken-1" id="tambah"><i class="material-icons left">add</i>Tambah</a>
             </div>
+            <div class="col s3 center">
+                <a class="waves-effect waves-light btn blue darken-1" id="hapus"><i class="material-icons left">delete</i>Hapus</a>
+            </div>
+            <div class="col s3"></div>
             <div class="col s12">
                 Total Harga : Rp.
                 <div class="input-field inline">
@@ -118,10 +123,10 @@
             <div class="row"></div>
             <div class="row"></div>
             <div class="col s6 center">
-                <a class="waves-effect waves-light btn" id="konfirmasi">Konfirmasi</a>
+                <a class="waves-effect waves-light btn green accent-4" id="konfirmasi"><i class="material-icons left">done</i>Konfirmasi</a>
             </div>
             <div class="col s6 center">
-                <a class="waves-effect waves-light btn" id="gajadi">Kembali</a>
+                <a class="waves-effect waves-light btn blue darken-1" id="gajadi"><i class="material-icons left">cancel</i>Kembali</a>
             </div>
             <div class="row"></div>
             <div class="row"></div>

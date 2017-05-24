@@ -16,30 +16,26 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Transaksi Penjualan</title>
+    <title>Transaksi Penjualan - Toko Zati Parts</title>
     <link rel="stylesheet" href="css/jquery-ui.css" />
     <link rel="stylesheet" href="css/sweetalert.css" />
     <link rel="stylesheet" href="css/materialize.min.css" />
-    <script type="text/javascript" src="js/materialize.min.js"></script>
-    <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
-    <script type="text/javascript" src="js/jquery-ui.js"></script>
-    <script type="text/javascript" src="js/datepicker-id.js"></script>
-    <script type="text/javascript" src="js/sweetalert.js"></script>
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 
 <body>
 
     <nav>
         <div class="nav-wrapper grey darken-3">
-            <a href="index.php" class="brand-logo">Logo</a>
-            <ul id="nav-mobile" class="right hide-on-med-and-down">
-                <li class="active"><a href="#">Transaksi</a></li>
-                <li><a href="">Edit Transaksi</a></li>
-                <li><a href="">Edit Inventory</a></li>
-                <li><a href="">Daftar Transaksi</a></li>
-                <li><a href="">Daftar Inventory</a></li>
-                <li><a href="">Laporan Inventory</a></li>
-            </ul>
+          <a href="index.php" class="brand-logo center">
+            <i class="material-icons left">shopping_cart&nbsp;&nbsp;</i>
+            <i class="material-icons left">event_note&nbsp;&nbsp;</i>
+            <i class="material-icons left">store</i>
+            <i class="material-icons right">exit_to_app</i>
+            <i class="material-icons right">account_circle</i>
+            <i class="material-icons right">assessment</i>
+            TOKO ZATI PARTS
+          </a>
         </div>
     </nav>
     <div class="container">
@@ -55,7 +51,7 @@
             <div class="col s12">
                 Tanggal :
                 <div class="input-field inline">
-                    <input type="date" id="datepicker" name="tanggal" />
+                    <input type="date" class="klik" id="datepicker" name="tanggal" autocomplete="off" />
                 </div>
             </div>
             <div class="col s12">
@@ -97,31 +93,38 @@
                     </div>
                 </div>
             </div>
-            <div class="col s12 center">
-                <input type='button' value='Tambah' id='tambah' class="waves-light btn">
-                <input type='button' value='Hapus' id='hapus' class="waves-light btn">
+            <div class="col s3"></div>
+            <div class="col s3 center">
+                <a class="waves-effect waves-light btn blue darken-1" id="tambah"><i class="material-icons left">add</i>Tambah</a>
             </div>
+            <div class="col s3 center">
+                <a class="waves-effect waves-light btn blue darken-1" id="hapus"><i class="material-icons left">delete</i>Hapus</a>
+            </div>
+            <div class="col s3"></div>
             <div class="row"></div>
             <div class="col s12">
                 Pilih Kurir :
                 <div class="inline">
-                  <input name="kurir" type="radio" id="kurir1" value="JNE REGULER" />
-                  <label for="kurir1" style="color:black;">JNE REGULER</label>
+                  <input name="kurir" type="radio" id="kurir1" value="" checked />
+                  <label for="kurir1" style="color:black;">TIDAK ADA</label>
                   <br />
-                  <input name="kurir" type="radio" id="kurir2" value="JNE YES" />
-                  <label for="kurir2" style="color:black;">JNE YES</label>
+                  <input name="kurir" type="radio" id="kurir2" value="JNE REGULER" />
+                  <label for="kurir2" style="color:black;">JNE REGULER</label>
                   <br />
-                  <input name="kurir" type="radio" id="kurir3" value="POS KILAT" />
-                  <label for="kurir3" style="color:black;">POS KILAT</label>
+                  <input name="kurir" type="radio" id="kurir3" value="JNE YES" />
+                  <label for="kurir3" style="color:black;">JNE YES</label>
                   <br />
-                  <input name="kurir" type="radio" id="kurir4" value="TIKI" />
-                  <label for="kurir4" style="color:black;">TIKI</label>
+                  <input name="kurir" type="radio" id="kurir4" value="POS KILAT" />
+                  <label for="kurir4" style="color:black;">POS KILAT</label>
+                  <br />
+                  <input name="kurir" type="radio" id="kurir5" value="TIKI" />
+                  <label for="kurir5" style="color:black;">TIKI</label>
                 </div>
             </div>
             <div class="col s12">
                 Ongkos Kirim : Rp.
                 <div class="input-field inline">
-                    <input type="text" id="ongkir" name="ongkir" class="validate" />
+                    <input type="text" id="ongkir" name="ongkir" class="validate" value=0 />
                 </div>
             </div>
             <div class="col s12">
@@ -139,10 +142,10 @@
             <div class="row"></div>
             <div class="row"></div>
             <div class="col s6 center">
-                <a class="waves-effect waves-light btn" id="konfirmasi">Konfirmasi</a>
+                <a class="waves-effect waves-light btn green accent-4" id="konfirmasi"><i class="material-icons left">done</i>Konfirmasi</a>
             </div>
             <div class="col s6 center">
-                <a class="waves-effect waves-light btn" id="gajadi">Kembali</a>
+                <a class="waves-effect waves-light btn red" id="gajadi"><i class="material-icons left">cancel</i>Kembali</a>
             </div>
             <div class="row"></div>
             <div class="row"></div>
@@ -150,6 +153,11 @@
           </form>
         </div>
     </div>
+    <script type="text/javascript" src="js/materialize.min.js"></script>
+    <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="js/jquery-ui.js"></script>
+    <script type="text/javascript" src="js/datepicker-id.js"></script>
+    <script type="text/javascript" src="js/sweetalert.js"></script>
     <script type="text/javascript" src="js/penjualan.js"></script>
 </body>
 
