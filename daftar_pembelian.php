@@ -10,7 +10,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>DAFTAR PEMBELIAN</title>
+    <title>Daftar Pembelian - Toko Zati Parts</title>
     <link rel="stylesheet" href="css/jquery.dataTables.css" />
     <link rel="stylesheet" href="css/sweetalert.css" />
     <link rel="stylesheet" href="css/materialize.min.css" />
@@ -71,10 +71,10 @@
       <div class="row"></div>
       <div class="row">
         <div class="col s6 center">
-          <a class="waves-effect waves-light btn blue darken-1" onclick="reset()">RESET TRANSAKSI</a>
+          <a class="waves-effect waves-light btn red" onclick="reset()"><i class="material-icons left">delete_forever</i>RESET DATA PEMBELIAN</a>
         </div>
         <div class="col s6 center">
-          <a class="waves-effect waves-light btn blue darken-1" href="index.php">KEMBALI</a>
+          <a class="waves-effect waves-light btn blue darken-1" href="index.php"><i class="material-icons left">arrow_forward</i>KEMBALI</a>
         </div>
       </div>
       <div class="row"></div>
@@ -86,7 +86,17 @@
     <script type="text/javascript" src="js/sweetalert.js"></script>
     <script type="text/javascript">
       $(document).ready(function(){
-        $('.mytable').DataTable();
+        $('.mytable').DataTable({
+          "bLengthChange": false,
+          "oLanguage": {
+           "sSearch": "Pencarian:",
+           "sInfo": "Menampilkan _START_ - _END_ dari _TOTAL_ data",
+           "oPaginate": {
+             "sPrevious": "Sebelumnya",
+             "sNext": "Selanjutnya"
+           }
+         }
+        });
       });
 
       function reset() {

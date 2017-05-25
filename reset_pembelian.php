@@ -7,5 +7,5 @@
   $query = $koneksi->prepare("DELETE FROM pengaruh WHERE no_transaksi LIKE 'PM%'");
   $query->execute();
 
-  header('Location: daftar_pembelian.php');
+  header("Refresh:0; url=daftar_pembelian.php");
 ?>

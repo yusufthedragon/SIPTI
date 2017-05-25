@@ -13,7 +13,6 @@
     $query->bindParam(":harga_barang", $harga);
     $query->bindParam(":stok_barang", $stok);
     $query->execute();
-    $baris = $query->rowCount();
     throw new PDOException;
   } catch(PDOException $e) {
     if ($e->errorInfo[1] == 1062) {
@@ -38,15 +37,5 @@
           });
       </script>";
     }
-  }
-
-  if ($baris == 0) {
-    echo "<script>
-    swal({
-          title: 'EDIT DATA GAGAL!',
-          text: 'Pastikan Kode Barang Lama tersedia di database!',
-          type: 'error'
-        });
-    </script>";
   }
 ?>

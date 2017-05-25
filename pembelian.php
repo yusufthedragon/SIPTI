@@ -65,17 +65,17 @@
                 Pilih Toko :
             </div>
             <div class="col s10">
-                <input name="toko" type="radio" id="toko1" value="Sartika Motor" onclick="autohitung()"/>
-                <label for="toko1" style="color:black;">Sartika Motor</label>
+                <input name="toko" type="radio" id="toko1" value="Ramayana Motor" onclick="autohitung()"/>
+                <label for="toko1" style="color:black;">Ramayana Motor</label>
                 <br />
-                <input name="toko" type="radio" id="toko2" value="Wijaya Motor" onchange="autohitung()" />
-                <label for="toko2" style="color:black;">Wijaya Motor</label>
+                <input name="toko" type="radio" id="toko2" value="Sarana Motor" onchange="autohitung()" />
+                <label for="toko2" style="color:black;">Sarana Motor</label>
                 <br />
-                <input name="toko" type="radio" id="toko3" value="Ramayana Motor" onchange="autohitung()" />
-                <label for="toko3" style="color:black;">Ramayana Motor</label>
+                <input name="toko" type="radio" id="toko3" value="Sartika Motor" onchange="autohitung()" />
+                <label for="toko3" style="color:black;">Sartika Motor</label>
                 <br />
-                <input name="toko" type="radio" id="toko4" value="Sarana Motor" onchange="autohitung()" />
-                <label for="toko4" style="color:black;">Sarana Motor</label>
+                <input name="toko" type="radio" id="toko4" value="Wijaya Motor" onchange="autohitung()" />
+                <label for="toko4" style="color:black;">Wijaya Motor</label>
             </div>
             <div class="row"></div>
             <div class="row"></div>
@@ -87,15 +87,15 @@
                 <div id="pembelian1">
                     <div class="col s4">
                         <center><label>No. Barang #1</label></center>
-                        <input type="text" id="no1" name="no1" class="autocomplete" onkeyup="autofill(this), autohitung(), upperCaseF(this)" />
+                        <input type="text" id="no1" name="no1" class="center autocomplete" onkeyup="autofill(this), autohitung(), upperCaseF(this)" />
                     </div>
                     <div class="col s4">
                         <center><label>Nama Barang</label></center>
-                        <input type="text" name="barang1" id="barang1" class="validate" readonly />
+                        <input type="text" name="barang1" id="barang1" class="center validate" autocomplete="off" readonly />
                     </div>
                     <div class="col s4">
                         <center><label for="jumlah1">Jumlah Barang</label></center>
-                        <input type="text" name="jumlah1" id="jumlah1" class="center validate" onkeyup="autohitung()" />
+                        <input type="text" name="jumlah1" id="jumlah1" class="center validate" onkeyup="autohitung()" autocomplete="off" />
                     </div>
                     <div class="col s3">
                         <input type="text" name="harga1" id="harga1" class="center validate" hidden/>

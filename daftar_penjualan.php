@@ -10,26 +10,25 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>DAFTAR PENJUALAN</title>
+    <title>Daftar Penjualan - Toko Zati Parts</title>
     <link rel="stylesheet" href="css/jquery.dataTables.css" />
+    <link rel="stylesheet" href="css/sweetalert.css" />
     <link rel="stylesheet" href="css/materialize.min.css" />
-    <script type="text/javascript" src="js/materialize.min.js"></script>
-    <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
-    <script type="text/javascript" src="js/jquery.dataTables.js"></script>
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   </head>
   <body>
 
     <nav>
         <div class="nav-wrapper grey darken-3">
-            <a href="index.php" class="brand-logo">Logo</a>
-            <ul id="nav-mobile" class="right hide-on-med-and-down">
-                <li class="active"><a href="#">Transaksi</a></li>
-                <li><a href="">Edit Transaksi</a></li>
-                <li><a href="">Edit Inventory</a></li>
-                <li><a href="">Daftar Transaksi</a></li>
-                <li><a href="">Daftar Inventory</a></li>
-                <li><a href="">Laporan Inventory</a></li>
-            </ul>
+          <a href="index.php" class="brand-logo center">
+            <i class="material-icons left">shopping_cart&nbsp;&nbsp;</i>
+            <i class="material-icons left">event_note&nbsp;&nbsp;</i>
+            <i class="material-icons left">store</i>
+            <i class="material-icons right">exit_to_app</i>
+            <i class="material-icons right">account_circle</i>
+            <i class="material-icons right">assessment</i>
+            TOKO ZATI PARTS
+          </a>
         </div>
     </nav>
 
@@ -71,19 +70,50 @@
       <div class="row"></div>
       <div class="row">
         <div class="col s6 center">
-          <a class="waves-effect waves-light btn blue darken-1" href="reset_transaksi.php">RESET TRANSAKSI</a>
+          <a class="waves-effect waves-light btn red" onclick="reset()"><i class="material-icons left">delete_forever</i>RESET DATA PENJUALAN</a>
         </div>
         <div class="col s6 center">
-          <a class="waves-effect waves-light btn blue darken-1" href="index.php">KEMBALI</a>
+          <a class="waves-effect waves-light btn blue darken-1" href="index.php"><i class="material-icons left">arrow_forward</i>KEMBALI</a>
         </div>
       </div>
       <div class="row"></div>
       <div class="row"></div>
     </div>
+    <script type="text/javascript" src="js/materialize.min.js"></script>
+    <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="js/jquery.dataTables.js"></script>
+    <script type="text/javascript" src="js/sweetalert.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function(){
+        $('.mytable').DataTable({
+          "bLengthChange": false,
+          "oLanguage": {
+           "sSearch": "Pencarian:",
+           "sInfo": "Menampilkan _START_ - _END_ dari _TOTAL_ data",
+           "oPaginate": {
+             "sPrevious": "Sebelumnya",
+             "sNext": "Selanjutnya"
+           }
+         }
+        });
+      });
+
+      function reset() {
+        swal({
+          title: "Anda yakin?",
+          text: "Semua data penjualan akan dihapus dari database!",
+          type: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#DD6B55",
+          confirmButtonText: "Ya, saya yakin!",
+          cancelButtonText: "Batal",
+          closeOnConfirm: true
+        }, function(isConfirm) {
+          if (isConfirm) {
+            window.location = 'reset_penjualan.php';
+          }
+        });
+      }
+    </script>
   </body>
-  <script type="text/javascript">
-    $(document).ready(function(){
-      $('.mytable').DataTable();
-    });
-  </script>
 </html>

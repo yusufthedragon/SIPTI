@@ -1,6 +1,5 @@
 var counter = myform.counter.value; //Variabel untuk dynamic input box
-var obj2; //Variabel untuk menghitung total secara otomatis
-var total1;
+var total1, potongan1; //Variabel untuk menghitung total harga dan diskon
 
 function upperCaseF(a) { //Fungsi untuk membuat input kapital secara otomatis
   setTimeout(function() {
@@ -16,9 +15,11 @@ $(function() { //Fungsi tanggal
 });
 
 $(function() { //Fungsi untuk mengambil daftar barang dari database
-  $("#no1").autocomplete({ //dan mempopulasikannya di input kode barang secara otomatis
-    source: 'search_barang_pembelian.php'
-  });
+  for (var n = 1; n < counter; n++) {
+    $("#no" + n).autocomplete({ //dan mempopulasikannya di input kode barang secara otomatis
+      source: 'search_barang_pembelian.php'
+    });
+  }
 });
 
 $(".klik").keypress(function(event) {
@@ -39,7 +40,6 @@ function autofill(x) { //Fungsi untuk mengisi input nama barang secara otomatis 
     if (obj.harga == null) { //Karena menggunakan fungsi onkeyup,
       obj.harga = 0; //maka selama input belum sesuai dengan isi tabel daftar barang, return value berupa nilai null
     }
-    obj2 = obj;
     $('#barang' + angka).val(obj.nama_barang);
     $('#harga' + angka).val(obj.harga);
     $('#hitung' + angka).val(obj.harga);
@@ -48,19 +48,12 @@ function autofill(x) { //Fungsi untuk mengisi input nama barang secara otomatis 
 
 function autohitung() { //Fungsi untuk mengisi input total secara otomatis
   var total2 = 0; //Variabel untuk menyimpan total harga
-  var diskon = 1;
-  if (document.getElementById('toko1').checked) { //Mengecek apakah Toko Sartika dipilih atau tidak
-    diskon = 0.9;
-  }
   var n;
-  if (obj2.harga == null) {
-    obj2.harga = 0;
-  }
   for (n = 1; n < 11; n++) {
     if ((!$('#hitung' + n).length) || (!$('#hitung' + n).val(""))) { //Jika input box dynamic belum dibuat / belum ada
       break;
     } else {
-      total2 = total2 + (parseInt($('#harga' + n).val()) * $('#jumlah' + n).val() * diskon);
+      total2 = total2 + (parseInt($('#harga' + n).val()) * $('#jumlah' + n).val());
       total1 = total2;
       $('#total').val(total2.toLocaleString('id-ID')); //Membuat format uang indonesia
     }
@@ -83,19 +76,19 @@ $(document).ready(function() {
         '<center>' +
           '<label>No. Barang #' + counter + '</label>' +
           '</center>' +
-          '<input type="text" name="no' + counter + '" id="no' + counter + '" class="autocomplete" onkeyup="autofill(this), autohitung(), upperCaseF(this)" />' +
+          '<input type="text" name="no' + counter + '" id="no' + counter + '" class="center autocomplete" onkeyup="autofill(this), autohitung(), upperCaseF(this)" />' +
       '</div>' +
       '<div class="col s4">' +
         '<center>' +
           '<label>Nama Barang</label>' +
         '</center>' +
-        '<input type="text" name="barang' + counter + '" id="barang' + counter + '" class="validate" readonly />' +
+        '<input type="text" name="barang' + counter + '" id="barang' + counter + '" class="center validate" autocomplete="off" readonly />' +
       '</div>' +
       '<div class="col s4">' +
         '<center>' +
           '<label>Jumlah Barang</label>' +
         '</center>' +
-        '<input type="text" name="jumlah' + counter + '" id="jumlah' + counter + '" class="center validate" onkeyup="autohitung()" />' +
+        '<input type="text" name="jumlah' + counter + '" id="jumlah' + counter + '" class="center validate" onkeyup="autohitung()" autocomplete="off" />' +
       '</div>' +
       '<div class="col s3">' +
         '<input type="text" name="harga' + counter + '" id="harga' + counter + '" class="center validate" hidden />' +
@@ -176,6 +169,7 @@ $(document).ready(function() {
           closeOnConfirm: false
         }, function(isConfirm) {
           if (isConfirm) {
+            $('#diskon').val(potongan1);
             $('#total').val(total1);
             document.forms["myform"].submit();
           }
@@ -198,6 +192,7 @@ $(document).ready(function() {
         });
         break;
       } else {
+        autohitung();
         swal({
           title: "Anda yakin?",
           text: "Semua data akan dimasukkan ke database!",

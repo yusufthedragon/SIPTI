@@ -13,52 +13,25 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Lihat Pembelian</title>
+    <title>Lihat Pembelian - Toko Zati Parts</title>
     <link rel="stylesheet" href="css/materialize.min.css" />
     <link rel="stylesheet" href="css/sweetalert.css" />
-    <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
-    <script type="text/javascript" src="js/materialize.min.js"></script>
-    <script type="text/javascript" src="js/sweetalert.js"></script>
-    <script>
-      function hapus() {
-        swal({
-          title: "Anda yakin?",
-          text: "Data tersebut akan dihapus dari database!",
-          type: "warning",
-          showCancelButton: true,
-          confirmButtonColor: "#DD6B55",
-          confirmButtonText: "Ya, saya yakin!",
-          cancelButtonText: "Batal",
-          closeOnConfirm: true
-        }, function(isConfirm) {
-          if (isConfirm) {
-            var no_transaksi = $("#no_transaksi").val();
-            $.ajax({
-              url: 'ajax_hapus_pembelian.php',
-              dataType: "html",
-              data: 'no_transaksi=' + no_transaksi,
-            }).success(function(data) {
-                  $('#keterangan').html(data);
-              });
-          }
-        });
-      }
-    </script>
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   </head>
 
   <body onload="status()">
 
     <nav>
         <div class="nav-wrapper grey darken-3">
-            <a href="index.php" class="brand-logo">Logo</a>
-            <ul id="nav-mobile" class="right hide-on-med-and-down">
-                <li class="active"><a href="#">Transaksi</a></li>
-                <li><a href="">Edit Transaksi</a></li>
-                <li><a href="">Edit Inventory</a></li>
-                <li><a href="">Daftar Transaksi</a></li>
-                <li><a href="">Daftar Inventory</a></li>
-                <li><a href="">Laporan Inventory</a></li>
-            </ul>
+          <a href="index.php" class="brand-logo center">
+            <i class="material-icons left">shopping_cart&nbsp;&nbsp;</i>
+            <i class="material-icons left">event_note&nbsp;&nbsp;</i>
+            <i class="material-icons left">store</i>
+            <i class="material-icons right">exit_to_app</i>
+            <i class="material-icons right">account_circle</i>
+            <i class="material-icons right">assessment</i>
+            TOKO ZATI PARTS
+          </a>
         </div>
     </nav>
 
@@ -119,7 +92,6 @@
             </tbody>
           </table>
         </div>
-        <div class="row"></div>
         <div class="col s12">
           Total Pembelian : Rp.
           <div class="input-field inline">
@@ -129,17 +101,45 @@
         <div class="row"></div>
         <div class="row"></div>
         <div class="col s4 center">
-          <a class="waves-effect waves-light btn" onclick="hapus()">Hapus Pembelian</a>
+          <a class="waves-effect waves-light btn red" onclick="hapus()"><i class="material-icons left">delete</i>Hapus Pembelian</a>
         </div>
         <div class="col s4 center">
-          <a class="waves-effect waves-light btn" <?php echo "href = 'edit_pembelian.php?no_transaksi=".$row['no_transaksi']."'"; ?>>Edit Pembelian</a>
+          <a class="waves-effect waves-light btn green accent-4" <?php echo "href='edit_pembelian.php?no_transaksi=".$row['no_transaksi']."'"; ?>><i class="material-icons left">edit</i>Edit Pembelian</a>
         </div>
         <div class="col s4 center">
-          <a class="waves-effect waves-light btn" href="daftar_pembelian.php">Kembali</a>
+          <a class="waves-effect waves-light btn blue darken-1" href="daftar_pembelian.php"><i class="material-icons left">arrow_forward</i>Kembali</a>
         </div>
       </div>
       <div class="row"></div>
       <div class="row"></div>
     </div>
+    <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="js/materialize.min.js"></script>
+    <script type="text/javascript" src="js/sweetalert.js"></script>
+    <script>
+      function hapus() {
+        swal({
+          title: "Anda yakin?",
+          text: "Data tersebut akan dihapus dari database!",
+          type: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#DD6B55",
+          confirmButtonText: "Ya, saya yakin!",
+          cancelButtonText: "Batal",
+          closeOnConfirm: true
+        }, function(isConfirm) {
+          if (isConfirm) {
+            var no_transaksi = $("#no_transaksi").val();
+            $.ajax({
+              url: 'ajax_hapus_pembelian.php',
+              dataType: "html",
+              data: 'no_transaksi=' + no_transaksi,
+            }).success(function(data) {
+                  $('#keterangan').html(data);
+              });
+          }
+        });
+      }
+    </script>
   </body>
 </html>
