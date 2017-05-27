@@ -102,7 +102,8 @@
       function reset() {
         swal({
           title: "Anda yakin?",
-          text: "Semua data pembelian akan dihapus dari database!",
+          text: "Semua data pembelian akan dihapus dari database!<br />Data Barang yang telah dibeli akan tetap di database!",
+          html: true,
           type: "warning",
           showCancelButton: true,
           confirmButtonColor: "#DD6B55",

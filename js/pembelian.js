@@ -1,5 +1,5 @@
 var counter = myform.counter.value; //Variabel untuk dynamic input box
-var total1, potongan1; //Variabel untuk menghitung total harga dan diskon
+var total1;
 
 function upperCaseF(a) { //Fungsi untuk membuat input kapital secara otomatis
   setTimeout(function() {
@@ -15,11 +15,9 @@ $(function() { //Fungsi tanggal
 });
 
 $(function() { //Fungsi untuk mengambil daftar barang dari database
-  for (var n = 1; n < counter; n++) {
-    $("#no" + n).autocomplete({ //dan mempopulasikannya di input kode barang secara otomatis
-      source: 'search_barang_pembelian.php'
-    });
-  }
+  $("#no1").autocomplete({ //dan mempopulasikannya di input kode barang secara otomatis
+    source: 'search_barang_pembelian.php'
+  });
 });
 
 $(".klik").keypress(function(event) {
@@ -29,7 +27,9 @@ $(".klik").keypress(function(event) {
 function autofill(x) { //Fungsi untuk mengisi input nama barang secara otomatis berdasarkan input kode barang
   var angka = x.id.substr(2); //Mengambil nomor terakhir dari id input kode barang yang sedang aktif
   var no = $("#no" + angka).val();
-  $("#jumlah" + angka).val(1); //Mengisi input jumlah secara otomatis
+  if ($("#jumlah" + angka).val().length == 0) {
+    $("#jumlah" + angka).val(1); //Mengisi input jumlah secara otomatis
+  }
   $.ajax({
     url: 'ajax_barang.php',
     dataType: "html",
@@ -40,6 +40,7 @@ function autofill(x) { //Fungsi untuk mengisi input nama barang secara otomatis 
     if (obj.harga == null) { //Karena menggunakan fungsi onkeyup,
       obj.harga = 0; //maka selama input belum sesuai dengan isi tabel daftar barang, return value berupa nilai null
     }
+    obj2 = obj;
     $('#barang' + angka).val(obj.nama_barang);
     $('#harga' + angka).val(obj.harga);
     $('#hitung' + angka).val(obj.harga);
@@ -48,21 +49,25 @@ function autofill(x) { //Fungsi untuk mengisi input nama barang secara otomatis 
 
 function autohitung() { //Fungsi untuk mengisi input total secara otomatis
   var total2 = 0; //Variabel untuk menyimpan total harga
-  var n;
-  for (n = 1; n < 11; n++) {
+  var diskon = 1;
+  if (document.getElementById('toko1').checked) { //Mengecek apakah Toko Sartika dipilih atau tidak
+    diskon = 0.9;
+  }
+  for (var n = 1; n < 11; n++) {
     if ((!$('#hitung' + n).length) || (!$('#hitung' + n).val(""))) { //Jika input box dynamic belum dibuat / belum ada
       break;
     } else {
-      total2 = total2 + (parseInt($('#harga' + n).val()) * $('#jumlah' + n).val());
+      total2 = total2 + (parseInt($('#harga' + n).val()) * $('#jumlah' + n).val() * diskon);
       total1 = total2;
+      if (isNaN(total2)) {
+        total2 = 0;
+      }
       $('#total').val(total2.toLocaleString('id-ID')); //Membuat format uang indonesia
     }
   }
 }
 
 $(document).ready(function() {
-
-
 
   $("#tambah").click(function() {
     if (counter > 10) { //Hanya dapat menginput 10 jenis barang
@@ -82,7 +87,7 @@ $(document).ready(function() {
         '<center>' +
           '<label>Nama Barang</label>' +
         '</center>' +
-        '<input type="text" name="barang' + counter + '" id="barang' + counter + '" class="center validate" autocomplete="off" readonly />' +
+        '<input type="text" name="barang' + counter + '" id="barang' + counter + '" class="center validate" readonly />' +
       '</div>' +
       '<div class="col s4">' +
         '<center>' +
@@ -169,7 +174,6 @@ $(document).ready(function() {
           closeOnConfirm: false
         }, function(isConfirm) {
           if (isConfirm) {
-            $('#diskon').val(potongan1);
             $('#total').val(total1);
             document.forms["myform"].submit();
           }
@@ -192,7 +196,6 @@ $(document).ready(function() {
         });
         break;
       } else {
-        autohitung();
         swal({
           title: "Anda yakin?",
           text: "Semua data akan dimasukkan ke database!",
@@ -204,7 +207,9 @@ $(document).ready(function() {
           closeOnConfirm: false
         }, function(isConfirm) {
           if (isConfirm) {
-            $('#total').val(total1);
+            if (total1 != undefined) {
+              $('#total').val(total1);
+            }
             document.forms["myform"].submit();
           }
         });

@@ -52,7 +52,7 @@
             <div class="col s12">
                 No. Faktur :
                 <div class="input-field inline">
-                    <input type="text" class="validate" id="faktur" name="faktur" value="<?php echo $row['no_faktur']; ?>" />
+                    <input type="text" class="validate" id="faktur" name="faktur" value="<?php echo $row['no_faktur']; ?>" autocomplete="off" />
                 </div>
             </div>
             <div class="row"></div>
@@ -60,18 +60,19 @@
                 Pilih Toko :
             </div>
             <div class="col s10">
-                <input name="toko" type="radio" id="toko1" value="Ramayana Motor" onclick="autohitung()" <?php if ($row['toko'] == "Ramayana Motor") echo "checked"; ?>/>
-                <label for="toko1" style="color:black;">Ramayana Motor</label>
+                <input name="toko" type="radio" id="toko1" value="Sartika Motor" onclick="autohitung()" <?php if ($row['toko'] == "Sartika Motor") echo "checked"; ?> />
+                <label for="toko1" style="color:black;">Sartika Motor</label>
                 <br />
-                <input name="toko" type="radio" id="toko2" value="Sarana Motor" onchange="autohitung()" <?php if ($row['toko'] == "Sarana Motor") echo "checked"; ?> />
-                <label for="toko2" style="color:black;">Sarana Motor</label>
+                <input name="toko" type="radio" id="toko2" value="Wijaya Motor" onchange="autohitung()" <?php if ($row['toko'] == "Wijaya Motor") echo "checked"; ?> />
+                <label for="toko2" style="color:black;">Wijaya Motor</label>
                 <br />
-                <input name="toko" type="radio" id="toko3" value="Sartika Motor" onchange="autohitung()" <?php if ($row['toko'] == "Sartika Motor") echo "checked"; ?> />
-                <label for="toko3" style="color:black;">Sartika Motor</label>
+                <input name="toko" type="radio" id="toko3" value="Ramayana Motor" onchange="autohitung()" <?php if ($row['toko'] == "Ramayana Motor") echo "checked"; ?> />
+                <label for="toko3" style="color:black;">Ramayana Motor</label>
                 <br />
-                <input name="toko" type="radio" id="toko4" value="Wijaya Motor" onchange="autohitung()" <?php if ($row['toko'] == "Wijaya Motor") echo "checked"; ?> />
-                <label for="toko4" style="color:black;">Wijaya Motor</label>
+                <input name="toko" type="radio" id="toko4" value="Sarana Motor" onchange="autohitung()" <?php if ($row['toko'] == "Sarana Motor") echo "checked"; ?> />
+                <label for="toko4" style="color:black;">Sarana Motor</label>
             </div>
+            <div class="row"></div>
             <div class="row"></div>
             <div class="col s12">
                 Masukkan Pembelian :
@@ -86,21 +87,21 @@
                   echo "<div id = 'pembelian".$i."'>
                           <div class = 'col s4'>
                             <center><label>No. Barang #".$i."</label></center>
-                            <input type='text' id='no".$i."' name='no".$i."' class='autocomplete' onkeyup='autofill(this), autohitung(), upperCaseF(this)' value='".$row2['kode_barang']."' />
+                            <input type='text' id='no".$i."' name='no".$i."' class='center autocomplete' onkeyup='autofill(this), autohitung(), upperCaseF(this)' value='".$row2['kode_barang']."' />
                           </div>
                           <div class='col s4'>
                               <center><label>Nama Barang</label></center>
-                              <input type='text' name='barang".$i."' id='barang".$i."' class='validate' readonly value='".$row2['nama_barang']."'/>
+                              <input type='text' name='barang".$i."' id='barang".$i."' class='center validate' readonly value='".$row2['nama_barang']."'/>
                           </div>
                           <div class='col s4'>
                               <center><label for='jumlah".$i."'>Jumlah Barang</label></center>
                               <input type='text' name='jumlah".$i."' id='jumlah".$i."' class='center validate' onkeyup='autohitung()' value='".$row2['jumlah']."' autocomplete='off' />
                           </div>
                           <div class='col s3'>
-                              <input type='text' name='harga".$i."' id='harga".$i."' class='center validate' value='".$row2['harga']."' hidden />
+                              <input type='text' name='harga".$i."' id='harga".$i."' class='validate' value='".$row2['harga']."' hidden />
                           </div>
                           <div class='col s12'>
-                              <input type='text' name='hitung".$i."' id='hitung".$i."' value='".$row2['harga']."' hidden />
+                              <input type='text' name='hitung".$i."' id='hitung".$i."'value='".$row2['harga']."' hidden  />
                           </div>
                         </div>";
                   $i++;
@@ -119,7 +120,7 @@
             <div class="col s12">
                 Total Harga : Rp.
                 <div class="input-field inline">
-                  <input type="text" id="total" name="total" class="validate" value="<?php echo number_format($row['total'], 0 ,'', '.'); ?>" readonly />
+                  <input type="text" id="total" name="total" class="validate" value="<?php echo $row['total']; ?>" readonly />
                 </div>
             </div>
             <div class="row"></div>
@@ -136,7 +137,7 @@
           </form>
         </div>
     </div>
-    <script type="text/javascript" src="js/materialize.js"></script>
+    <script type="text/javascript" src="js/materialize.min.js"></script>
     <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="js/jquery-ui.js"></script>
     <script type="text/javascript" src="js/datepicker-id.js"></script>

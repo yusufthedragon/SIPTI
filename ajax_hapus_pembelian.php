@@ -3,6 +3,10 @@
 
   $no_transaksi = $_GET['no_transaksi'];
 
+  $query = $koneksi->prepare("UPDATE inventory,pengaruh SET stok = stok - jumlah WHERE pengaruh.no_transaksi = :no_transaksi AND inventory.kode_barang = pengaruh.kode_barang");
+  $query->bindParam(':no_transaksi', $no_transaksi);
+  $query->execute();
+  
   $query = $koneksi->prepare("DELETE pembelian.*, pengaruh.* FROM pembelian, pengaruh WHERE pembelian.no_transaksi = pengaruh.no_transaksi AND pembelian.no_transaksi = :no_transaksi;");
   $query->bindParam(":no_transaksi", $no_transaksi);
   $query->execute();

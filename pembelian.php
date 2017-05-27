@@ -1,11 +1,9 @@
 <?php
   include 'koneksi.php';
-
   $query = $koneksi->prepare("SELECT no_transaksi FROM pembelian ORDER BY no_transaksi DESC LIMIT 1");
   $query->execute();
   $row = $query->fetch();
   $baris = $query->rowCount();
-
   if ($baris < 1) {
     $row[0] = "PM0000";
   }
@@ -65,17 +63,17 @@
                 Pilih Toko :
             </div>
             <div class="col s10">
-                <input name="toko" type="radio" id="toko1" value="Ramayana Motor" onclick="autohitung()"/>
-                <label for="toko1" style="color:black;">Ramayana Motor</label>
+                <input name="toko" type="radio" id="toko1" value="Sartika Motor" onclick="autohitung()"/>
+                <label for="toko1" style="color:black;">Sartika Motor</label>
                 <br />
-                <input name="toko" type="radio" id="toko2" value="Sarana Motor" onchange="autohitung()" />
-                <label for="toko2" style="color:black;">Sarana Motor</label>
+                <input name="toko" type="radio" id="toko2" value="Wijaya Motor" onchange="autohitung()" />
+                <label for="toko2" style="color:black;">Wijaya Motor</label>
                 <br />
-                <input name="toko" type="radio" id="toko3" value="Sartika Motor" onchange="autohitung()" />
-                <label for="toko3" style="color:black;">Sartika Motor</label>
+                <input name="toko" type="radio" id="toko3" value="Ramayana Motor" onchange="autohitung()" />
+                <label for="toko3" style="color:black;">Ramayana Motor</label>
                 <br />
-                <input name="toko" type="radio" id="toko4" value="Wijaya Motor" onchange="autohitung()" />
-                <label for="toko4" style="color:black;">Wijaya Motor</label>
+                <input name="toko" type="radio" id="toko4" value="Sarana Motor" onchange="autohitung()" />
+                <label for="toko4" style="color:black;">Sarana Motor</label>
             </div>
             <div class="row"></div>
             <div class="row"></div>
@@ -91,7 +89,7 @@
                     </div>
                     <div class="col s4">
                         <center><label>Nama Barang</label></center>
-                        <input type="text" name="barang1" id="barang1" class="center validate" autocomplete="off" readonly />
+                        <input type="text" name="barang1" id="barang1" class="center validate" readonly />
                     </div>
                     <div class="col s4">
                         <center><label for="jumlah1">Jumlah Barang</label></center>

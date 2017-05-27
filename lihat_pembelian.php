@@ -101,10 +101,10 @@
         <div class="row"></div>
         <div class="row"></div>
         <div class="col s4 center">
-          <a class="waves-effect waves-light btn red" onclick="hapus()"><i class="material-icons left">delete</i>Hapus Pembelian</a>
+          <a class="waves-effect waves-light btn red" onclick="hapus()"><i class="material-icons left">delete</i>Hapus Transaksi</a>
         </div>
         <div class="col s4 center">
-          <a class="waves-effect waves-light btn green accent-4" <?php echo "href='edit_pembelian.php?no_transaksi=".$row['no_transaksi']."'"; ?>><i class="material-icons left">edit</i>Edit Pembelian</a>
+          <a class="waves-effect waves-light btn green accent-4" <?php echo "href='edit_pembelian.php?no_transaksi=".$row['no_transaksi']."'"; ?>><i class="material-icons left">edit</i>Edit Transaksi</a>
         </div>
         <div class="col s4 center">
           <a class="waves-effect waves-light btn blue darken-1" href="daftar_pembelian.php"><i class="material-icons left">arrow_forward</i>Kembali</a>
@@ -120,7 +120,8 @@
       function hapus() {
         swal({
           title: "Anda yakin?",
-          text: "Data tersebut akan dihapus dari database!",
+          text: "Data Transaksi tersebut akan dihapus dari database! <br />Data Barang yang telah dibeli akan dibatalkan!",
+          html: true,
           type: "warning",
           showCancelButton: true,
           confirmButtonColor: "#DD6B55",
