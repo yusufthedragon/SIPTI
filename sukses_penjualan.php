@@ -39,8 +39,8 @@
       echo "<script>
             function status() {
               swal({
-                title: 'INPUT DATA BERHASIL!',
-                text: 'Data telah masuk ke database.',
+                title: 'INPUT TRANSAKSI BERHASIL!',
+                text: 'Data transaksi telah masuk ke database.',
                 timer: 3000,
                 type: 'success',
                 showConfirmButton: false
@@ -51,15 +51,16 @@
         if (!isset($_POST['no'.$n])) {
           break;
         } else {
+          $no = htmlspecialchars($_POST['no'.$n]);
+          $barang = htmlspecialchars($_POST['barang'.$n]);
+          $harga = htmlspecialchars($_POST['harga'.$n]);
+          $jumlah = htmlspecialchars($_POST['jumlah'.$n]);
+
           $query = $koneksi->prepare("INSERT INTO pengaruh VALUES(:no_transaksi, :kode_barang, :nama_barang, :harga, :jumlah)");
           $query->bindParam(':no_transaksi', $no_transaksi);
-          $no = htmlspecialchars($_POST['no'.$n]);
           $query->bindParam(':kode_barang', $no);
-          $barang = htmlspecialchars($_POST['barang'.$n]);
           $query->bindParam(':nama_barang', $barang);
-          $harga = htmlspecialchars($_POST['harga'.$n]);
           $query->bindParam(':harga', $harga);
-          $jumlah = htmlspecialchars($_POST['jumlah'.$n]);
           $query->bindParam(':jumlah', $jumlah);
           $query->execute();
 

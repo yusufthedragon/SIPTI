@@ -63,7 +63,7 @@
           echo "<div class='col s12'>
               Alamat Konsumen :
               <div class='input-field inline'>
-                <input type='text' class='validate' value='".$row['alamat']."' readonly />
+                <input type='text' class='validate' value='".$row['alamat']."' style='width:320px;' readonly />
               </div>
           </div>";
         }
@@ -106,7 +106,8 @@
             </thead>
             <tbody>
               <?php
-                $query2 = $koneksi->prepare("SELECT * FROM pengaruh WHERE no_transaksi = '$no_transaksi'");
+                $query2 = $koneksi->prepare("SELECT * FROM pengaruh WHERE no_transaksi = :no_transaksi");
+                $query2->bindParam(':no_transaksi', $no_transaksi);
                 $query2->execute();
 
                 while($row2 = $query2->fetch()) {
@@ -149,7 +150,8 @@
       function hapus() {
         swal({
           title: "Anda yakin?",
-          text: "Data tersebut akan dihapus dari database!",
+          text: "Data Transaksi tersebut akan dihapus dari database! <br />Data Barang yang telah dibeli akan dibatalkan!",
+          html: true,
           type: "warning",
           showCancelButton: true,
           confirmButtonColor: "#DD6B55",

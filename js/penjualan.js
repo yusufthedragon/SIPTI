@@ -1,5 +1,6 @@
-var counter = 2; //Variabel untuk dynamic input box
+var counter = parseInt(myform.counter.value); //Variabel untuk dynamic input box
 var total1;
+var stok;
 
 function upperCaseF(a) { //Fungsi untuk membuat input kapital secara otomatis
   setTimeout(function() {
@@ -33,7 +34,9 @@ $(function() { //Fungsi untuk mengambil daftar barang dari database
 function autofill(x) { //Fungsi untuk mengisi input nama barang secara otomatis berdasarkan input kode barang
   var angka = x.id.substr(2); //Mengambil nomor terakhir dari id input kode barang yang sedang aktif
   var no = $("#no" + angka).val();
-  $("#jumlah" + angka).val(1); //Mengisi input jumlah secara otomatis
+  if ($("#jumlah" + angka).val().length == 0) {
+    $("#jumlah" + angka).val(1); //Mengisi input jumlah secara otomatis
+  }
   $.ajax({
     url: 'ajax_barang.php',
     dataType: "html",
@@ -45,26 +48,25 @@ function autofill(x) { //Fungsi untuk mengisi input nama barang secara otomatis 
     if (obj.harga == null) { //Karena menggunakan fungsi onkeyup,
       obj.harga = 0; //maka selama input belum sesuai dengan isi tabel daftar barang, return value berupa nilai null
     }
-    obj2 = obj;
     $('#barang' + angka).val(obj.nama_barang);
     if (obj.harga > 300000) untung = 30000; else untung = obj.harga * 0.1;
     $('#harga' + angka).val(obj.harga + untung);
     $('#hitung' + angka).val(obj.harga + untung);
+    $('#stok' + angka).val(obj.stok);
   });
 }
 
 function autohitung() { //Fungsi untuk mengisi input total secara otomatis
   var total2 = 0;
-  var n;
-  if (obj2.harga == null) {
-    obj2.harga = 0;
-  }
-  for (n = 1; n < 11; n++) {
+  for (var n = 1; n < 11; n++) {
     if ((!$('#hitung' + n).length) || (!$('#hitung' + n).val(""))) { //Jika input box dynamic belum dibuat / belum ada
       break;
     } else {
       total2 = total2 + (parseInt($('#harga' + n).val()) * $('#jumlah' + n).val());
       total1 = total2;
+      if (isNaN(total2)) {
+        total2 = 0;
+      }
       $('#total').val(total2.toLocaleString('id-ID')); //Membuat format uang indonesia
     }
   }
@@ -83,19 +85,19 @@ $(document).ready(function() {
           '<center>' +
             '<label>No. Barang #' + counter + '</label>' +
             '</center>' +
-            '<input type="text" name="no' + counter + '" id="no' + counter + '" class="autocomplete" onkeyup="autofill(this), autohitung(), upperCaseF(this)" />' +
+            '<input type="text" name="no' + counter + '" id="no' + counter + '" class="center autocomplete" onkeyup="autofill(this), autohitung(), upperCaseF(this)" />' +
         '</div>' +
         '<div class="col s4">' +
           '<center>' +
             '<label>Nama Barang</label>' +
           '</center>' +
-          '<input type="text" name="barang' + counter + '" id="barang' + counter + '" class="validate" readonly />' +
+          '<input type="text" name="barang' + counter + '" id="barang' + counter + '" class="center validate" readonly />' +
         '</div>' +
         '<div class="col s4">' +
           '<center>' +
             '<label>Jumlah Barang</label>' +
           '</center>' +
-          '<input type="text" name="jumlah' + counter + '" id="jumlah' + counter + '" class="center validate" onkeyup="autohitung()" />' +
+          '<input type="text" name="jumlah' + counter + '" id="jumlah' + counter + '" class="center validate" onkeyup="autohitung()" autocomplete="off" />' +
         '</div>' +
         '<div class="col s3">' +
           '<input type="text" name="harga' + counter + '" id="harga' + counter + '" class="center validate" hidden />' +
@@ -121,7 +123,7 @@ $(document).ready(function() {
 
   $("#gajadi").click(function() {
     var kosong = true;
-    for (var y = 11; y >= counter - 1; y--) {
+    for (var y = 1; y <= counter + 1; y++) {
       $('#hitung' + y).val($('#no' + y).val());
       if (!$('#hitung' + y).val() == "") {
         kosong = false;
@@ -141,24 +143,80 @@ $(document).ready(function() {
         closeOnConfirm: false
       }, function(isConfirm) {
         if (isConfirm) {
-          window.location = 'index.php';
+          if (window.location.href == "http://localhost/PI/penjualan.php") {
+            window.location = 'index.php';
+          } else window.location = history.go(-1);
         }
       });
-    } else window.location = 'index.php';
+    } else {
+      if (window.location.href == "http://localhost/PI/penjualan.php") {
+        window.location = 'index.php';
+      } else window.location = history.go(-1);
+    }
   });
+
   $("#konfirmasi").click(function() {
-    for (var x = 11; x >= counter - 1; x--) {
+    var cek = false;
+    var q = 1;
+    for (var x = 1; x < counter; x++) {
+      q++;
+      if (cek == true) break;
+      for (var y = q; y < counter + 1; y++) {
+        if ($('#no' + x).val() == $('#no' + y).val()) {
+          cek = true;
+          a = x;
+          b = y;
+        }
+      }
+    }
+
+    for (var x = 1; x < counter; x++) {
       $('#hitung' + x).val($('#barang' + x).val());
       if ((myform.tanggal.value == "") || (myform.nama.value == "")) {
-        swal("Error!", "Harap masukkan data Tanggal, Nama Konsumen, dan Penjualan!", "error");
-      } else if ($('#hitung' + x).val() == "") {
         swal({
           title: "Error!",
-          text: "Pastikan No. Barang #" + x + " terisi atau tersedia di database!",
+          text: "Harap mengisi data Tanggal, Nama Konsumen, dan Barang!",
+          type: "error"
+        });
+        break;
+      } else if (((myform.kurir2.checked == true) || (myform.kurir3.checked == true) || (myform.kurir4.checked == true) || (myform.kurir5.checked == true))
+      && ((myform.alamat.value == "") || (myform.ongkir.value == 0) || (myform.resi.value == ""))) {
+      swal({
+        title: "Error!",
+        text: "Harap mengisi Alamat, Ongkos Kirim, dan No. Resi jika menggunakan Kurir!",
+        type: "error"
+      });
+      break;
+      } else if ((myform.kurir1.checked == true) && ((myform.ongkir.value != 0) || (myform.resi.value != ""))) {
+        swal({
+          title: "Error!",
+          text: "Harap gunakan kurir jika mengisi Ongkos Kirim dan No. Resi!",
+          type: "error"
+        });
+      break;
+    } else if ($('#hitung' + x).val() == "") {
+        swal({
+          title: "Error!",
+          text: "Pastikan Barang #" + x + " terisi atau tersedia di database!",
+          type: "error"
+        });
+        break;
+      } else if (cek == true) {
+        swal({
+          title: "Error!",
+          text: "Barang #" + a +" dan Barang #" + b + " sama!",
+          type: "error"
+        });
+        break;
+      } else if ($('#jumlah' + x).val() > $('#stok' + x).val()) {
+        swal({
+          title: "Error!",
+          text: "Barang #" + x +" hanya tersedia " + $('#stok' + x).val() + " buah di gudang!",
           type: "error"
         });
         break;
       } else {
+        autohitung();
         swal({
           title: "Anda yakin?",
           text: "Semua data akan dimasukkan ke database!",

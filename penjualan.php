@@ -1,12 +1,12 @@
 <?php
   include 'koneksi.php';
 
-  $query = $koneksi->prepare("SELECT no_transaksi FROM penjualan ORDER BY no_transaksi DESC LIMIT 1;");
+  //Mengambil No. Transaksi terakhir untuk digunakan sebagai No. Transaksi baru
+  $query = $koneksi->prepare("SELECT no_transaksi FROM penjualan ORDER BY no_transaksi DESC LIMIT 1");
   $query->execute();
   $row = $query->fetch();
-  $baris = $query->rowCount();
 
-  if ($baris < 1) {
+  if ($query->rowCount() < 1) {
     $row[0] = "PN0000";
   }
 ?>
@@ -57,13 +57,13 @@
             <div class="col s12">
                 Masukkan Nama Konsumen :
                 <div class="input-field inline">
-                    <input type="text" id="nama" name="nama" class="validate" onkeyup="firstUpperF(this)"/>
+                    <input type="text" id="nama" name="nama" class="validate" onkeyup="firstUpperF(this)" autocomplete="off" />
                 </div>
             </div>
             <div class="col s12">
                 Masukkan Alamat Konsumen :
                 <div class="input-field inline">
-                    <input type="text" id="alamat" name="alamat" style="width:320px;" class="validate" />
+                    <input type="text" id="alamat" name="alamat" style="width:320px;" class="validate" autocomplete="off" />
                 </div>
             </div>
             <div class="row"></div>
@@ -75,23 +75,27 @@
                 <div id="penjualan1">
                     <div class="col s4">
                         <center><label>No. Barang #1</label></center>
-                        <input type="text" name="no1" id="no1" class="autocomplete" onkeyup="autofill(this), autohitung(), upperCaseF(this)" />
+                        <input type="text" name="no1" id="no1" class="center autocomplete" onkeyup="autofill(this), autohitung(), upperCaseF(this)" />
                     </div>
                     <div class="col s4">
                         <center><label>Nama Barang</label></center>
-                        <input type="text" name="barang1" id="barang1" class="validate" readonly />
+                        <input type="text" name="barang1" id="barang1" class="center validate" readonly />
                     </div>
                     <div class="col s4">
                         <center><label for="jumlah1">Jumlah Barang</label></center>
-                        <input type="text" name="jumlah1" id="jumlah1" class="center validate" onkeyup="autohitung()" />
+                        <input type="text" name="jumlah1" id="jumlah1" class="center validate" onkeyup="autohitung()" autocomplete="off" />
                     </div>
                     <div class="col s3">
-                        <input type="text" name="harga1" id="harga1" class="center validate" hidden/>
+                        <input type="text" name="harga1" id="harga1" hidden/>
                     </div>
                     <div class="col s12">
                         <input type="text" name="hitung1" id="hitung1" hidden/>
                     </div>
+                    <div class="col s12">
+                        <input type="text" name="stok1" id="stok1" hidden/>
+                    </div>
                 </div>
+                <input type="text" name="counter" id="counter" value=2 hidden />
             </div>
             <div class="col s3"></div>
             <div class="col s3 center">
@@ -124,13 +128,13 @@
             <div class="col s12">
                 Ongkos Kirim : Rp.
                 <div class="input-field inline">
-                    <input type="text" id="ongkir" name="ongkir" class="validate" value=0 />
+                    <input type="text" id="ongkir" name="ongkir" class="validate" value=0 autocomplete="off" />
                 </div>
             </div>
             <div class="col s12">
                 Masukkan No. Resi :
                 <div class="input-field inline">
-                    <input type="text" id="resi" name="resi" class="validate" onkeydown="upperCaseF(this)" />
+                    <input type="text" id="resi" name="resi" class="validate" onkeydown="upperCaseF(this)" autocomplete="off" />
                 </div>
             </div>
             <div class="col s12">
@@ -153,7 +157,7 @@
           </form>
         </div>
     </div>
-    <script type="text/javascript" src="js/materialize.min.js"></script>
+    <script type="text/javascript" src="js/materialize.js"></script>
     <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="js/jquery-ui.js"></script>
     <script type="text/javascript" src="js/datepicker-id.js"></script>

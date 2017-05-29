@@ -45,22 +45,40 @@
         if (!isset($_POST['no'.$n])) {
           break;
         } else {
-          $query = $koneksi->prepare("INSERT INTO pengaruh VALUES(:no_transaksi, :kode_barang, :nama_barang, :harga, :jumlah)");
-          $query->bindParam(':no_transaksi', $no_transaksi);
           $no = htmlspecialchars($_POST['no'.$n]);
-          $query->bindParam(':kode_barang', $no);
           $barang = htmlspecialchars($_POST['barang'.$n]);
-          $query->bindParam(':nama_barang', $barang);
           $harga = htmlspecialchars($_POST['harga'.$n]);
-          $query->bindParam(':harga', $harga);
           $jumlah = htmlspecialchars($_POST['jumlah'.$n]);
-          $query->bindParam(':jumlah', $jumlah);
+
+          //Mengecek apakah data barang tersebut sudah ada di tabel pengaruh
+          $query = $koneksi->prepare("SELECT * FROM pengaruh WHERE no_transaksi = :no_transaksi AND kode_barang = :kode_barang");
+          $query->bindParam(':no_transaksi', $no_transaksi);
+          $query->bindParam(':kode_barang', $no);
           $query->execute();
 
-          $query = $koneksi->prepare("UPDATE inventory SET stok = stok + :jumlah WHERE kode_barang = :kode_barang");
-          $query->bindParam(':jumlah', $jumlah);
-          $query->bindParam(':kode_barang', $no);
-          $query->execute();
+          //Jika sudah ada maka akan diakumulasikan jumlahnya
+          if ($query->rowCount() > 0) {
+            $query2 = $koneksi->prepare("UPDATE pengaruh SET jumlah = jumlah + :jumlah WHERE no_transaksi = :no_transaksi AND kode_barang = :kode_barang");
+            $query2->bindParam(':jumlah', $jumlah);
+            $query2->bindParam(':no_transaksi', $no_transaksi);
+            $query2->bindParam(':kode_barang', $no);
+            $query2->execute();
+          } else { //Jika belum ada maka data tersebut akan diinsert
+            $query2 = $koneksi->prepare("INSERT INTO pengaruh VALUES(:no_transaksi, :kode_barang, :nama_barang, :harga, :jumlah)");
+            $query2->bindParam(':no_transaksi', $no_transaksi);
+            $query2->bindParam(':kode_barang', $no);
+            $query2->bindParam(':nama_barang', $barang);
+            $query2->bindParam(':harga', $harga);
+            $query2->bindParam(':jumlah', $jumlah);
+            $query2->execute();
+          }
+
+          $query2 = $koneksi->prepare("UPDATE inventory SET stok = stok + :jumlah WHERE kode_barang = :kode_barang");
+          $query2->bindParam(':jumlah', $jumlah);
+          $query2->bindParam(':kode_barang', $no);
+          $query2->execute();
+
+
         }
       }
     }

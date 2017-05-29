@@ -17,7 +17,9 @@
   $query->bindParam(':total', $total);
   $query->execute();
 
+  //Mendeklarasikan array yang memuat kode barang dari masing-masing barang yang diinput user
   $arraykode = array();
+
   //Memasukkan data barang yang diinput
   for($n = 1; $n <11; $n++) { //1 - 10 berdasarkan jumlah jenis barang yang bisa dibeli
     if (!isset($_POST['no'.$n])) { //If Counter. Jika dynamic input box tidak ada / belum diisi
@@ -25,19 +27,24 @@
     } else {
       //Data-data barang yang disubmit
       $no = htmlspecialchars($_POST['no'.$n]);
-      array_push($arraykode, $no);
       $jumlah = htmlspecialchars($_POST['jumlah'.$n]);
 
-      $query2 = $koneksi->prepare("SELECT jumlah FROM pengaruh WHERE kode_barang = :kode_barang"); //Mengambil selisih antara jumlah barang di inventory dan jumlah barang yang diinput
+      //Memasukkan kode barang ke dalam array
+      array_push($arraykode, $no);
+
+      //Mengecek apakah barang tersebut ada di pengaruh atau tidak
+      //Mengambil selisih antara jumlah barang di inventory dan jumlah barang yang diinput
+      $query2 = $koneksi->prepare("SELECT kode_barang, jumlah FROM pengaruh WHERE kode_barang = :kode_barang AND no_transaksi = :no_transaksi");
       $query2->bindParam(':kode_barang', $no);
+      $query2->bindParam(':no_transaksi', $no_transaksi);
       $query2->execute();
       $row = $query2->fetch();
       $sum = $jumlah - $row['jumlah']; //Jumlah barang yang diinput dikurangi jumlah data yang di table pengaruh
 
-      $query2 = $koneksi->prepare("SELECT kode_barang FROM pengaruh WHERE no_transaksi = :no_transaksi AND kode_barang = :kode_barang"); //Mengecek apakah barang tersebut ada di pengaruh atau tidak
+      /*$query2 = $koneksi->prepare("SELECT kode_barang FROM pengaruh WHERE no_transaksi = :no_transaksi AND kode_barang = :kode_barang");
       $query2->bindParam(':no_transaksi', $no_transaksi);
       $query2->bindParam(':kode_barang', $no);
-      $query2->execute();
+      $query2->execute();*/
 
       if ($query2->rowCount() > 0) { //Jika ada
         $query2 = $koneksi->prepare("UPDATE inventory SET stok = stok + :stok WHERE kode_barang = :kode_barang");
@@ -58,13 +65,18 @@
     }
   }
 
+  //Mengambil data kode barang yang ada di tabel pengaruh dengan no transaksi sekarang
+  //Untuk mencari apakah data barang di tabel pengaruh sama dengan data barang diinput
   $query2 = $koneksi->prepare("SELECT kode_barang FROM pengaruh WHERE no_transaksi = :no_transaksi");
   $query2->bindParam(':no_transaksi', $no_transaksi);
   $query2->execute();
   $row = $query2->fetchAll(PDO::FETCH_COLUMN);
 
+  //Mencari data barang yang berbeda antara barang di tabel pengaruh dan barang yang diinput
   $result = array_diff($row, $arraykode);
 
+  //Untuk setiap data barang yang berbeda, maka data stok barang tersebut di tabel inventory akan dikurangi dengan jumlah barang di tabel pengaruh
+  //Agar data stok barang tersebut menjadi sama dengan data stok sebelum barang tersebut dibeli
   foreach ($result as $value) {
     $query2 = $koneksi->prepare("UPDATE inventory, pengaruh SET stok = stok - jumlah WHERE pengaruh.no_transaksi = :no_transaksi AND pengaruh.kode_barang = :kode_barang AND inventory.kode_barang = pengaruh.kode_barang");
     $query2->bindParam(':no_transaksi', $no_transaksi);
@@ -72,35 +84,42 @@
     $query2->execute();
   }
 
-  /*for ($i = 1; $i <= $n; $i++) {
-    $no = htmlspecialchars($_POST['no'.$i]);
-    while ($row = $query2->fetch();) {
-      if ($row['kode_barang'] != $no) {
-        $query2 = $koneksi->prepare("DELETE")
-      }
-    }
-  }*/
-
-
+  //Menghapus data pembelian di tabel pengaruh dengan no. transaksi sekarang
   $query2 = $koneksi->prepare("DELETE FROM pengaruh WHERE no_transaksi = :no_transaksi");
   $query2->bindParam(':no_transaksi', $no_transaksi);
   $query2->execute();
 
+  //Memasukkan data barang yang diinput ke dalam tabel pengaruh
   for($n = 1; $n <11; $n++) {
     if (!isset($_POST['no'.$n])) {
       break;
     } else {
-      $query2 = $koneksi->prepare("INSERT INTO pengaruh VALUES(:no_transaksi, :kode_barang, :nama_barang, :harga, :jumlah)");
-      $query2->bindParam(':no_transaksi', $no_transaksi);
       $no = htmlspecialchars($_POST['no'.$n]);
-      $query2->bindParam(':kode_barang', $no);
       $barang = htmlspecialchars($_POST['barang'.$n]);
-      $query2->bindParam(':nama_barang', $barang);
       $harga = htmlspecialchars($_POST['harga'.$n]);
-      $query2->bindParam(':harga', $harga);
       $jumlah = htmlspecialchars($_POST['jumlah'.$n]);
-      $query2->bindParam(':jumlah', $jumlah);
+
+      $query2 = $koneksi->prepare("SELECT * FROM pengaruh WHERE no_transaksi = :no_transaksi AND kode_barang = :kode_barang");
+      $query2->bindParam(':no_transaksi', $no_transaksi);
+      $query2->bindParam(':kode_barang', $no);
       $query2->execute();
+
+      //Jika sudah ada maka akan diakumulasikan jumlahnya
+      if ($query->rowCount() > 0) {
+        $query2 = $koneksi->prepare("UPDATE pengaruh SET jumlah = jumlah + :jumlah WHERE no_transaksi = :no_transaksi AND kode_barang = :kode_barang");
+        $query2->bindParam(':jumlah', $jumlah);
+        $query2->bindParam(':no_transaksi', $no_transaksi);
+        $query2->bindParam(':kode_barang', $no);
+        $query2->execute();
+      } else { //Jika belum ada maka data tersebut akan diinsert
+        $query2 = $koneksi->prepare("INSERT INTO pengaruh VALUES(:no_transaksi, :kode_barang, :nama_barang, :harga, :jumlah)");
+        $query2->bindParam(':no_transaksi', $no_transaksi);
+        $query2->bindParam(':kode_barang', $no);
+        $query2->bindParam(':nama_barang', $barang);
+        $query2->bindParam(':harga', $harga);
+        $query2->bindParam(':jumlah', $jumlah);
+        $query2->execute();
+      }
     }
   }
 ?>

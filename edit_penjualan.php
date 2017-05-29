@@ -2,7 +2,7 @@
   include 'koneksi.php';
 
   $no_transaksi = $_GET['no_transaksi'];
-  $query = $koneksi->prepare("SELECT * FROM pembelian WHERE no_transaksi = :no_transaksi");
+  $query = $koneksi->prepare("SELECT * FROM penjualan WHERE no_transaksi = :no_transaksi");
   $query->bindParam(':no_transaksi', $no_transaksi);
   $query->execute();
   $row = $query->fetch();
@@ -13,7 +13,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Edit Pembelian - Toko Zati Parts</title>
+    <title>Edit Penjualan - Toko Zati Parts</title>
     <link rel="stylesheet" href="css/jquery-ui.css" />
     <link rel="stylesheet" href="css/sweetalert.css" />
     <link rel="stylesheet" href="css/materialize.min.css" />
@@ -36,57 +36,51 @@
         </div>
     </nav>
     <div class="container">
-        <h3 class="center">EDIT PEMBELIAN</h3>
+        <h3 class="center">EDIT PENJUALAN</h3>
         <div class="row">
-          <form name="myform" method="post" action="sukses_edit_pembelian.php">
+          <form name="myform" action="sukses_penjualan.php" method="post">
             <div class="col s12">
                 No. Transaksi :
                 <div class="input-field inline">
-                    <input type="text" class="validate" name="no_transaksi" id="no_transaksi" value="<?php echo $row['no_transaksi']; ?>" readonly />
+                    <input type="text" id="no_transaksi" name="no_transaksi" class="validate" value="<?php echo $row['no_transaksi']; ?>" readonly />
                 </div>
             </div>
             <div class="col s12">
                 Tanggal :
                 <div class="input-field inline">
-                    <input type="date" id="datepicker" name="tanggal" autocomplete="off" value="<?php echo $row['tanggal']; ?>" />
+                    <input type="date" class="klik" id="datepicker" name="tanggal" autocomplete="off" value="<?php echo $row['tanggal']; ?>" />
                 </div>
             </div>
             <div class="col s12">
-                No. Faktur :
+                Masukkan Nama Konsumen :
                 <div class="input-field inline">
-                    <input type="text" class="validate" id="faktur" name="faktur" value="<?php echo $row['no_faktur']; ?>" autocomplete="off" />
+                    <input type="text" id="nama" name="nama" class="validate" onkeyup="firstUpperF(this)" autocomplete="off" value="<?php echo $row['nama']; ?>" />
+                </div>
+            </div>
+            <div class="col s12">
+                Masukkan Alamat Konsumen :
+                <div class="input-field inline">
+                    <input type="text" id="alamat" name="alamat" style="width:320px;" class="validate" autocomplete="off" value="<?php echo $row['alamat']; ?>" />
                 </div>
             </div>
             <div class="row"></div>
-            <div class="col s2">
-                Pilih Toko :
-            </div>
-            <div class="col s10">
-                <input name="toko" type="radio" id="toko1" value="Sartika Motor" onclick="autohitung()" <?php if ($row['toko'] == "Sartika Motor") echo "checked"; ?> />
-                <label for="toko1" style="color:black;">Sartika Motor</label>
-                <br />
-                <input name="toko" type="radio" id="toko2" value="Wijaya Motor" onchange="autohitung()" <?php if ($row['toko'] == "Wijaya Motor") echo "checked"; ?> />
-                <label for="toko2" style="color:black;">Wijaya Motor</label>
-                <br />
-                <input name="toko" type="radio" id="toko3" value="Ramayana Motor" onchange="autohitung()" <?php if ($row['toko'] == "Ramayana Motor") echo "checked"; ?> />
-                <label for="toko3" style="color:black;">Ramayana Motor</label>
-                <br />
-                <input name="toko" type="radio" id="toko4" value="Sarana Motor" onchange="autohitung()" <?php if ($row['toko'] == "Sarana Motor") echo "checked"; ?> />
-                <label for="toko4" style="color:black;">Sarana Motor</label>
-            </div>
-            <div class="row"></div>
-            <div class="row"></div>
             <div class="col s12">
-                Masukkan Pembelian :
+                Masukkan Penjualan :
             </div>
             <div class="row"></div>
-            <div id="gruppembelian">
+            <div id="gruppenjualan">
               <?php
-                $query2 = $koneksi->prepare("SELECT * FROM pengaruh WHERE no_transaksi = '$no_transaksi'");
+                $query2 = $koneksi->prepare("SELECT pengaruh.*, inventory.kode_barang, inventory.stok FROM pengaruh, inventory WHERE no_transaksi = :no_transaksi AND inventory.kode_barang = pengaruh.kode_barang");
+                $query2->bindParam(':no_transaksi', $no_transaksi);
                 $query2->execute();
+
+                /*$query3 = $koneksi->prepare("SELECT inventory.kode_barang, inventory.stok FROM inventory, pengaruh WHERE inventory.kode_barang = pengaruh.kode_barang AND pengaruh.no_transaksi = :no_transaksi");
+                $query3->bindParam(':no_transaksi', $no_transaksi);
+                $query3->execute();*/
+
                 $i = 1;
                 while ($row2 = $query2->fetch()) {
-                  echo "<div id = 'pembelian".$i."'>
+                  echo "<div id = 'penjualan".$i."'>
                           <div class = 'col s4'>
                             <center><label>No. Barang #".$i."</label></center>
                             <input type='text' id='no".$i."' name='no".$i."' class='center autocomplete' onkeyup='autofill(this), autohitung(), upperCaseF(this)' value='".$row2['kode_barang']."' />
@@ -105,6 +99,9 @@
                           <div class='col s12'>
                               <input type='text' name='hitung".$i."' id='hitung".$i."'value='".$row2['harga']."' hidden  />
                           </div>
+                          <div class='col s12'>
+                            <input type='text' name='stok".$i."' id='stok".$i."'value='".$row2['stok']."' hidden />
+                          </div>
                         </div>";
                   $i++;
                 }
@@ -119,19 +116,51 @@
                 <a class="waves-effect waves-light btn blue darken-1" id="hapus"><i class="material-icons left">delete</i>Hapus</a>
             </div>
             <div class="col s3"></div>
+            <div class="row"></div>
+            <div class="col s12">
+                Pilih Kurir :
+                <div class="inline">
+                  <input name="kurir" type="radio" id="kurir1" value="" <?php if ($row['kurir'] == "") echo "checked"; ?> />
+                  <label for="kurir1" style="color:black;">TIDAK ADA</label>
+                  <br />
+                  <input name="kurir" type="radio" id="kurir2" value="JNE REGULER" <?php if ($row['kurir'] == "JNE REGULER") echo "checked"; ?> />
+                  <label for="kurir2" style="color:black;">JNE REGULER</label>
+                  <br />
+                  <input name="kurir" type="radio" id="kurir3" value="JNE YES" <?php if ($row['kurir'] == "JNE YES") echo "checked"; ?> />
+                  <label for="kurir3" style="color:black;">JNE YES</label>
+                  <br />
+                  <input name="kurir" type="radio" id="kurir4" value="POS KILAT" <?php if ($row['kurir'] == "POS KILAT") echo "checked"; ?> />
+                  <label for="kurir4" style="color:black;">POS KILAT</label>
+                  <br />
+                  <input name="kurir" type="radio" id="kurir5" value="TIKI" <?php if ($row['kurir'] == "TIKI") echo "checked"; ?> />
+                  <label for="kurir5" style="color:black;">TIKI</label>
+                </div>
+            </div>
+            <div class="col s12">
+                Ongkos Kirim : Rp.
+                <div class="input-field inline">
+                    <input type="text" id="ongkir" name="ongkir" class="validate" autocomplete="off" value="<?php echo $row['ongkir']; ?>" />
+                </div>
+            </div>
+            <div class="col s12">
+                Masukkan No. Resi :
+                <div class="input-field inline">
+                    <input type="text" id="resi" name="resi" class="validate" onkeydown="upperCaseF(this)" autocomplete="off" value="<?php echo $row['no_resi']; ?>" />
+                </div>
+            </div>
             <div class="col s12">
                 Total Harga : Rp.
                 <div class="input-field inline">
-                  <input type="text" id="total" name="total" class="validate" value="<?php echo $row['total']; ?>" readonly />
+                    <input type="text" id="total" name="total" class="validate" value="<?php echo $row['total']; ?>" readonly />
                 </div>
             </div>
             <div class="row"></div>
             <div class="row"></div>
             <div class="col s6 center">
-                <a class="waves-effect waves-light btn green accent-4" id="edit"><i class="material-icons left">edit</i>Perbarui</a>
+                <a class="waves-effect waves-light btn green accent-4" id="konfirmasi"><i class="material-icons left">edit</i>Perbarui</a>
             </div>
             <div class="col s6 center">
-                <a class="waves-effect waves-light btn blue darken-1" <?php echo "href = 'lihat_pembelian.php?no_transaksi=".$row['no_transaksi']."'" ?> ><i class="material-icons left">cancel</i>Batal</a>
+                <a class="waves-effect waves-light btn blue darken-1" <?php echo "href = 'lihat_penjualan.php?no_transaksi=".$row['no_transaksi']."'" ?> ><i class="material-icons left">cancel</i>Batal</a>
             </div>
             <div class="row"></div>
             <div class="row"></div>
@@ -139,12 +168,12 @@
           </form>
         </div>
     </div>
-    <script type="text/javascript" src="js/materialize.min.js"></script>
+    <script type="text/javascript" src="js/materialize.js"></script>
     <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="js/jquery-ui.js"></script>
     <script type="text/javascript" src="js/datepicker-id.js"></script>
     <script type="text/javascript" src="js/sweetalert.js"></script>
-    <script type="text/javascript" src="js/pembelian.js"></script>
+    <script type="text/javascript" src="js/penjualan.js"></script>
 </body>
 
 </html>

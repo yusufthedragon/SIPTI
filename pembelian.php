@@ -1,10 +1,12 @@
 <?php
   include 'koneksi.php';
+
+  //Mengambil No. Transaksi terakhir untuk digunakan sebagai No. Transaksi baru
   $query = $koneksi->prepare("SELECT no_transaksi FROM pembelian ORDER BY no_transaksi DESC LIMIT 1");
   $query->execute();
   $row = $query->fetch();
-  $baris = $query->rowCount();
-  if ($baris < 1) {
+
+  if ($query->rowCount() < 1) {
     $row[0] = "PM0000";
   }
 ?>
@@ -96,7 +98,7 @@
                         <input type="text" name="jumlah1" id="jumlah1" class="center validate" onkeyup="autohitung()" autocomplete="off" />
                     </div>
                     <div class="col s3">
-                        <input type="text" name="harga1" id="harga1" class="center validate" hidden/>
+                        <input type="text" name="harga1" id="harga1" hidden/>
                     </div>
                     <div class="col s12">
                         <input type="text" name="hitung1" id="hitung1" hidden/>

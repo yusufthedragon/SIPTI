@@ -1,4 +1,4 @@
-var counter = myform.counter.value; //Variabel untuk dynamic input box
+var counter = parseInt(myform.counter.value); //Variabel untuk dynamic input box
 var total1;
 
 function upperCaseF(a) { //Fungsi untuk membuat input kapital secara otomatis
@@ -40,7 +40,6 @@ function autofill(x) { //Fungsi untuk mengisi input nama barang secara otomatis 
     if (obj.harga == null) { //Karena menggunakan fungsi onkeyup,
       obj.harga = 0; //maka selama input belum sesuai dengan isi tabel daftar barang, return value berupa nilai null
     }
-    obj2 = obj;
     $('#barang' + angka).val(obj.nama_barang);
     $('#harga' + angka).val(obj.harga);
     $('#hitung' + angka).val(obj.harga);
@@ -114,13 +113,13 @@ $(document).ready(function() {
       return false;
     }
     counter--;
-    $("#pembelian" + counter).remove(); //Menghapus input group
+    $("#pembelian" + counter).remove(); //Menghapus dynamic textbox terakhir
     autohitung();
   });
 
   $("#gajadi").click(function() {
     var kosong = true;
-    for (var y = 11; y >= counter - 1; y--) {
+    for (var y = 10; y >= counter - 1; y--) {
       $('#hitung' + y).val($('#no' + y).val());
       if (!$('#hitung' + y).val() == "") {
         kosong = false;
@@ -147,7 +146,7 @@ $(document).ready(function() {
   });
 
   $("#konfirmasi").click(function() {
-    for (var x = 11; x >= counter - 1; x--) {
+    for (var x = 1; x < 11; x++) {
       $('#hitung' + x).val($('#barang' + x).val());
       if ((myform.tanggal.value == "") || (myform.faktur.value == "") ||
       ((myform.toko1.checked == false) && (myform.toko2.checked == false) && (myform.toko3.checked == false) && (myform.toko4.checked == false))) {
@@ -158,6 +157,13 @@ $(document).ready(function() {
         swal({
           title: "Error!",
           text: "Pastikan No. Barang #" + x + " terisi atau tersedia di database!",
+          type: "error"
+        });
+        break;
+      } else if ($('#jumlah' + x).val() < 1) {
+        swal({
+          title: "Error!",
+          text: "Pastikan Jumlah Barang #" + x + " lebih dari 0!",
           type: "error"
         });
         break;
@@ -192,6 +198,13 @@ $(document).ready(function() {
         swal({
           title: "Error!",
           text: "Pastikan No. Barang #" + x + " terisi atau tersedia di database!",
+          type: "error"
+        });
+        break;
+      } else if ($('#jumlah' + x).val() < 1) {
+        swal({
+          title: "Error!",
+          text: "Pastikan Jumlah Barang #" + x + " lebih dari 0!",
           type: "error"
         });
         break;
