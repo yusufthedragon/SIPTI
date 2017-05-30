@@ -38,7 +38,7 @@
     <div class="container">
         <h3 class="center">EDIT PENJUALAN</h3>
         <div class="row">
-          <form name="myform" action="sukses_penjualan.php" method="post">
+          <form name="myform" action="sukses_edit_penjualan.php" method="post">
             <div class="col s12">
                 No. Transaksi :
                 <div class="input-field inline">

@@ -92,7 +92,7 @@
                         <input type="text" name="hitung1" id="hitung1" hidden/>
                     </div>
                     <div class="col s12">
-                        <input type="text" name="stok1" id="stok1" hidden/>
+                        <input type="text" name="stok1" id="stok1" hidden />
                     </div>
                 </div>
                 <input type="text" name="counter" id="counter" value=2 hidden />

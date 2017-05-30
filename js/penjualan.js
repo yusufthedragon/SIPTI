@@ -208,7 +208,7 @@ $(document).ready(function() {
           type: "error"
         });
         break;
-      } else if ($('#jumlah' + x).val() > $('#stok' + x).val()) {
+      } else if (parseInt($('#jumlah' + x).val()) > parseInt($('#stok' + x).val())) {
         swal({
           title: "Error!",
           text: "Barang #" + x +" hanya tersedia " + $('#stok' + x).val() + " buah di gudang!",

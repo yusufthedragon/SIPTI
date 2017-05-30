@@ -52,42 +52,43 @@
           </ul>
         </div>
       </div>
+      <div class="row"></div>
+      <div class="row"></div>
       <div class="row">
         <div class="col s12 m6 l6 center">
-          <img src="images/edit.png" alt="Edit" />
+          <img src="images/daftar-inventory.png" alt="Edit" />
           <br />
           <br />
           <a class="btn waves-effect waves-light" href="daftar_barang.php">Daftar Inventory</a>
         </div>
         <div class="col s12 m6 l6 center">
-          <img src="images/daftar-transaksi.png" />
+          <img src="images/laporan-toko.png" />
           <br />
           <br />
           <a class='dropdown-button btn waves-effect waves-light' data-activates='dropdown-laporan'>Laporan Toko</a>
           <ul id='dropdown-laporan' class='dropdown-content'>
-            <li><a href="laporan_pembelian.php">Daftar Pembelian</a></li>
+            <li><a href="periode_pembelian.php">Laporan Pembelian</a></li>
             <li class="divider"></li>
-            <li><a href="laporan_penjualan.php">Daftar Penjualan</a></li>
+            <li><a href="periode_penjualan.php">Laporan Penjualan</a></li>
             <li class="divider"></li>
-            <li><a href="laporan_inventory.php">Daftar Penjualan</a></li>
+            <li><a href="laporan_inventory.php" target="_blank">Laporan Inventory</a></li>
           </ul>
         </div>
       </div>
-
-      <br />
-      <br />
+      <div class="row"></div>
+      <div class="row"></div>
       <div class="row">
         <div class="col s6 m6 l6 center">
-          <img src="images/daftar-inventory.png" />
+          <img src="images/password.png" />
           <br />
           <br />
-          <a class="btn waves-effect waves-light" href="laporan_inventory.html">Laporan Inventory</a>
+          <a class="btn waves-effect waves-light" href="laporan_inventory.html">Ganti Password</a>
         </div>
         <div class="col s6 m6 l6 center">
-          <img src="images/laporan.png" />
+          <img src="images/logout.png" />
           <br />
           <br />
-          <a class="btn waves-effect waves-light" href="laporan_transaksi.html">Laporan Transaksi</a>
+          <a class="btn waves-effect waves-light" href="#">Log Out</a>
         </div>
       </div>
       <br />
@@ -95,8 +96,8 @@
     <footer class="page-footer grey darken-3">
       <div class="container">
         <div class="row">
-          <div class="col s12 l6">
-            <h5 class="white-text">Sistem Informasi Manajemen Inventori</h5>
+          <div class="col s12 s12">
+            <h5 class="white-text">Sistem Informasi Manajemen Transaksi &amp; Inventori</h5>
             <p class="grey-text text-lighten-4">Sistem Informasi Manajemen Inventori Toko Adi Parts</p>
           </div>
           <div class="col 14 offset-12 s12">

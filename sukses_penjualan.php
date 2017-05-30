@@ -195,7 +195,7 @@
           <a class="waves-effect waves-light btn blue darken-1" href="penjualan.php"><i class="material-icons left">input</i>Input Kembali</a>
         </div>
         <div class="col s6 center">
-          <a class="waves-effect waves-light btn red" href="index.php"><i class="material-icons left">arrow_forward</i>Kembali Ke Menu</a>
+          <a class="waves-effect waves-light btn blue darken-1" href="index.php"><i class="material-icons left">arrow_forward</i>Kembali Ke Menu</a>
         </div>
       </div>
       <div class="row"></div>
