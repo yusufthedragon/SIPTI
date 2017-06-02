@@ -1,8 +1,19 @@
 <?php
-  include('proses_login.php'); // Memasuk-kan skrip Login
-
-  if(isset($_SESSION['login_user'])){
+  session_start();
+  if(isset($_SESSION['login'])){
     header("location: index.php");
+  }
+
+  if (isset($_GET['error'])) {
+    $error = $_GET['error'];
+  } else $error = '';
+
+  $pesan = '';
+
+  if ($error != 1) {
+    $pesan = '';
+  }else {
+    $pesan = "Password Salah!";
   }
 ?>
 
@@ -17,6 +28,7 @@
         font-family: 'roboto', sans-serif;
         -webkit-transition: all 0.3s ease-in-out;
         transition: all 0.3s ease-in-out;
+        background-color: white;
       }
 
       h1 {
@@ -37,6 +49,7 @@
         box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.2);
         padding-bottom: 40px;
         border-radius: 3px;
+        background-color: white;
       }
 
       form h1 {
@@ -93,15 +106,19 @@
         transform: translateY(-3px);
         box-shadow: 0 6px 6px 0 rgba(0, 0, 0, 0.2);
       }
+
+      body {
+        background-image: url("images/a.jpg");
+        background-position: -300px -16px;
+      }
   </style>
 </head>
 <body>
-  <form method="post" action="login.php">
-    <center>
-      <h1>LOGIN ADMIN</h1>
-    </center>
-    <input placeholder="Password" type="password" name="password" required="">
-    <button type="submit" name="login">Submit</button>
+  <form method="post" action="proses_login.php">
+    <center><h1>LOGIN ADMIN</h1></center>
+    <input placeholder="admin" type="password" name="password" required="">
+    <button type="submit" name="login">Login</button>
+    <?php echo "<br /><br /><center>".$pesan."</center>"; ?>
   </form>
 </body>
 </html>

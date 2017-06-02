@@ -1,32 +1,24 @@
 <?php
   include 'koneksi.php';
 
-  session_start(); // Memulai Session
+  session_start();
 
-  $error=''; // Variabel untuk menyimpan pesan error
+  $error = "";
 
   if (isset($_POST['login'])) {
-  	if (empty($_POST['password'])) {
-  			$error = "Username or Password is invalid";
-  	}
-  	else
-  	{
-
-  		$password = htmlspecialchars($_POST['password']);
-
-      $password = password_hash($password, PASSWORD_DEFAULT);
-
-  		// SQL query untuk memeriksa apakah karyawan terdapat di database?
-  		$query = $koneksi->prepare("SELECT * FROM user WHERE password = :password");
+      $password = htmlspecialchars($_POST['password']);
+    	// SQL query untuk memeriksa apakah karyawan terdapat di database?
+    	$query = $koneksi->prepare("SELECT * FROM user");
       $query->bindParam(':password', $password);
-  		$query->execute();
+    	$query->execute();
+      $row = $query->fetch();
 
-  			if ($query->rowCount() == 1) {
-  				$_SESSION['login_user'] = 'admin'; // Membuat Sesi/session
-                      header("location: index.php"); // Mengarahkan ke halaman profil
-  				} else {
-                      $error = "Username atau Password belum terdaftar";
-  				}
-  	}
-  }
+    	if (password_verify($password, $row['password'])) {
+    		$_SESSION['login'] = true; // Membuat Sesi/session
+        header("Location: index.php"); // Mengarahkan ke halaman profil
+    	} else {
+        header("Location: login.php?error=1");
+    	}
+
+    }
 ?>

@@ -1,74 +1,77 @@
 <?php
   include 'koneksi.php';
 
+  session_start(); //Memulai session
+  if (!isset($_SESSION['login'])){ //Jika session belum diset/user belum login
+    header("location: login.php"); //Maka akan dialihkan ke halaman login
+  }
+
   //Mengambil No. Transaksi terakhir untuk digunakan sebagai No. Transaksi baru
   $query = $koneksi->prepare("SELECT no_transaksi FROM penjualan ORDER BY no_transaksi DESC LIMIT 1");
   $query->execute();
   $row = $query->fetch();
 
-  if ($query->rowCount() < 1) {
+  if ($query->rowCount() < 1) { //Jika tidak ada data No. Transaksi di database
     $row[0] = "PN0000";
   }
 ?>
 
 <!DOCTYPE html>
 <html>
-
-<head>
+  <head>
     <meta charset="utf-8">
     <title>Transaksi Penjualan - Toko Zati Parts</title>
+    <link rel="shortcut icon" href="images/logo.png" />
     <link rel="stylesheet" href="css/jquery-ui.css" />
     <link rel="stylesheet" href="css/sweetalert.css" />
-    <link rel="stylesheet" href="css/materialize.min.css" />
+    <link rel="stylesheet" href="css/materialize.css" />
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-</head>
-
-<body>
-
+  </head>
+  <body>
     <nav>
-        <div class="nav-wrapper grey darken-3">
-          <a href="index.php" class="brand-logo center">
-            <i class="material-icons left">shopping_cart&nbsp;&nbsp;</i>
-            <i class="material-icons left">event_note&nbsp;&nbsp;</i>
-            <i class="material-icons left">store</i>
-            <i class="material-icons right">exit_to_app</i>
-            <i class="material-icons right">account_circle</i>
-            <i class="material-icons right">assessment</i>
-            TOKO ZATI PARTS
-          </a>
-        </div>
+      <div class="nav-wrapper grey darken-3">
+        <a href="index.php" class="brand-logo center">
+          <i class="material-icons left hide-on-med-and-down">shopping_cart&nbsp;&nbsp;</i>
+          <i class="material-icons left hide-on-med-and-down">event_note&nbsp;&nbsp;</i>
+          <i class="material-icons left hide-on-med-and-down">store</i>
+          <i class="material-icons right hide-on-med-and-down">exit_to_app</i>
+          <i class="material-icons right hide-on-med-and-down">account_circle</i>
+          <i class="material-icons right hide-on-med-and-down">assessment</i>
+          TOKO ZATI PARTS
+        </a>
+      </div>
     </nav>
     <div class="container">
-        <h3 class="center">TRANSAKSI PENJUALAN</h3>
-        <div class="row">
-          <form name="myform" action="sukses_penjualan.php" method="post">
-            <div class="col s12">
-                No. Transaksi :
-                <div class="input-field inline">
-                    <input type="text" id="no_transaksi" name="no_transaksi" class="validate" value="<?php echo ++$row[0]; ?>" readonly />
-                </div>
+      <h3 class="center">TRANSAKSI PENJUALAN</h3>
+      <div class="row">
+        <form name="myform" action="sukses_penjualan.php" method="post">
+          <div class="col s12">
+            No. Transaksi :
+            <div class="input-field inline">
+                <input type="text" id="no_transaksi" name="no_transaksi" class="validate" value="<?php echo ++$row[0]; ?>" readonly />
             </div>
-            <div class="col s12">
-                Tanggal :
-                <div class="input-field inline">
-                    <input type="date" class="klik" id="datepicker" name="tanggal" autocomplete="off" />
-                </div>
+          </div>
+          <div class="col s12">
+            Tanggal :
+            <div class="input-field inline">
+                <input type="date" class="klik" id="datepicker" name="tanggal" autocomplete="off" />
             </div>
-            <div class="col s12">
-                Masukkan Nama Konsumen :
-                <div class="input-field inline">
-                    <input type="text" id="nama" name="nama" class="validate" onkeyup="firstUpperF(this)" autocomplete="off" />
-                </div>
+          </div>
+          <div class="col s12">
+            Masukkan Nama Konsumen :
+            <div class="input-field inline">
+                <input type="text" id="nama" name="nama" class="validate" onkeyup="firstUpperF(this)" autocomplete="off" />
             </div>
+          </div>
             <div class="col s12">
-                Masukkan Alamat Konsumen :
-                <div class="input-field inline">
-                    <input type="text" id="alamat" name="alamat" style="width:320px;" class="validate" autocomplete="off" />
-                </div>
+              Masukkan Alamat Konsumen :
+              <div class="input-field inline">
+                  <input type="text" id="alamat" name="alamat" style="width:320px;" class="validate" autocomplete="off" />
+              </div>
             </div>
             <div class="row"></div>
             <div class="col s12">
-                Masukkan Penjualan :
+              Masukkan Penjualan :
             </div>
             <div class="row"></div>
             <div id="gruppenjualan">

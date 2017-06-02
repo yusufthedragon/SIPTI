@@ -6,7 +6,7 @@
     <title>Laporan Penjualan - Toko Zati Parts</title>
     <link rel="stylesheet" href="css/jquery-ui.css" />
     <link rel="stylesheet" href="css/sweetalert.css" />
-    <link rel="stylesheet" href="css/materialize.min.css" />
+    <link rel="stylesheet" href="css/materialize.css" />
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 

@@ -1,10 +1,17 @@
+<?php
+  session_start();
+  if(!isset($_SESSION['login'])){
+    header("location: login.php");
+  }
+?>
+
 <!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
     <title>Daftar Inventory - Toko Zati Parts</title>
     <link rel="stylesheet" href="css/jquery.dataTables.css" />
-    <link rel="stylesheet" href="css/materialize.min.css" />
+    <link rel="stylesheet" href="css/materialize.css" />
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script type="text/javascript" src="js/materialize.min.js"></script>
     <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
