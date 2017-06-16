@@ -3,7 +3,7 @@
 
   $no_transaksi = $_GET['no_transaksi'];
 
-  $query = $koneksi->prepare("SELECT * FROM penjualan WHERE no_transaksi = '$no_transaksi'");
+  $query = $koneksi->prepare("SELECT * FROM pembelian WHERE no_transaksi = '$no_transaksi'");
   $query->execute();
   $row = $query->fetch();
 
@@ -13,7 +13,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Lihat Penjualan - Toko Zati Parts</title>
+    <title>Detail Pembelian - Toko Zati Parts</title>
     <link rel="stylesheet" href="css/materialize.css" />
     <link rel="stylesheet" href="css/sweetalert.css" />
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -38,7 +38,7 @@
     <div id="keterangan"></div>
 
     <div class="container">
-      <h3 class="center">TRANSAKSI PENJUALAN</h3>
+      <h3 class="center">DETAIL PEMBELIAN</h3>
       <div class="row">
         <div class="col s12">
           No. Transaksi :
@@ -53,45 +53,17 @@
           </div>
         </div>
         <div class="col s12">
-            Nama Konsumen :
+            No. Faktur :
             <div class="input-field inline">
-              <input type="text" class="validate" name="faktur" value="<?php echo $row['nama']; ?>" readonly />
+              <input type="text" class="validate" id="faktur" name="faktur" value="<?php echo $row['no_faktur']; ?>" readonly />
             </div>
         </div>
-        <?php
-        if($row['alamat'] != "") {
-          echo "<div class='col s12'>
-              Alamat Konsumen :
-              <div class='input-field inline'>
-                <input type='text' class='validate' value='".$row['alamat']."' style='width:320px;' readonly />
-              </div>
-          </div>";
-        }
-        if ($row['kurir'] != "") {
-        echo "<div class='col s12'>
-          Kurir Pengiriman :
-          <div class='input-field inline'>
-            <input type='text' class='validate' value='".$row['kurir']."' readonly />
-          </div>
-        </div>";
-        }
-        if($row['ongkir'] != 0) {
-          echo "<div class='col s12'>
-            Ongkos Kirim : Rp.
-            <div class='input-field inline'>
-              <input type='text' class='validate' value='".number_format($row['ongkir'], 0, '', '.')."' readonly />
+        <div class="col s12">
+            Nama Toko :
+            <div class="input-field inline">
+              <input type="text" class="validate" id="toko" value="<?php echo $row['toko']; ?>" readonly />
             </div>
-          </div>";
-        }
-        if($row['no_resi'] != "") {
-          echo "<div class='col s12'>
-            No. Resi :
-            <div class='input-field inline'>
-              <input type='text' class='validate' value='".$row['no_resi']."' readonly />
-            </div>
-          </div>";
-        }
-        ?>
+        </div>
       </div>
       <div class="row">
         <div class="col s12">
@@ -106,8 +78,7 @@
             </thead>
             <tbody>
               <?php
-                $query2 = $koneksi->prepare("SELECT * FROM pengaruh WHERE no_transaksi = :no_transaksi");
-                $query2->bindParam(':no_transaksi', $no_transaksi);
+                $query2 = $koneksi->prepare("SELECT * FROM pengaruh WHERE no_transaksi = '$no_transaksi'");
                 $query2->execute();
 
                 while($row2 = $query2->fetch()) {
@@ -121,7 +92,6 @@
             </tbody>
           </table>
         </div>
-        <div class="row"></div>
         <div class="col s12">
           Total Pembelian : Rp.
           <div class="input-field inline">
@@ -131,13 +101,13 @@
         <div class="row"></div>
         <div class="row"></div>
         <div class="col s4 center">
-          <a class="waves-effect waves-light btn red" onclick="hapus()"><i class="material-icons left">delete</i>Hapus Pembelian</a>
+          <a class="waves-effect waves-light btn red" onclick="hapus()"><i class="material-icons left">delete</i>Hapus Transaksi</a>
         </div>
         <div class="col s4 center">
-          <a class="waves-effect waves-light btn green accent-4" <?php echo "href='edit_penjualan.php?no_transaksi=".$row['no_transaksi']."'"; ?>><i class="material-icons left">edit</i>Edit Pembelian</a>
+          <a class="waves-effect waves-light btn green accent-4" <?php echo "href='edit_pembelian.php?no_transaksi=".$row['no_transaksi']."'"; ?>><i class="material-icons left">edit</i>Edit Transaksi</a>
         </div>
         <div class="col s4 center">
-          <a class="waves-effect waves-light btn blue darken-1" href="daftar_penjualan.php"><i class="material-icons left">arrow_forward</i>Kembali</a>
+          <a class="waves-effect waves-light btn blue darken-1" href="daftar_pembelian.php"><i class="material-icons left">arrow_forward</i>Kembali</a>
         </div>
       </div>
       <div class="row"></div>
@@ -162,7 +132,7 @@
           if (isConfirm) {
             var no_transaksi = $("#no_transaksi").val();
             $.ajax({
-              url: 'ajax_hapus_penjualan.php',
+              url: 'ajax_hapus_pembelian.php',
               dataType: "html",
               data: 'no_transaksi=' + no_transaksi,
             }).success(function(data) {

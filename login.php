@@ -1,28 +1,38 @@
 <?php
-  session_start();
+  include 'proses_login.php';
+
   if(isset($_SESSION['login'])){
     header("location: index.php");
   }
 
-  if (isset($_GET['error'])) {
-    $error = $_GET['error'];
-  } else $error = '';
-
   $pesan = '';
 
-  if ($error != 1) {
-    $pesan = '';
-  }else {
-    $pesan = "Password Salah!";
-  }
 ?>
 
 <!DOCTYPE html>
 <html>
 <head>
   <link rel="shortcut icon" href="images/logo.png" />
-  <title>Login</title>
+  <title>Sign In - Toko Zati Parts</title>
   <link href='http://fonts.googleapis.com/css?family=Roboto:400' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="css/sweetalert.css" />
+  <script type="text/javascript" src="js/sweetalert.js"></script>
+  <script type="text/javascript">
+    <?php
+      if ($error != 1) {
+        $pesan = '';
+      } else {
+        $pesan = "<script>
+        swal({
+              title: 'SIGN IN GAGAL!',
+              text: 'Password Salah!',
+              type: 'error',
+              timer: 2000
+            });
+        </script>";
+      }
+    ?>
+  </script>
   <style>
       h1, input::-webkit-input-placeholder, button {
         font-family: 'roboto', sans-serif;
@@ -114,11 +124,11 @@
   </style>
 </head>
 <body>
-  <form method="post" action="proses_login.php">
+  <form method="post" action="">
     <center><h1>LOGIN ADMIN</h1></center>
     <input placeholder="admin" type="password" name="password" required="">
-    <button type="submit" name="login">Login</button>
-    <?php echo "<br /><br /><center>".$pesan."</center>"; ?>
+    <button type="submit" name="login">SIGN IN</button>
+    <?php echo $pesan; ?>
   </form>
 </body>
 </html>

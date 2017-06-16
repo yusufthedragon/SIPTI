@@ -17,7 +17,7 @@
     		$_SESSION['login'] = true; // Membuat Sesi/session
         header("Location: index.php"); // Mengarahkan ke halaman profil
     	} else {
-        header("Location: login.php?error=1");
+        $error = 1;
     	}
 
     }

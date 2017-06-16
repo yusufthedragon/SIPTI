@@ -6,7 +6,7 @@
   $tanggal = htmlspecialchars($_POST['tanggal']);
   $no_faktur = htmlspecialchars($_POST['faktur']);
   $toko = htmlspecialchars($_POST['toko']);
-  $total = htmlspecialchars($_POST['total']);
+  $total = str_replace(".", "", htmlspecialchars($_POST['total']));
 
   //Mengubah data pembelian berdasarkan input yang disubmit
   $query = $koneksi->prepare("UPDATE pembelian SET tanggal = :tanggal, no_faktur = :faktur, toko = :toko, total = :total WHERE no_transaksi = :no_transaksi");
@@ -99,27 +99,13 @@
       $harga = htmlspecialchars($_POST['harga'.$n]);
       $jumlah = htmlspecialchars($_POST['jumlah'.$n]);
 
-      $query2 = $koneksi->prepare("SELECT * FROM pengaruh WHERE no_transaksi = :no_transaksi AND kode_barang = :kode_barang");
+      $query2 = $koneksi->prepare("INSERT INTO pengaruh VALUES(:no_transaksi, :kode_barang, :nama_barang, :harga, :jumlah)");
       $query2->bindParam(':no_transaksi', $no_transaksi);
       $query2->bindParam(':kode_barang', $no);
+      $query2->bindParam(':nama_barang', $barang);
+      $query2->bindParam(':harga', $harga);
+      $query2->bindParam(':jumlah', $jumlah);
       $query2->execute();
-
-      //Jika sudah ada maka akan diakumulasikan jumlahnya
-      if ($query->rowCount() > 0) {
-        $query2 = $koneksi->prepare("UPDATE pengaruh SET jumlah = jumlah + :jumlah WHERE no_transaksi = :no_transaksi AND kode_barang = :kode_barang");
-        $query2->bindParam(':jumlah', $jumlah);
-        $query2->bindParam(':no_transaksi', $no_transaksi);
-        $query2->bindParam(':kode_barang', $no);
-        $query2->execute();
-      } else { //Jika belum ada maka data tersebut akan diinsert
-        $query2 = $koneksi->prepare("INSERT INTO pengaruh VALUES(:no_transaksi, :kode_barang, :nama_barang, :harga, :jumlah)");
-        $query2->bindParam(':no_transaksi', $no_transaksi);
-        $query2->bindParam(':kode_barang', $no);
-        $query2->bindParam(':nama_barang', $barang);
-        $query2->bindParam(':harga', $harga);
-        $query2->bindParam(':jumlah', $jumlah);
-        $query2->execute();
-      }
     }
   }
 ?>

@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="css/sweetalert.css" />
     <link rel="stylesheet" href="css/materialize.css" />
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script type="text/javascript" src="js/sweetalert.js"></script>
   </head>
   <body>
 
@@ -73,10 +74,9 @@
       </div>
       <div class="row"></div>
     </div>
-    <script type="text/javascript" src="js/materialize.min.js"></script>
+    <script type="text/javascript" src="js/materialize.js"></script>
     <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="js/jquery-ui.js"></script>
-    <script type="text/javascript" src="js/sweetalert.js"></script>
     <script type="text/javascript">
       function upperCaseF(a) { //Fungsi untuk membuat input kapital secara otomatis
         setTimeout(function() {

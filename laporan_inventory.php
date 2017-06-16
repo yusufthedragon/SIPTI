@@ -72,10 +72,9 @@
   $pdf->SetY(21);
   $pdf->SetX(94);
   $pdf->Cell(30, 9,'Per '.$tanggalsekarang,0,0,'C');
-  $pdf->Ln();
 
   //Fields Name position
-  $Y_Fields_Name_position = 30;
+  $Y_Fields_Name_position = 32;
 
   //First create each Field Name
   //Gray color filling each Field Name box
@@ -96,7 +95,7 @@
   $pdf->Ln();
 
   //Table position, under Fields Name
-  $Y_Table_Position = 38;
+  $Y_Table_Position = 40;
 
   //Now show the columns
   $pdf->SetFont('Times','', 9);

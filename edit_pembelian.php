@@ -122,13 +122,13 @@
             <div class="col s12">
                 Total Harga : Rp.
                 <div class="input-field inline">
-                  <input type="text" id="total" name="total" class="validate" value="<?php echo $row['total']; ?>" readonly />
+                  <input type="text" id="total" name="total" class="validate" value="<?php echo number_format($row['total'], 0, "", "."); ?>" readonly />
                 </div>
             </div>
             <div class="row"></div>
             <div class="row"></div>
             <div class="col s6 center">
-                <a class="waves-effect waves-light btn green accent-4" id="edit"><i class="material-icons left">edit</i>Perbarui</a>
+                <a class="waves-effect waves-light btn green accent-4" id="konfirmasi"><i class="material-icons left">edit</i>Perbarui</a>
             </div>
             <div class="col s6 center">
                 <a class="waves-effect waves-light btn blue darken-1" <?php echo "href = 'lihat_pembelian.php?no_transaksi=".$row['no_transaksi']."'" ?> ><i class="material-icons left">cancel</i>Batal</a>

@@ -96,7 +96,7 @@
           <img src="images/logout.png" />
           <br />
           <br />
-          <a class="btn waves-effect waves-light grey darken-3" href="logout.php"><i class="material-icons left">exit_to_app</i>Log Out</a>
+          <a class="btn waves-effect waves-light grey darken-3" href="logout.php"><i class="material-icons left">exit_to_app</i>Sign Out</a>
         </div>
       </div>
       <br />

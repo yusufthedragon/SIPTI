@@ -6,12 +6,15 @@
     header("location: login.php"); //Maka akan dialihkan ke halaman login
   }
 
+  //Menerima variabel counter
+  $counter = htmlspecialchars($_POST['counter']);
+
   //Menerima data yang diinput user
   $no_transaksi = htmlspecialchars($_POST['no_transaksi']);
   $tanggal = htmlspecialchars($_POST['tanggal']);
   $no_faktur = htmlspecialchars($_POST['faktur']);
   $toko = htmlspecialchars($_POST['toko']);
-  $total = htmlspecialchars($_POST['total']);
+  $total = str_replace(".", "", htmlspecialchars($_POST['total']));
 
   try {
     //Memasukkan data ke database
@@ -48,30 +51,26 @@
               });
             }
             </script>";
-      for($n = 1; $n <11; $n++) {
-        if (!isset($_POST['no'.$n])) { //Jika No. Barang tidak ada/dynamic textbox tidak dibuat
-          break;
-        } else { //Jika tidak, menerima data yang diinput user
-          $no = htmlspecialchars($_POST['no'.$n]);
-          $barang = htmlspecialchars($_POST['barang'.$n]);
-          $harga = htmlspecialchars($_POST['harga'.$n]);
-          $jumlah = htmlspecialchars($_POST['jumlah'.$n]);
+      for($n = 1; $n < $counter; $n++) {
+        $no = htmlspecialchars($_POST['no'.$n]);
+        $barang = htmlspecialchars($_POST['barang'.$n]);
+        $harga = htmlspecialchars($_POST['harga'.$n]);
+        $jumlah = htmlspecialchars($_POST['jumlah'.$n]);
 
-          //Memasukkan data ke database
-          $query = $koneksi->prepare("INSERT INTO pengaruh VALUES(:no_transaksi, :kode_barang, :nama_barang, :harga, :jumlah)");
-          $query->bindParam(':no_transaksi', $no_transaksi);
-          $query->bindParam(':kode_barang', $no);
-          $query->bindParam(':nama_barang', $barang);
-          $query->bindParam(':harga', $harga);
-          $query->bindParam(':jumlah', $jumlah);
-          $query->execute();
+        //Memasukkan data ke database
+        $query = $koneksi->prepare("INSERT INTO pengaruh VALUES(:no_transaksi, :kode_barang, :nama_barang, :harga, :jumlah)");
+        $query->bindParam(':no_transaksi', $no_transaksi);
+        $query->bindParam(':kode_barang', $no);
+        $query->bindParam(':nama_barang', $barang);
+        $query->bindParam(':harga', $harga);
+        $query->bindParam(':jumlah', $jumlah);
+        $query->execute();
 
-          //Memperbarui stok pada inventory
-          $query = $koneksi->prepare("UPDATE inventory SET stok = stok + :jumlah WHERE kode_barang = :kode_barang");
-          $query->bindParam(':jumlah', $jumlah);
-          $query->bindParam(':kode_barang', $no);
-          $query->execute();
-        }
+        //Memperbarui stok pada inventory
+        $query = $koneksi->prepare("UPDATE inventory SET stok = stok + :jumlah WHERE kode_barang = :kode_barang");
+        $query->bindParam(':jumlah', $jumlah);
+        $query->bindParam(':kode_barang', $no);
+        $query->execute();
       }
     }
   }
@@ -142,7 +141,7 @@
             </thead>
             <tbody>
               <?php
-                for ($x = 1; $x <11; $x++) {
+                for ($x = 1; $x < $counter; $x++) {
                   if (!isset($_POST['no'.$x])) { //Jika No. Barang tidak ada/dynamic textbox tidak dibuat
                     break;
                   } else { //Jika tidak, memunculkan data barang-barang yang dibeli

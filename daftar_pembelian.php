@@ -49,7 +49,7 @@
               <?php
                 while ($row = $query->fetch()) {
                   echo "<tr>
-                  <td><a href = 'lihat_pembelian.php?no_transaksi=".$row['no_transaksi']."'>".$row['no_transaksi']."</a></td>
+                  <td><a href = 'detail_pembelian.php?no_transaksi=".$row['no_transaksi']."'>".$row['no_transaksi']."</a></td>
                   <td>".$row['tanggal']."</td>
                   <td>".$row['no_faktur']."</td>
                   <td>Rp. ".number_format($row['total'], 0, '', '.')."</td>

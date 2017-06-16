@@ -12,4 +12,5 @@
     print "Koneksi atau Query bermasalah: ".$e->getMessage()."<br/>"; //tampilkan pesan kesalahan kalau koneksi gagal
     die();
   }
+  
 ?>

@@ -130,7 +130,7 @@ $(document).ready(function() {
       }
     }
     if ((myform.tanggal.value != "") || (myform.nama.value != "") || (myform.alamat.value != "")
-    || ((myform.kurir1.checked != false) || (myform.kurir2.checked != false) || (myform.kurir3.checked != false) || (myform.kurir4.checked != false))
+    || ((myform.kurir2.checked != false) || (myform.kurir3.checked != false) || (myform.kurir4.checked != false))
     || (myform.ongkir.value != "") || (myform.resi.value != "") || (kosong == false)) {
       swal({
         title: "Anda yakin?",
