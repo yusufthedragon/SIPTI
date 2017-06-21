@@ -1,7 +1,9 @@
 <?php
-  session_start();
-  if(!isset($_SESSION['login'])){
-    header("location: login.php");
+  include 'koneksi.php';
+
+  session_start(); //Memulai session
+  if (!isset($_SESSION['login'])) { //Jika session belum diset/user belum login
+    header("location: login.php"); //Maka akan dialihkan ke halaman login
   }
 ?>
 
@@ -10,29 +12,28 @@
   <head>
     <meta charset="utf-8">
     <title>Daftar Inventory - Toko Zati Parts</title>
+    <link rel="shortcut icon" href="images/logo.png" />
     <link rel="stylesheet" href="css/jquery.dataTables.css" />
     <link rel="stylesheet" href="css/materialize.css" />
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <script type="text/javascript" src="js/materialize.min.js"></script>
+    <script type="text/javascript" src="js/materialize.js"></script>
     <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="js/jquery.dataTables.js"></script>
   </head>
   <body>
-
     <nav>
-        <div class="nav-wrapper grey darken-3">
-          <a href="index.php" class="brand-logo center">
-            <i class="material-icons left">shopping_cart&nbsp;&nbsp;</i>
-            <i class="material-icons left">event_note&nbsp;&nbsp;</i>
-            <i class="material-icons left">store</i>
-            <i class="material-icons right">exit_to_app</i>
-            <i class="material-icons right">account_circle</i>
-            <i class="material-icons right">assessment</i>
-            TOKO ZATI PARTS
-          </a>
-        </div>
+      <div class="nav-wrapper grey darken-3">
+        <a href="index.php" class="brand-logo center">
+          <i class="material-icons left">shopping_cart&nbsp;&nbsp;</i>
+          <i class="material-icons left">event_note&nbsp;&nbsp;</i>
+          <i class="material-icons left">store</i>
+          <i class="material-icons right">exit_to_app</i>
+          <i class="material-icons right">account_circle</i>
+          <i class="material-icons right">assessment</i>
+          TOKO ZATI PARTS
+        </a>
+      </div>
     </nav>
-
     <div class="container">
       <div class="row">
         <div class="col s12">
@@ -47,8 +48,7 @@
           </thead>
           <tbody>
             <?php
-              include 'koneksi.php';
-
+              //Mengambil data barang yang ada di Inventory
               $query = $koneksi->prepare("SELECT kode_barang, nama_barang, harga, stok FROM inventory");
               $query->execute();
 
@@ -58,6 +58,12 @@
                 <td>".$row['nama_barang']."</td>
                 <td> Rp. ".number_format($row['harga'], 0, ".", ".")."</td>
                 <td>".$row['stok']."</td>
+                </tr>";
+              }
+
+              if ($query->rowCount() == 0) {
+                echo "<tr>
+                <td colspan='4'><center>Tidak ada data barang.</center></td>
                 </tr>";
               }
             ?>

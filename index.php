@@ -1,6 +1,6 @@
 <?php
   session_start(); //Memulai session
-  if(!isset($_SESSION['login'])){ //Jika session belum diset/user belum login
+  if (!isset($_SESSION['login'])) { //Jika session belum diset/user belum login
     header("location: login.php"); //Maka akan dialihkan ke halaman login
   }
 ?>
@@ -134,5 +134,4 @@
     <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="js/materialize.js"></script>
   </body>
-
 </html>

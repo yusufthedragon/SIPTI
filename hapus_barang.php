@@ -1,35 +1,40 @@
+<?php
+  session_start(); //Memulai session
+  if (!isset($_SESSION['login'])) { //Jika session belum diset/user belum login
+    header("location: login.php"); //Maka akan dialihkan ke halaman login
+  }
+?>
+
 <!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
     <title>Hapus Data Barang - Toko Zati Parts</title>
+    <link rel="shortcut icon" href="images/logo.png" />
     <link rel="stylesheet" href="css/jquery-ui.css" />
     <link rel="stylesheet" href="css/sweetalert.css" />
     <link rel="stylesheet" href="css/materialize.css" />
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   </head>
   <body>
-
     <nav>
-        <div class="nav-wrapper grey darken-3">
-          <a href="index.php" class="brand-logo center">
-            <i class="material-icons left">shopping_cart&nbsp;&nbsp;</i>
-            <i class="material-icons left">event_note&nbsp;&nbsp;</i>
-            <i class="material-icons left">store</i>
-            <i class="material-icons right">exit_to_app</i>
-            <i class="material-icons right">account_circle</i>
-            <i class="material-icons right">assessment</i>
-            TOKO ZATI PARTS
-          </a>
-        </div>
+      <div class="nav-wrapper grey darken-3">
+        <a href="index.php" class="brand-logo center">
+          <i class="material-icons left">shopping_cart&nbsp;&nbsp;</i>
+          <i class="material-icons left">event_note&nbsp;&nbsp;</i>
+          <i class="material-icons left">store</i>
+          <i class="material-icons right">exit_to_app</i>
+          <i class="material-icons right">account_circle</i>
+          <i class="material-icons right">assessment</i>
+          TOKO ZATI PARTS
+        </a>
+      </div>
     </nav>
-
     <div id="keterangan"></div>
-
     <div class="container">
       <h3 class="center">HAPUS BARANG</h3>
       <div class="row">
-        <form name="myform" method="post" action="daftar_barang.php">
+        <form name="myform">
           <div class="col s12">
             Masukkan Kode Barang:
             <div class="input-field inline">
@@ -67,7 +72,7 @@
       </div>
       <div class="row"></div>
     </div>
-    <script type="text/javascript" src="js/materialize.min.js"></script>
+    <script type="text/javascript" src="js/materialize.js"></script>
     <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="js/jquery-ui.js"></script>
     <script type="text/javascript" src="js/sweetalert.js"></script>
@@ -79,12 +84,12 @@
       }
 
       $(function() { //Fungsi untuk mengambil daftar barang dari database
-        $("#kode").autocomplete({ //dan mempopulasikannya di input kode barang secara otomatis
-          source: 'search_barang.php'
+        $("#kode").autocomplete({ //dan mempopulasikannya di input Kode Barang secara otomatis
+          source: 'search_barang_pembelian.php'
         });
       });
 
-      function autofill() {
+      function autofill() { //Fungsi untuk mengisi form Nama Barang, Harga, dan Jumlah secara otomatis
         var no = $("#kode").val();
         $.ajax({
           url: 'ajax_barang.php',
@@ -102,10 +107,17 @@
       function hapus() {
         if (myform.kode.value == "") {
           swal({
-             title: "Error!",
-             text: "Harap mengisi data Kode Barang!",
-             timer: 2000,
-             type: "error"
+            title: "KODE BARANG KOSONG!",
+            text: "Harap mengisi data Kode Barang!",
+            timer: 2000,
+            type: "error"
+           });
+        } else if (myform.nama.value == "") {
+          swal({
+            title: "KODE BARANG TIDAK TERDAFTAR!",
+            text: "Pastikan Kode Barang terdaftar di database!",
+            timer: 2000,
+            type: "error"
            });
         } else {
           swal({
@@ -125,8 +137,8 @@
                 dataType: "html",
                 data: 'kode=' + kode,
               }).success(function(data) {
-                    $('#keterangan').html(data);
-                });
+                $('#keterangan').html(data);
+              });
             }
           });
         }

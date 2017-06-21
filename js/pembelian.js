@@ -1,5 +1,4 @@
 var counter = parseInt(myform.counter.value); //Variabel untuk dynamic input box
-var total1; //Variabel untuk menyalin
 
 function upperCaseF(a) { //Fungsi untuk membuat input kapital secara otomatis
   setTimeout(function() {
@@ -46,7 +45,6 @@ function autofill(x) { //Fungsi untuk mengisi input Nama Barang secara otomatis 
 }
 
 function autohitung() { //Fungsi untuk mengisi Total secara otomatis
-  console.log($('#harga' + n).val());
   var total = 0; //Variabel untuk menyimpan Total harga
   var diskon = 1;
   if (document.getElementById('toko1').checked) { //Mengecek apakah Toko Sartika dipilih atau tidak
@@ -57,8 +55,7 @@ function autohitung() { //Fungsi untuk mengisi Total secara otomatis
       break;
     } else {
       total = total + (parseInt($('#harga' + n).val()) * parseInt($('#jumlah' + n).val()) * diskon); //Menghitung Total
-      total1 = total;
-      if (isNaN(total)) {
+      if (isNaN(total)) { //Jika harga ada yang NULL
         total = 0;
       }
       $('#total').val(total.toLocaleString('id-ID')); //Membuat format uang indonesia
@@ -67,10 +64,9 @@ function autohitung() { //Fungsi untuk mengisi Total secara otomatis
 }
 
 $(document).ready(function() {
-
   $("#tambah").click(function() {
     if (counter > 10) { //Hanya dapat menginput 10 jenis barang
-      swal("BARANG TERLALU BANYAK", "Hanya dapat membeli 10 jenis barang!", "error");
+      swal("BARANG TERLALU BANYAK!", "Hanya dapat membeli 10 jenis barang!", "error");
       return false;
     }
     var newPembelian = $(document.createElement('div')) //Membuat div baru untuk menempatkan input group baru
@@ -94,7 +90,7 @@ $(document).ready(function() {
         '</center>' +
         '<input type="text" name="jumlah' + counter + '" id="jumlah' + counter + '" class="center validate" onkeyup="autohitung()" autocomplete="off" />' +
       '</div>' +
-      '<div class="col s3">' +
+      '<div class="col s12">' +
         '<input type="text" name="harga' + counter + '" id="harga' + counter + '" class="center validate" hidden />' +
       '</div>');
     newPembelian.appendTo("#gruppembelian"); //Menggabungkan div tadi ke dalam input group yang sudah ada
@@ -146,12 +142,15 @@ $(document).ready(function() {
   $("#konfirmasi").click(function() {
     //Mengecek apakah ada barang yang sama atau tidak
     var sama = false;
+    var e, r; //Variabel untuk menampung No. Barang yang sama
     var q, w;
     for (q = 1; q < counter; q++) {
       for (w = 1; w < counter; w++) {
         if (q == w) break;
         if ($("#no" + q).val() == $("#no" + w).val()) {
           sama = true;
+          e = q;
+          r = w;
         }
       }
     }
@@ -170,11 +169,9 @@ $(document).ready(function() {
         });
         break;
       } else if (sama == true) { //Jika ada data barang yang sama
-        q = q-1;
-        w = w-1;
         swal({
           title: "BARANG DUPLIKAT!",
-          text: "Pastikan Barang No. #" + w + " dan Barang No. #" + q + " tidak sama!",
+          text: "Pastikan Barang No. #" + r + " dan Barang No. #" + e + " tidak sama!",
           type: "error"
         });
         break;
@@ -199,47 +196,6 @@ $(document).ready(function() {
         }, function(isConfirm) {
           if (isConfirm) {
             $("#counter").val(counter);
-            document.forms["myform"].submit();
-          }
-        });
-      }
-    }
-  });
-
-  $("#edit").click(function() {
-    for (var x = 1; x < counter; x++) {
-      if ((myform.tanggal.value == "") || (myform.faktur.value == "") ||
-      ((myform.toko1.checked == false) && (myform.toko2.checked == false) && (myform.toko3.checked == false) && (myform.toko4.checked == false))) {
-        swal("Error!", "Harap masukkan seluruh data!", "error");
-      } else if ($('#hitung' + x).val() == "") {
-        swal({
-          title: "Error!",
-          text: "Pastikan No. Barang #" + x + " terisi atau tersedia di database!",
-          type: "error"
-        });
-        break;
-      } else if ($('#jumlah' + x).val() < 1) {
-        swal({
-          title: "Error!",
-          text: "Pastikan Jumlah Barang #" + x + " lebih dari 0!",
-          type: "error"
-        });
-        break;
-      } else {
-        swal({
-          title: "Anda yakin?",
-          text: "Semua data akan dimasukkan ke database!",
-          type: "warning",
-          showCancelButton: true,
-          confirmButtonColor: "#DD6B55",
-          confirmButtonText: "Ya, saya yakin!",
-          cancelButtonText: "Batal",
-          closeOnConfirm: false
-        }, function(isConfirm) {
-          if (isConfirm) {
-            if (total1 != undefined) {
-              $('#total').val(total1);
-            }
             document.forms["myform"].submit();
           }
         });

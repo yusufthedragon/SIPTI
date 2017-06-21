@@ -1,36 +1,39 @@
+<?php
+ session_start(); //Memulai session
+ if (!isset($_SESSION['login'])) { //Jika session belum diset/user belum login
+   header("location: login.php"); //Maka akan dialihkan ke halaman login
+ }
+?>
+
 <!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
     <title>Edit Data Barang - Toko Zati Parts</title>
+    <link rel="shortcut icon" href="images/logo.png" />
     <link rel="stylesheet" href="css/jquery-ui.css" />
     <link rel="stylesheet" href="css/sweetalert.css" />
     <link rel="stylesheet" href="css/materialize.css" />
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <script type="text/javascript" src="js/sweetalert.js"></script>
   </head>
   <body>
-
     <nav>
-        <div class="nav-wrapper grey darken-3">
-          <a href="index.php" class="brand-logo center">
-            <i class="material-icons left">shopping_cart&nbsp;&nbsp;</i>
-            <i class="material-icons left">event_note&nbsp;&nbsp;</i>
-            <i class="material-icons left">store</i>
-            <i class="material-icons right">exit_to_app</i>
-            <i class="material-icons right">account_circle</i>
-            <i class="material-icons right">assessment</i>
-            TOKO ZATI PARTS
-          </a>
-        </div>
+      <div class="nav-wrapper grey darken-3">
+        <a href="index.php" class="brand-logo center">
+          <i class="material-icons left">shopping_cart&nbsp;&nbsp;</i>
+          <i class="material-icons left">event_note&nbsp;&nbsp;</i>
+          <i class="material-icons left">store</i>
+          <i class="material-icons right">exit_to_app</i>
+          <i class="material-icons right">account_circle</i>
+          <i class="material-icons right">assessment</i>
+          TOKO ZATI PARTS
+        </a>
+      </div>
     </nav>
-
-    <div id="keterangan"></div>
-
     <div class="container">
       <h3 class="center">EDIT BARANG</h3>
       <div class="row">
-        <form name="myform" method="post" action="daftar_barang.php">
+        <form name="myform">
           <div class="col s12">
             Masukkan Kode Barang Lama:
             <div class="input-field inline">
@@ -74,9 +77,11 @@
       </div>
       <div class="row"></div>
     </div>
+    <div id="keterangan"></div>
     <script type="text/javascript" src="js/materialize.js"></script>
     <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="js/jquery-ui.js"></script>
+    <script type="text/javascript" src="js/sweetalert.js"></script>
     <script type="text/javascript">
       function upperCaseF(a) { //Fungsi untuk membuat input kapital secara otomatis
         setTimeout(function() {
@@ -90,7 +95,7 @@
         });
       });
 
-      function autofill() {
+      function autofill() { //Fungsi untuk mengisi form Nama, Harga, dan Jumlah secara otomatis
         var no = $("#kodelama").val();
         $.ajax({
           url: 'ajax_barang.php',
@@ -106,6 +111,7 @@
       }
 
       function edit() {
+        //Memeriksa apakah semua form terisi
         if ((myform.kodelama.value == "") || (myform.nama.value == "") || (myform.harga.value == "") || (myform.jumlah.value == "")) {
           swal({
              title: "Error!",
@@ -138,15 +144,15 @@
                 dataType: "html",
                 data: {'kodelama': kodelama, 'kodebaru': kodebaru, 'nama': nama, 'harga': harga, 'jumlah': jumlah},
               }).success(function(data) {
-                console.log(kodebaru);
-                    $('#keterangan').html(data);
-                });
+                $('#keterangan').html(data);
+              });
             }
           });
         }
       }
 
       function batal() {
+        //Memeriksa apakah semua form kosong
         if ((myform.kodelama.value != "") || (myform.kodebaru.value != "") || (myform.nama.value != "") || (myform.harga.value != "") || (myform.jumlah.value != "")) {
           swal({
             title: "Anda yakin?",

@@ -1,29 +1,34 @@
+<?php
+  session_start(); //Memulai session
+  if (!isset($_SESSION['login'])) { //Jika session belum diset/user belum login
+    header("location: login.php"); //Maka akan dialihkan ke halaman login
+  }
+?>
+
 <!DOCTYPE html>
 <html>
-
-<head>
+  <head>
     <meta charset="utf-8">
     <title>Laporan Pembelian - Toko Zati Parts</title>
+    <link rel="shortcut icon" href="images/logo.png" />
     <link rel="stylesheet" href="css/jquery-ui.css" />
     <link rel="stylesheet" href="css/sweetalert.css" />
     <link rel="stylesheet" href="css/materialize.css" />
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-</head>
-
-<body>
-
+  </head>
+  <body>
     <nav>
-        <div class="nav-wrapper grey darken-3">
-          <a href="index.php" class="brand-logo center">
-            <i class="material-icons left">shopping_cart&nbsp;&nbsp;</i>
-            <i class="material-icons left">event_note&nbsp;&nbsp;</i>
-            <i class="material-icons left">store</i>
-            <i class="material-icons right">exit_to_app</i>
-            <i class="material-icons right">account_circle</i>
-            <i class="material-icons right">assessment</i>
-            TOKO ZATI PARTS
-          </a>
-        </div>
+      <div class="nav-wrapper grey darken-3">
+        <a href="index.php" class="brand-logo center">
+          <i class="material-icons left">shopping_cart&nbsp;&nbsp;</i>
+          <i class="material-icons left">event_note&nbsp;&nbsp;</i>
+          <i class="material-icons left">store</i>
+          <i class="material-icons right">exit_to_app</i>
+          <i class="material-icons right">account_circle</i>
+          <i class="material-icons right">assessment</i>
+          TOKO ZATI PARTS
+        </a>
+      </div>
     </nav>
     <div class="container">
       <div class="row">
@@ -68,10 +73,10 @@
           <div class="row"></div>
           <div class="row"></div>
           <div class="col s6 center">
-              <a class="waves-effect waves-light btn green accent-4" onclick="konfirmasi()"><i class="material-icons left">done</i>Konfirmasi</a>
+            <a class="waves-effect waves-light btn green accent-4" onclick="konfirmasi()"><i class="material-icons left">done</i>Konfirmasi</a>
           </div>
           <div class="col s6 center">
-              <a class="waves-effect waves-light btn blue darken-1" href="index.php"><i class="material-icons left">cancel</i>Kembali</a>
+            <a class="waves-effect waves-light btn blue darken-1" href="index.php"><i class="material-icons left">cancel</i>Kembali</a>
           </div>
         </form>
       </div>
@@ -87,5 +92,5 @@
       document.forms["myform"].submit();
     }
     </script>
-</body>
+  </body>
 </html>

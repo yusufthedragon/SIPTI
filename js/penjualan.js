@@ -8,13 +8,13 @@ function upperCaseF(a) { //Fungsi untuk membuat input kapital secara otomatis
   }, 1);
 }
 
-function firstUpperF(a) {
+function firstUpperF(a) { //Fungsi untuk membuat huruf pertama menjadi kapital
   setTimeout(function() {
     a.value = a.value.charAt(0).toUpperCase() + a.value.slice(1);
   }, 1);
 }
 
-$(".klik").keypress(function(event) {
+$(".klik").keypress(function(event) { //Fungsi untuk mencegah user menekan keyboard pada Tanggal
     return false;
 });
 
@@ -51,23 +51,18 @@ function autofill(x) { //Fungsi untuk mengisi input nama barang secara otomatis 
     $('#barang' + angka).val(obj.nama_barang);
     if (obj.harga > 300000) untung = 30000; else untung = obj.harga * 0.1;
     $('#harga' + angka).val(obj.harga + untung);
-    $('#hitung' + angka).val(obj.harga + untung);
     $('#stok' + angka).val(obj.stok);
   });
 }
 
 function autohitung() { //Fungsi untuk mengisi input total secara otomatis
-  var total2 = 0;
-  for (var n = 1; n < 11; n++) {
-    if ((!$('#hitung' + n).length) || (!$('#hitung' + n).val(""))) { //Jika input box dynamic belum dibuat / belum ada
+  var total = 0;
+  for (var n = 1; n < counter; n++) {
+    if (($('#harga' + n).val() == 0) || ($('#harga' + n).val() == undefined)) { //Jika Kode Barang tidak terisi / tersedia di database
       break;
     } else {
-      total2 = total2 + (parseInt($('#harga' + n).val()) * $('#jumlah' + n).val());
-      total1 = total2;
-      if (isNaN(total2)) {
-        total2 = 0;
-      }
-      $('#total').val(total2.toLocaleString('id-ID')); //Membuat format uang indonesia
+      total = total + (parseInt($('#harga' + n).val()) * parseInt($('#jumlah' + n).val()));
+      $('#total').val(total.toLocaleString('id-ID')); //Membuat format uang indonesia
     }
   }
 }
@@ -75,8 +70,8 @@ function autohitung() { //Fungsi untuk mengisi input total secara otomatis
 $(document).ready(function() {
   $("#tambah").click(function() {
       if (counter > 10) {
-          swal("Error", "Hanya dapat menjual 10 barang!", "error");
-          return false;
+        swal("BARANG TERLALU BANYAK!", "Hanya dapat menjual 10 barang!", "error");
+        return false;
       }
       var newPenjualan = $(document.createElement('div'))
           .attr("id", 'penjualan' + counter);
@@ -99,36 +94,38 @@ $(document).ready(function() {
           '</center>' +
           '<input type="text" name="jumlah' + counter + '" id="jumlah' + counter + '" class="center validate" onkeyup="autohitung()" autocomplete="off" />' +
         '</div>' +
-        '<div class="col s3">' +
+        '<div class="col s12">' +
           '<input type="text" name="harga' + counter + '" id="harga' + counter + '" class="center validate" hidden />' +
         '</div>' +
         '<div class="col s12">' +
-          '<input type="text" name="hitung' + counter + '" id="hitung' + counter + '" hidden />' +
+          '<input type="text" name="stok' + counter + '" id="stok' + counter + '" hidden />' +
         '</div>');
       newPenjualan.appendTo("#gruppenjualan"); //Menggabungkan div tadi ke dalam input group yang sudah ada
       $("#no" + counter).autocomplete({ //Sama seperti fungsi di baris 17
         source: 'search_barang_penjualan.php'
       });
-
       counter++;
   });
+
   $("#hapus").click(function() {
-    if (counter == 2) {
-        swal("Error", "Minimal menjual 1 barang!", "error");
-        return false;
+    if (counter == 2) { //Mengecek apakah user menghapus satu-satunya input group barang
+      swal("Error", "Minimal menjual 1 barang!", "error");
+      return false;
     }
     counter--;
-    $("#penjualan" + counter).remove();
+    $("#penjualan" + counter).remove(); //Menghapus dynamic textbox terakhir
+    autohitung();
   });
 
   $("#gajadi").click(function() {
+    //Mengecek apakah ada data barang yang diisi
     var kosong = true;
-    for (var y = 1; y <= counter + 1; y++) {
-      $('#hitung' + y).val($('#no' + y).val());
-      if (!$('#hitung' + y).val() == "") {
+    for (var y = 1; y < counter; y++) {
+      if ($("#harga" + y).val() != 0) {
         kosong = false;
       }
     }
+
     if ((myform.tanggal.value != "") || (myform.nama.value != "") || (myform.alamat.value != "")
     || ((myform.kurir2.checked != false) || (myform.kurir3.checked != false) || (myform.kurir4.checked != false))
     || (myform.ongkir.value != "") || (myform.resi.value != "") || (kosong == false)) {
@@ -143,35 +140,29 @@ $(document).ready(function() {
         closeOnConfirm: false
       }, function(isConfirm) {
         if (isConfirm) {
-          if (window.location.href == "http://localhost/PI/penjualan.php") {
-            window.location = 'index.php';
-          } else window.location = history.go(-1);
+          window.location = 'index.php';
         }
       });
-    } else {
-      if (window.location.href == "http://localhost/PI/penjualan.php") {
-        window.location = 'index.php';
-      } else window.location = history.go(-1);
-    }
+    } else window.location = 'index.php';
   });
 
   $("#konfirmasi").click(function() {
-    var cek = false;
-    var q = 1;
-    for (var x = 1; x < counter; x++) {
-      q++;
-      if (cek == true) break;
-      for (var y = q; y < counter + 1; y++) {
-        if ($('#no' + x).val() == $('#no' + y).val()) {
-          cek = true;
-          a = x;
-          b = y;
+    //Mengecek apakah ada barang yang sama atau tidak
+    var sama = false;
+    var e, r; //Variabel untuk menampung No. Barang yang sama
+    var q, w;
+    for (q = 1; q < counter; q++) {
+      for (w = 1; w < counter; w++) {
+        if (q == w) break;
+        if ($("#no" + q).val() == $("#no" + w).val()) {
+          sama = true;
+          e = q;
+          r = w;
         }
       }
     }
 
     for (var x = 1; x < counter; x++) {
-      $('#hitung' + x).val($('#barang' + x).val());
       if ((myform.tanggal.value == "") || (myform.nama.value == "")) {
         swal({
           title: "Error!",
@@ -194,24 +185,24 @@ $(document).ready(function() {
           type: "error"
         });
       break;
-    } else if ($('#hitung' + x).val() == "") {
+    } else if ($('#harga' + x).val() == "") {
         swal({
-          title: "Error!",
+          title: "BARANG TIDAK ADA DI DATABASE!",
           text: "Pastikan Barang #" + x + " terisi atau tersedia di database!",
           type: "error"
         });
         break;
-      } else if (cek == true) {
+      } else if (sama == true) {
         swal({
-          title: "Error!",
-          text: "Barang #" + a +" dan Barang #" + b + " sama!",
+          title: "BARANG DUPLIKAT!",
+          text: "Pastikan Barang No. #" + r + " dan Barang No. #" + e + " tidak sama!",
           type: "error"
         });
         break;
       } else if (parseInt($('#jumlah' + x).val()) > parseInt($('#stok' + x).val())) {
         swal({
           title: "Error!",
-          text: "Barang #" + x +" hanya tersedia " + $('#stok' + x).val() + " buah di gudang!",
+          text: "Barang #" + x +" hanya tersedia " + $('#stok' + x).val() + " unit di gudang!",
           type: "error"
         });
         break;
@@ -228,7 +219,7 @@ $(document).ready(function() {
           closeOnConfirm: false
         }, function(isConfirm) {
           if (isConfirm) {
-            $('#total').val(total1);
+            $("#counter").val(counter);
             document.forms["myform"].submit();
           }
         });

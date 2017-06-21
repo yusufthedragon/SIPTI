@@ -2,7 +2,7 @@
   include 'koneksi.php';
 
   session_start(); //Memulai session
-  if (!isset($_SESSION['login'])){ //Jika session belum diset/user belum login
+  if (!isset($_SESSION['login'])) { //Jika session belum diset/user belum login
     header("location: login.php"); //Maka akan dialihkan ke halaman login
   }
 
@@ -88,11 +88,8 @@
                 <center><label for="jumlah1">Jumlah Barang</label></center>
                 <input type="text" name="jumlah1" id="jumlah1" class="center validate" onkeyup="autohitung()" autocomplete="off" />
               </div>
-              <div class="col s3">
-                <input type="text" name="harga1" id="harga1" hidden/>
-              </div>
               <div class="col s12">
-                <input type="text" name="hitung1" id="hitung1" hidden/>
+                <input type="text" name="harga1" id="harga1" hidden/>
               </div>
               <div class="col s12">
                 <input type="text" name="stok1" id="stok1" hidden />

@@ -2,7 +2,7 @@
   include 'koneksi.php';
 
   session_start(); //Memulai session
-  if (!isset($_SESSION['login'])){ //Jika session belum diset/user belum login
+  if (!isset($_SESSION['login'])) { //Jika session belum diset/user belum login
     header("location: login.php"); //Maka akan dialihkan ke halaman login
   }
 
@@ -99,7 +99,7 @@
                 <center><label for="jumlah1">Jumlah Barang</label></center>
                 <input type="text" name="jumlah1" id="jumlah1" class="center validate" onkeyup="autohitung()" autocomplete="off" />
               </div>
-              <div class="col s3">
+              <div class="col s12">
                 <input type="text" name="harga1" id="harga1" hidden />
               </div>
             </div>
@@ -134,7 +134,7 @@
       </div>
     </div>
     <script type="text/javascript" src="js/materialize.js"></script>
-    <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.js"></script>
     <script type="text/javascript" src="js/jquery-ui.js"></script>
     <script type="text/javascript" src="js/datepicker-id.js"></script>
     <script type="text/javascript" src="js/sweetalert.js"></script>

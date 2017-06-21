@@ -2,6 +2,11 @@
   include 'koneksi.php';
   include 'fpdf.php';
 
+  session_start(); //Memulai session
+  if (!isset($_SESSION['login'])) { //Jika session belum diset/user belum login
+    header("location: login.php"); //Maka akan dialihkan ke halaman login
+  }
+
   $query = $koneksi->prepare ("SELECT *, (harga * stok) AS total FROM inventory WHERE stok > 0");
   $query->execute();
 
@@ -25,7 +30,7 @@
                 '10' => 'Oktober',
                 '11' => 'November',
                 '12' => 'Desember',
-        );
+              );
 
   $bulan = $daftar_bulan[date("m")];
 
@@ -53,10 +58,11 @@
     $column_total = $column_total."Rp. ".$total."\n";
   }
 
-  //Create a new PDF file
+  //Membuat file PDF baru
   $pdf = new FPDF('P','mm','A4');
   $pdf->AddPage();
 
+  //Mengatur judul laporan
   $pdf->SetTitle('Laporan Inventory');
 
   //Menambahkan Gambar
@@ -73,13 +79,10 @@
   $pdf->SetX(94);
   $pdf->Cell(30, 9,'Per '.$tanggalsekarang,0,0,'C');
 
-  //Fields Name position
   $Y_Fields_Name_position = 32;
 
-  //First create each Field Name
-  //Gray color filling each Field Name box
   $pdf->SetFillColor(160, 160, 160);
-  //Bold Font for Field Name
+
   $pdf->SetFont('Times','B', 10);
   $pdf->SetY($Y_Fields_Name_position);
   $pdf->SetX(8);
@@ -94,10 +97,8 @@
   $pdf->Cell(39,8,'TOTAL MODAL',1,0,'C',1);
   $pdf->Ln();
 
-  //Table position, under Fields Name
   $Y_Table_Position = 40;
 
-  //Now show the columns
   $pdf->SetFont('Times','', 9);
 
   $pdf->SetY($Y_Table_Position);

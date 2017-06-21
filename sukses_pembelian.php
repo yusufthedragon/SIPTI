@@ -2,7 +2,7 @@
   include 'koneksi.php';
 
   session_start(); //Memulai session
-  if(!isset($_SESSION['login'])){ //Jika session belum diset/user belum login
+  if (!isset($_SESSION['login'])) { //Jika session belum diset/user belum login
     header("location: login.php"); //Maka akan dialihkan ke halaman login
   }
 
@@ -14,7 +14,7 @@
   $tanggal = htmlspecialchars($_POST['tanggal']);
   $no_faktur = htmlspecialchars($_POST['faktur']);
   $toko = htmlspecialchars($_POST['toko']);
-  $total = str_replace(".", "", htmlspecialchars($_POST['total']));
+  $total = str_replace(".", "", htmlspecialchars($_POST['total'])); //Untuk menghilangkan titik di nominal total
 
   try {
     //Memasukkan data ke database
@@ -27,51 +27,26 @@
     $query->execute();
     throw new PDOException; //Membuat sebuah error code
   } catch (PDOException $e) {
-    if ($e->errorInfo[1] != 00000) { //Error code 00000 adalah error code kosong/tanpa error/sukses
-      echo "<script>
-            function status() {
-              swal({
-                title: 'Error!',
-                text: 'Data tidak lengkap / berlebihan.',
-                timer: 3000,
-                type: 'error',
-                showConfirmButton: false
-              });
-            }
-            </script>";
-    } else {
-      echo "<script>
-            function status() {
-              swal({
-                title: 'INPUT TRANSAKSI BERHASIL!',
-                text: 'Data transaksi telah masuk ke database.',
-                timer: 3000,
-                type: 'success',
-                showConfirmButton: false
-              });
-            }
-            </script>";
-      for($n = 1; $n < $counter; $n++) {
-        $no = htmlspecialchars($_POST['no'.$n]);
-        $barang = htmlspecialchars($_POST['barang'.$n]);
-        $harga = htmlspecialchars($_POST['harga'.$n]);
-        $jumlah = htmlspecialchars($_POST['jumlah'.$n]);
+    for($n = 1; $n < $counter; $n++) {
+      $no = htmlspecialchars($_POST['no'.$n]);
+      $barang = htmlspecialchars($_POST['barang'.$n]);
+      $harga = htmlspecialchars($_POST['harga'.$n]);
+      $jumlah = htmlspecialchars($_POST['jumlah'.$n]);
 
-        //Memasukkan data ke database
-        $query = $koneksi->prepare("INSERT INTO pengaruh VALUES(:no_transaksi, :kode_barang, :nama_barang, :harga, :jumlah)");
-        $query->bindParam(':no_transaksi', $no_transaksi);
-        $query->bindParam(':kode_barang', $no);
-        $query->bindParam(':nama_barang', $barang);
-        $query->bindParam(':harga', $harga);
-        $query->bindParam(':jumlah', $jumlah);
-        $query->execute();
+      //Memasukkan data ke database
+      $query = $koneksi->prepare("INSERT INTO pengaruh VALUES(:no_transaksi, :kode_barang, :nama_barang, :harga, :jumlah)");
+      $query->bindParam(':no_transaksi', $no_transaksi);
+      $query->bindParam(':kode_barang', $no);
+      $query->bindParam(':nama_barang', $barang);
+      $query->bindParam(':harga', $harga);
+      $query->bindParam(':jumlah', $jumlah);
+      $query->execute();
 
-        //Memperbarui stok pada inventory
-        $query = $koneksi->prepare("UPDATE inventory SET stok = stok + :jumlah WHERE kode_barang = :kode_barang");
-        $query->bindParam(':jumlah', $jumlah);
-        $query->bindParam(':kode_barang', $no);
-        $query->execute();
-      }
+      //Memperbarui stok pada inventory
+      $query = $koneksi->prepare("UPDATE inventory SET stok = stok + :jumlah WHERE kode_barang = :kode_barang");
+      $query->bindParam(':jumlah', $jumlah);
+      $query->bindParam(':kode_barang', $no);
+      $query->execute();
     }
   }
 ?>
@@ -142,15 +117,11 @@
             <tbody>
               <?php
                 for ($x = 1; $x < $counter; $x++) {
-                  if (!isset($_POST['no'.$x])) { //Jika No. Barang tidak ada/dynamic textbox tidak dibuat
-                    break;
-                  } else { //Jika tidak, memunculkan data barang-barang yang dibeli
-                    echo "<tr>
-                      <td>".$_POST['no'.$x]."</td>
-                      <td>".$_POST['barang'.$x]."</td>
-                      <td>".$_POST['jumlah'.$x]."</td>
-                    </tr>";
-                  }
+                  echo "<tr>
+                    <td>".$_POST['no'.$x]."</td>
+                    <td>".$_POST['barang'.$x]."</td>
+                    <td>".$_POST['jumlah'.$x]."</td>
+                  </tr>";
                 }
               ?>
             </tbody>
@@ -174,7 +145,30 @@
       <div class="row"></div>
       <div class="row"></div>
     </div>
-    <script type="text/javascript" src="js/materialize.min.js"></script>
+    <script type="text/javascript" src="js/materialize.js"></script>
     <script type="text/javascript" src="js/sweetalert.js"></script>
+    <script type="text/javascript">
+      function status() {
+        <?php
+          if($e->errorInfo[1] == 00000) {
+            echo "swal({
+                    title: 'INPUT TRANSAKSI BERHASIL!',
+                    text: 'Data telah masuk ke database.',
+                    timer: 3000,
+                    type: 'success',
+                    showConfirmButton: false
+                  });";
+          } else {
+            echo "swal({
+                    title: 'INPUT TRANSAKSI GAGAL!',
+                    text: 'Data gagal masuk ke database.',
+                    timer: 3000,
+                    type: 'error',
+                    showConfirmButton: false
+                  });";
+          }
+        ?>
+      }
+    </script>
   </body>
 </html>

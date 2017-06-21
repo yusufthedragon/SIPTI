@@ -1,8 +1,16 @@
+<?php
+  session_start(); //Memulai session
+  if (!isset($_SESSION['login'])) { //Jika session belum diset/user belum login
+    header("location: login.php"); //Maka akan dialihkan ke halaman login
+  }
+?>
+
 <!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
     <title>Ganti Password - Toko Zati Parts</title>
+    <link rel="shortcut icon" href="images/logo.png" />
     <link rel="stylesheet" href="css/sweetalert.css" />
     <link rel="stylesheet" href="css/materialize.css" />
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -45,10 +53,10 @@
           <div class="row"></div>
           <div class="row"></div>
           <div class="col s6 center">
-              <a class="waves-effect waves-light btn green accent-4" onclick="konfirmasi()"><i class="material-icons left">done</i>Konfirmasi</a>
+            <a class="waves-effect waves-light btn green accent-4" onclick="konfirmasi()"><i class="material-icons left">done</i>Konfirmasi</a>
           </div>
           <div class="col s6 center">
-              <a class="waves-effect waves-light btn blue darken-1" href="index.php"><i class="material-icons left">cancel</i>Kembali</a>
+            <a class="waves-effect waves-light btn blue darken-1" href="index.php"><i class="material-icons left">cancel</i>Kembali</a>
           </div>
         </form>
       </div>
@@ -60,10 +68,10 @@
       function konfirmasi() {
         if ((myform.lama.value == "") || (myform.baru.value == "")) {
           swal({
-             title: "Error!",
-             text: "Harap mengisi data Password Lama dan Password Baru!",
-             timer: 2000,
-             type: "error"
+            title: "Error!",
+            text: "Harap mengisi data Password Lama dan Password Baru!",
+            timer: 2000,
+            type: "error"
            });
         } else {
           swal({
@@ -84,8 +92,8 @@
                 dataType: "html",
                 data: {'lama': lama, 'baru': baru},
               }).success(function(data) {
-                    $('#keterangan').html(data);
-                });
+                $('#keterangan').html(data);
+              });
             }
           });
         }

@@ -2,6 +2,11 @@
   include 'koneksi.php';
   include 'fpdf.php';
 
+  session_start(); //Memulai session
+  if (!isset($_SESSION['login'])) { //Jika session belum diset/user belum login
+    header("location: login.php"); //Maka akan dialihkan ke halaman login
+  }
+
   $periode = htmlspecialchars($_POST['bulan'])." ".htmlspecialchars($_POST['tahun']);
 
   $query = $koneksi->prepare ("SELECT *, (SELECT SUM(jumlah) FROM pengaruh WHERE pengaruh.no_transaksi = penjualan.no_transaksi) AS barang FROM penjualan WHERE tanggal LIKE CONCAT ('%', :periode)");
@@ -31,7 +36,7 @@
                 '10' => 'Oktober',
                 '11' => 'November',
                 '12' => 'Desember',
-        );
+              );
 
   $bulan = $daftar_bulan[date("m")];
 
@@ -70,10 +75,11 @@
     $column_total = $column_total."Rp. ".$total."\n";
   }
 
-  //Create a new PDF file
+  //Membuat file PDF baru
   $pdf = new FPDF('P','mm','A4');
   $pdf->AddPage();
 
+  //Mengatur judul laporan
   $pdf->SetTitle('Laporan Penjualan');
 
   //Menambahkan Gambar
@@ -91,13 +97,10 @@
   $pdf->Cell(30, 9,'Per '.$periode,0,0,'C');
   $pdf->Ln();
 
-  //Fields Name position
   $Y_Fields_Name_position = 30;
 
-  //First create each Field Name
-  //Gray color filling each Field Name box
   $pdf->SetFillColor(160, 160, 160);
-  //Bold Font for Field Name
+
   $pdf->SetFont('Times','B', 10);
   $pdf->SetY($Y_Fields_Name_position);
   $pdf->SetX(4);
@@ -116,10 +119,8 @@
   $pdf->Cell(37,8,'TOTAL PENJUALAN',1,0,'C',1);
   $pdf->Ln();
 
-  //Table position, under Fields Name
   $Y_Table_Position = 38;
 
-  //Now show the columns
   $pdf->SetFont('Times','', 9);
 
   $pdf->SetY($Y_Table_Position);
@@ -179,5 +180,4 @@
   $pdf->MultiCell(42,6,$keterangan,0,'C');
 
   $pdf->Output('','Laporan Pembelian Bulan '.$bulan.' - Toko Zati Parts');
-
 ?>
