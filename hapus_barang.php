@@ -143,27 +143,6 @@
           });
         }
       }
-
-      function batal() {
-        if ((myform.kode.value != "") || (myform.nama.value != "") || (myform.harga.value != "") || (myform.jumlah.value != "")) {
-          swal({
-            title: "Anda yakin?",
-            text: "Semua data yang telah dimasukkan akan hilang!",
-            type: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Ya, saya yakin!",
-            cancelButtonText: "Batal",
-            closeOnConfirm: false
-          }, function(isConfirm) {
-            if (isConfirm) {
-              window.location = "daftar_barang.php";
-            }
-          });
-        } else {
-          window.location = "daftar_barang.php";
-        }
-      }
     </script>
   </body>
 </html>
