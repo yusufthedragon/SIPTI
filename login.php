@@ -15,8 +15,8 @@
   <link rel="shortcut icon" href="images/logo.png" />
   <title>Sign In - Toko Zati Parts</title>
   <link href='http://fonts.googleapis.com/css?family=Roboto:400' rel='stylesheet' type='text/css'>
-  <link rel="stylesheet" href="css/sweetalert.css" />
-  <script type="text/javascript" src="js/sweetalert.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css" />
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
   <script type="text/javascript">
     <?php
       if ($error != 1) {

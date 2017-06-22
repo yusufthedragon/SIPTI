@@ -14,7 +14,7 @@
     <title>Daftar Penjualan - Toko Zati Parts</title>
     <link rel="shortcut icon" href="images/logo.png" />
     <link rel="stylesheet" href="css/jquery.dataTables.css" />
-    <link rel="stylesheet" href="css/sweetalert.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css" />
     <link rel="stylesheet" href="css/materialize.css" />
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   </head>
@@ -84,9 +84,9 @@
       <div class="row"></div>
     </div>
     <script type="text/javascript" src="js/materialize.js"></script>
-    <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="js/jquery.dataTables.js"></script>
-    <script type="text/javascript" src="js/sweetalert.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
     <script type="text/javascript">
       $(document).ready(function(){
         $('.mytable').DataTable({
