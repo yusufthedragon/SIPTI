@@ -55,6 +55,7 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pembelian <?php if($e->errorInfo[1] == 00000) echo "Sukses"; else echo "Gagal"; ?> - Toko Zati Parts</title>
     <link rel="shortcut icon" href="images/logo.png" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css" />
@@ -135,10 +136,11 @@
         </div>
         <div class="row"></div>
         <div class="row"></div>
-        <div class="col s12 l6 center">
+        <div class="col s12 m5 l5 center">
           <a class="waves-effect waves-light btn blue darken-1" href="pembelian.php"><i class="material-icons left">input</i>Input Kembali</a>
         </div>
-        <div class="col s12 l6 center">
+        <div class="col s12 m2 l2">&nbsp;</div>
+        <div class="col s12 m5 l5 center">
           <a class="waves-effect waves-light btn blue darken-1" href="index.php"><i class="material-icons left">arrow_forward</i>Kembali Ke Menu</a>
         </div>
       </div>

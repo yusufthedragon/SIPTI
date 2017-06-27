@@ -9,6 +9,7 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home - Toko Zati Parts</title>
     <link rel="shortcut icon" href="images/logo.png" />
     <link rel="stylesheet" href="css/materialize.css" />
@@ -31,9 +32,8 @@
     <div class="container">
       <br />
       <br />
-      <br />
       <div class="row">
-        <div class="col s12 m6 l5 center">
+        <div class="col s12 m4 l5 center">
           <img src="images/transaksi.png" alt="Transaksi" />
           <br />
           <br />
@@ -45,8 +45,8 @@
             <li class="divider"></li>
           </ul>
         </div>
-        <div class="col s12 l2">&nbsp;</div>
-        <div class="col s12 m6 l5 center">
+        <div class="col s12 m4 l2">&nbsp;</div>
+        <div class="col s12 m4 l5 center">
           <img src="images/daftar-transaksi.png" />
           <br />
           <br />
@@ -57,18 +57,15 @@
             <li><a href="daftar_penjualan.php">Daftar Penjualan</a></li>
           </ul>
         </div>
-      </div>
-      <div class="row"></div>
-      <div class="row"></div>
-      <div class="row">
-        <div class="col s12 m6 l5 center">
+        <div class="row"></div>
+        <div class="col s12 m4 l5 center">
           <img src="images/daftar-inventory.png" alt="Edit" />
           <br />
           <br />
           <a class="btn waves-effect waves-light grey darken-3" href="daftar_barang.php"><i class="material-icons left">store</i>Daftar Inventory</a>
         </div>
-        <div class="col s12 l2">&nbsp;</div>
-        <div class="col s12 m6 l5 center">
+        <div class="col s12 m4 l2">&nbsp;</div>
+        <div class="col s12 m4 l5 center">
           <img src="images/laporan-toko.png" />
           <br />
           <br />
@@ -81,18 +78,15 @@
             <li><a href="laporan_inventory.php" target="_blank">Laporan Inventory</a></li>
           </ul>
         </div>
-      </div>
-      <div class="row"></div>
-      <div class="row"></div>
-      <div class="row">
-        <div class="col s12 l5 center">
+        <div class="row"></div>
+        <div class="col s12 m4 l5 center">
           <img src="images/password.png" />
           <br />
           <br />
           <a class="btn waves-effect waves-light grey darken-3" href="ganti_password.php"><i class="material-icons left">account_circle</i>Ganti Password</a>
         </div>
-        <div class="col s12 l2">&nbsp;</div>
-        <div class="col s12 l5 center">``
+        <div class="col s12 m4 l2">&nbsp;</div>
+        <div class="col s12 m4 l5 center">
           <img src="images/logout.png" />
           <br />
           <br />

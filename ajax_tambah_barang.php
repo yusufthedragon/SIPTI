@@ -23,15 +23,26 @@
     throw new PDOException; //Mengirimkan kode eksepsi
   } catch (PDOException $e) { //Menangkap kode eksepsi
     if ($e->errorInfo[1] == 1062) { //Jika Kode Barang sudah ada / duplikat
-      $string = 'Tambah Data Gagal!\nKode Barang Telah Terdaftar!';
       echo "<script>
-            alert(\"$string\");
+            swal({
+              title: 'TAMBAH DATA GAGAL!',
+              text: 'Kode Barang telah terdaftar!',
+              type: 'error'
+            });
             </script>";
     } else if ($e->errorInfo[1] == 00000) { //00000 adalah kode ekspesi yang menandakan bahwa query berhasil
       echo "<script>
-            alert('Tambah Data Berhasil!');
-            window.location = 'daftar_barang.php';
+            swal({
+              title: 'TAMBAH DATA BERHASIL!',
+              text: 'Data telah masuk ke database.',
+              type: 'success'
+            }, function(isConfirm) {
+              if (isConfirm) {
+                window.location = 'daftar_barang.php';
+              }
+            });
             </script>";
     }
   }
 ?>
+

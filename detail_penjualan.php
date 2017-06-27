@@ -20,6 +20,7 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detail Penjualan - Toko Zati Parts</title>
     <link rel="shortcut icon" href="images/logo.png" />
     <link rel="stylesheet" href="css/materialize.css" />
@@ -30,12 +31,12 @@
     <nav>
       <div class="nav-wrapper grey darken-3">
         <a href="index.php" class="brand-logo center">
-          <i class="material-icons left">shopping_cart&nbsp;&nbsp;</i>
-          <i class="material-icons left">event_note&nbsp;&nbsp;</i>
-          <i class="material-icons left">store</i>
-          <i class="material-icons right">exit_to_app</i>
-          <i class="material-icons right">account_circle</i>
-          <i class="material-icons right">assessment</i>
+          <i class="material-icons left hide-on-med-and-down">shopping_cart&nbsp;&nbsp;</i>
+          <i class="material-icons left hide-on-med-and-down">event_note&nbsp;&nbsp;</i>
+          <i class="material-icons left hide-on-med-and-down">store</i>
+          <i class="material-icons right hide-on-med-and-down">exit_to_app</i>
+          <i class="material-icons right hide-on-med-and-down">account_circle</i>
+          <i class="material-icons right hide-on-med-and-down">assessment</i>
           TOKO ZATI PARTS
         </a>
       </div>
@@ -140,20 +141,23 @@
             <input type="text" class="validate" value="<?php echo number_format($row['total'], 0, '', '.'); ?>" readonly />
           </div>
         </div>
-        <div class="row"></div>
-        <div class="row"></div>
-        <div class="col s4 center">
-          <a class="waves-effect waves-light btn red" onclick="hapus()"><i class="material-icons left">delete</i>Hapus Transaksi</a>
-        </div>
-        <div class="col s4 center">
-          <a class="waves-effect waves-light btn green accent-4" <?php echo "href='edit_penjualan.php?no_transaksi=".$row['no_transaksi']."'"; ?>><i class="material-icons left">edit</i>Edit Transaksi</a>
-        </div>
-        <div class="col s4 center">
-          <a class="waves-effect waves-light btn blue darken-1" href="daftar_penjualan.php"><i class="material-icons left">arrow_forward</i>Kembali</a>
-        </div>
       </div>
       <div class="row"></div>
       <div class="row"></div>
+      <div class="row">
+        <div class="col s12 m4 l4 center">
+          <a class="waves-effect waves-light btn red" onclick="hapus()"><i class="material-icons left">delete</i>Hapus Transaksi</a>
+          <div class="row"></div>
+        </div>
+        <div class="col s12 m4 l4 center">
+          <a class="waves-effect waves-light btn green accent-4" <?php echo "href='edit_penjualan.php?no_transaksi=".$row['no_transaksi']."'"; ?>><i class="material-icons left">edit</i>Edit Transaksi</a>
+          <div class="row"></div>
+        </div>
+        <div class="col s12 m4 l4 center">
+          <a class="waves-effect waves-light btn blue darken-1" href="daftar_penjualan.php"><i class="material-icons left">arrow_forward</i>Kembali</a>
+          <div class="row"></div>
+        </div>
+      </div>
     </div>
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="js/materialize.js"></script>

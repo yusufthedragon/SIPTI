@@ -61,6 +61,7 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Penjualan <?php if($e->errorInfo[1] == 00000) echo "Sukses"; else echo "Gagal"; ?> - Toko Zati Parts</title>
     <link rel="shortcut icon" href="images/logo.png" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css" />
@@ -71,12 +72,13 @@
     <nav>
       <div class="nav-wrapper grey darken-3">
         <a href="index.php" class="brand-logo center">
-          <i class="material-icons left">shopping_cart&nbsp;&nbsp;</i>
-          <i class="material-icons left">event_note&nbsp;&nbsp;</i>
-          <i class="material-icons left">store</i>
-          <i class="material-icons right">exit_to_app</i>
-          <i class="material-icons right">account_circle</i>
-          <i class="material-icons right">assessment</i>TOKO ZATI PARTS
+          <i class="material-icons left hide-on-med-and-down">shopping_cart&nbsp;&nbsp;</i>
+          <i class="material-icons left hide-on-med-and-down">event_note&nbsp;&nbsp;</i>
+          <i class="material-icons left hide-on-med-and-down">store</i>
+          <i class="material-icons right hide-on-med-and-down">exit_to_app</i>
+          <i class="material-icons right hide-on-med-and-down">account_circle</i>
+          <i class="material-icons right hide-on-med-and-down">assessment</i>
+          TOKO ZATI PARTS
         </a>
       </div>
     </nav>
@@ -172,10 +174,11 @@
         </div>
         <div class="row"></div>
         <div class="row"></div>
-        <div class="col s6 center">
+        <div class="col s12 m5 l5 center">
           <a class="waves-effect waves-light btn blue darken-1" href="penjualan.php"><i class="material-icons left">input</i>Input Kembali</a>
         </div>
-        <div class="col s6 center">
+        <div class="col s12 m2 l2">&nbsp;</div>
+        <div class="col s12 m5 l5 center">
           <a class="waves-effect waves-light btn blue darken-1" href="index.php"><i class="material-icons left">arrow_forward</i>Kembali Ke Menu</a>
         </div>
       </div>

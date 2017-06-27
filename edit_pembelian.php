@@ -18,6 +18,7 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Pembelian - Toko Zati Parts</title>
     <link rel="shortcut icon" href="images/logo.png" />
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
@@ -29,12 +30,12 @@
     <nav>
       <div class="nav-wrapper grey darken-3">
         <a href="index.php" class="brand-logo center">
-          <i class="material-icons left">shopping_cart&nbsp;&nbsp;</i>
-          <i class="material-icons left">event_note&nbsp;&nbsp;</i>
-          <i class="material-icons left">store</i>
-          <i class="material-icons right">exit_to_app</i>
-          <i class="material-icons right">account_circle</i>
-          <i class="material-icons right">assessment</i>
+          <i class="material-icons left hide-on-med-and-down">shopping_cart&nbsp;&nbsp;</i>
+          <i class="material-icons left hide-on-med-and-down">event_note&nbsp;&nbsp;</i>
+          <i class="material-icons left hide-on-med-and-down">store</i>
+          <i class="material-icons right hide-on-med-and-down">exit_to_app</i>
+          <i class="material-icons right hide-on-med-and-down">account_circle</i>
+          <i class="material-icons right hide-on-med-and-down">assessment</i>
           TOKO ZATI PARTS
         </a>
       </div>
@@ -94,7 +95,7 @@
               echo "<div id = 'pembelian".$i."'>
                       <div class = 'col s4'>
                         <center><label>No. Barang #".$i."</label></center>
-                        <input type='text' id='no".$i."' name='no".$i."' class='center autocomplete' onkeyup='autofill(this), autohitung(), upperCaseF(this)' value='".$row2['kode_barang']."' />
+                        <input type='text' id='no".$i."' name='no".$i."' class='center autocomplete' onkeyup='autofill(this), autohitung(), upperCaseF(this)' onblur='autofill(this), autohitung(), upperCaseF(this)' value='".$row2['kode_barang']."' />
                       </div>
                       <div class='col s4'>
                         <center><label>Nama Barang</label></center>
@@ -113,14 +114,13 @@
             echo "<input type='text' name='counter' id='counter' value='".$i."' hidden />";
           ?>
           </div>
-          <div class="col s3"></div>
-          <div class="col s3 center">
+          <div class="col s12 m4 push-m2 l4 push-l2 center">
             <a class="waves-effect waves-light btn blue darken-1" id="tambah"><i class="material-icons left">add</i>Tambah</a>
           </div>
-          <div class="col s3 center">
+          <div class="col s12 m4 l4">&nbsp;</div>
+          <div class="col s12 m4 push-m2 l4 pull-l2 center">
             <a class="waves-effect waves-light btn blue darken-1" id="hapus"><i class="material-icons left">delete</i>Hapus</a>
           </div>
-          <div class="col s3"></div>
           <div class="col s12">
             Total Harga : Rp.
             <div class="input-field inline">
@@ -129,10 +129,11 @@
           </div>
           <div class="row"></div>
           <div class="row"></div>
-          <div class="col s6 center">
+          <div class="col s12 m5 l5 center">
             <a class="waves-effect waves-light btn green accent-4" id="konfirmasi"><i class="material-icons left">edit</i>Perbarui</a>
           </div>
-          <div class="col s6 center">
+          <div class="col s12 m2 l2">&nbsp;</div>
+          <div class="col s12 m5 l5 center">
             <a class="waves-effect waves-light btn blue darken-1" <?php echo "href = 'detail_pembelian.php?no_transaksi=".$row['no_transaksi']."'" ?> ><i class="material-icons left">cancel</i>Batal</a>
           </div>
           <div class="row"></div>

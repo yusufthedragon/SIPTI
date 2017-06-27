@@ -24,12 +24,12 @@
     <nav>
       <div class="nav-wrapper grey darken-3">
         <a href="index.php" class="brand-logo center">
-          <i class="material-icons left">shopping_cart&nbsp;&nbsp;</i>
-          <i class="material-icons left">event_note&nbsp;&nbsp;</i>
-          <i class="material-icons left">store</i>
-          <i class="material-icons right">exit_to_app</i>
-          <i class="material-icons right">account_circle</i>
-          <i class="material-icons right">assessment</i>
+          <i class="material-icons left hide-on-med-and-down">shopping_cart&nbsp;&nbsp;</i>
+          <i class="material-icons left hide-on-med-and-down">event_note&nbsp;&nbsp;</i>
+          <i class="material-icons left hide-on-med-and-down">store</i>
+          <i class="material-icons right hide-on-med-and-down">exit_to_app</i>
+          <i class="material-icons right hide-on-med-and-down">account_circle</i>
+          <i class="material-icons right hide-on-med-and-down">assessment</i>
           TOKO ZATI PARTS
         </a>
       </div>
@@ -72,20 +72,23 @@
       </div>
       <div class="row"></div>
       <div class="row">
-        <div class="col s3 l3 center">
+        <div class="col s12 m3 l3 center">
           <a class="waves-effect waves-light btn green accent-4" href="tambah_barang.php"><i class="material-icons left">add</i>TAMBAH DATA</a>
+          <div class="row"></div>
         </div>
-        <div class="col s3 l3 center">
+        <div class="col s12 m3 l3 center">
           <a class="waves-effect waves-light btn green accent-4" href="edit_barang.php"><i class="material-icons left">edit</i>EDIT DATA</a>
+          <div class="row"></div>
         </div>
-        <div class="col s3 l3 center">
+        <div class="col s12 m3 l3 center">
           <a class="waves-effect waves-light btn red" href="hapus_barang.php"><i class="material-icons left">delete</i>HAPUS DATA</a>
+          <div class="row"></div>
         </div>
-        <div class="col s3 l3 center">
+        <div class="col s12 m3 l3 center">
           <a class="waves-effect waves-light btn blue darken-1" href="index.php"><i class="material-icons left">arrow_forward</i>KEMBALI</a>
+          <div class="row"></div>
         </div>
       </div>
-      <div class="row"></div>
     </div>
   </body>
   <script type="text/javascript">

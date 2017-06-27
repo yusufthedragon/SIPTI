@@ -20,6 +20,7 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Transaksi Penjualan - Toko Zati Parts</title>
     <link rel="shortcut icon" href="images/logo.png" />
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
@@ -66,7 +67,7 @@
           <div class="col s12">
             Masukkan Alamat Konsumen :
             <div class="input-field inline">
-              <input type="text" id="alamat" name="alamat" style="width:320px;" class="validate" autocomplete="off" />
+              <input type="text" id="alamat" name="alamat" style="width:320px;" class="validate" onkeyup="firstUpperF(this)" autocomplete="off" />
             </div>
           </div>
           <div class="row"></div>
@@ -78,7 +79,7 @@
             <div id="penjualan1">
               <div class="col s4">
                 <center><label>No. Barang #1</label></center>
-                <input type="text" name="no1" id="no1" class="center autocomplete" onkeyup="autofill(this), autohitung(), upperCaseF(this)" />
+                <input type="text" name="no1" id="no1" class="center autocomplete" onkeyup="autofill(this), autohitung(), upperCaseF(this)" onblur="autofill(this), autohitung(), upperCaseF(this)" />
               </div>
               <div class="col s4">
                 <center><label>Nama Barang</label></center>
@@ -97,14 +98,13 @@
             </div>
             <input type="text" name="counter" id="counter" value=2 hidden />
           </div>
-          <div class="col s3"></div>
-          <div class="col s3 center">
+          <div class="col s12 m4 push-m2 l4 push-l2 center">
             <a class="waves-effect waves-light btn blue darken-1" id="tambah"><i class="material-icons left">add</i>Tambah</a>
           </div>
-          <div class="col s3 center">
+          <div class="col s12 m4 l4">&nbsp;</div>
+          <div class="col s12 m4 pull-m2 l4 pull-l2 center">
             <a class="waves-effect waves-light btn blue darken-1" id="hapus"><i class="material-icons left">delete</i>Hapus</a>
           </div>
-          <div class="col s3"></div>
           <div class="row"></div>
           <div class="col s12">
             Pilih Kurir :
@@ -145,10 +145,11 @@
           </div>
           <div class="row"></div>
           <div class="row"></div>
-          <div class="col s6 center">
+          <div class="col s12 m5 l5 center">
             <a class="waves-effect waves-light btn green accent-4" id="konfirmasi"><i class="material-icons left">done</i>Konfirmasi</a>
           </div>
-          <div class="col s6 center">
+          <div class="col s12 m2 l2">&nbsp;</div>
+          <div class="col s12 m5 l5 center">
             <a class="waves-effect waves-light btn red" id="gajadi"><i class="material-icons left">cancel</i>Kembali</a>
           </div>
           <div class="row"></div>

@@ -24,14 +24,24 @@
     throw new PDOException;
   } catch(PDOException $e) {
     if ($e->errorInfo[1] == 1062) { //Error 1062 menandakan duplicate key
-      $string = 'Edit Data Gagal!\nKode Barang Telah Terdaftar!';
       echo "<script>
-            alert(\"$string\");
+            swal({
+              title: 'EDIT DATA GAGAL!',
+              text: 'Kode Barang telah terdaftar!',
+              type: 'error'
+            });
             </script>";
     } else {
       echo "<script>
-            alert('Edit Data Berhasil!');
-            window.location = 'daftar_barang.php';
+            swal({
+              title: 'EDIT DATA BERHASIL!',
+              text: 'Data telah diperbarui.',
+              type: 'success'
+            }, function(isConfirm) {
+              if (isConfirm) {
+                window.location = 'daftar_barang.php';
+              }
+            });
             </script>";
     }
   }

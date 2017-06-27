@@ -152,5 +152,5 @@
   $pdf->SetX(164);
   $pdf->MultiCell(42,6,$keterangan,0,'C');
 
-  $pdf->Output('','Laporan Pembelian Bulan '.$bulan.' - Toko Zati Parts');
+  $pdf->Output('D','Laporan Pembelian Bulan '.$bulan.'.pdf');
 ?>

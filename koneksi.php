@@ -2,7 +2,7 @@
   $host       =   "localhost";
   $user       =   "root";
   $password   =   "";
-  $database   =   "adi_parts";
+  $database   =   "zati_parts";
 
   try {
     $koneksi = new PDO('mysql:host='.$host.';dbname='.$database.';charset=utf8mb4', $user, $password); //Membuat koneksi dengan PDO
