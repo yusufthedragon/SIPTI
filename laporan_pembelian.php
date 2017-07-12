@@ -125,12 +125,12 @@
     $pdf->SetY($Y_Table_Position+$i);
     $pdf->SetX(128);
     $pdf->MultiCell(35, 6, $row['barang'], 1, 'C');
-    $subtotal_barang += $subtotal_barang + $row['barang'];
+    $subtotal_barang += $row['barang'];
 
     $pdf->SetY($Y_Table_Position+$i);
     $pdf->SetX(163);
     $pdf->MultiCell(39, 6, "Rp. ".number_format($row['total'], 0, '', '.'), 1, 'C');
-    $subtotal += $subtotal + $row['total'];
+    $subtotal += $row['total'];
 
     $i = $i + 6; //Mengatur letak posisi Y dinamis setiap kali looping untuk mengatur posisi Y cell
     $j++; //Menambah value variabel counter

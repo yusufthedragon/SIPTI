@@ -137,7 +137,7 @@
     $pdf->SetY($Y_Table_Position+$i);
     $pdf->SetX(146);
     $pdf->MultiCell(21,6,$row['barang'],1,'C');
-    $subtotal_barang += $subtotal_barang + $row['barang'];
+    $subtotal_barang += $row['barang'];
 
     $pdf->SetY($Y_Table_Position+$i);
     $pdf->SetX(167);
