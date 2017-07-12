@@ -1,5 +1,4 @@
 var counter = parseInt(myform.counter.value); //Variabel untuk dynamic input box
-var total1;
 var stok;
 
 function upperCaseF(a) { //Fungsi untuk membuat input kapital secara otomatis
@@ -127,8 +126,8 @@ $(document).ready(function() {
     }
 
     if ((myform.tanggal.value != "") || (myform.nama.value != "") || (myform.alamat.value != "")
-    || ((myform.kurir2.checked != false) || (myform.kurir3.checked != false) || (myform.kurir4.checked != false))
-    || (myform.ongkir.value != "") || (myform.resi.value != "") || (kosong == false)) {
+    || ((myform.kurir2.checked != false) || (myform.kurir3.checked != false) || (myform.kurir4.checked != false) || (myform.kurir5.checked != false))
+    || (myform.ongkir.value != 0) || (myform.resi.value != "") || (kosong == false)) {
       swal({
         title: "Anda yakin?",
         text: "Semua data yang telah dimasukkan akan hilang!",

@@ -54,7 +54,7 @@
           <div class="col s12">
             Tanggal :
             <div class="input-field inline">
-              <input type="date" class="klik" id="datepicker" name="tanggal" autocomplete="off" />
+              <input type="text" class="klik" id="datepicker" name="tanggal" autocomplete="off" readonly />
             </div>
           </div>
           <div class="col s12">

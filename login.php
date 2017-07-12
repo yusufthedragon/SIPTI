@@ -6,7 +6,6 @@
   }
 
   $pesan = '';
-
 ?>
 
 <!DOCTYPE html>
@@ -127,7 +126,7 @@
 <body>
   <form method="post" action="">
     <center><h1>LOGIN ADMIN</h1></center>
-    <input placeholder="admin" type="password" name="password" required="">
+    <input placeholder="Masukkan Password" type="password" name="password" required="">
     <button type="submit" name="login">SIGN IN</button>
     <?php echo $pesan; ?>
   </form>
