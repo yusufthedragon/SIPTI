@@ -99,7 +99,7 @@
       <div class="container">
         <div class="row">
           <div class="col s12 l12">
-            <h5 class="white-text">Sistem Informasi Manajemen Transaksi &amp; Inventori</h5>
+            <h5 class="white-text">Sistem Informasi Pencatatan Transaksi &amp; Inventori</h5>
             <h5 class="white-text text-lighten-4">Toko Zati Parts</h5>
           </div>
           <div class="row"></div>
