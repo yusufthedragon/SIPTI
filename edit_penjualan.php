@@ -110,11 +110,11 @@
               echo "<input type='text' id='counter' name='counter' value='".$i."' hidden />";
             ?>
           </div>
-          <div class="col s12 m4 push-m4 l4 push-l4 center">
+          <div class="col s12 m4 push-m2 l4 push-l2 center">
             <a class="waves-effect waves-light btn blue darken-1" id="tambah"><i class="material-icons left">add</i>Tambah</a>
           </div>
           <div class="col s12 m4 l4">&nbsp;</div>
-          <div class="col s12 m4 pull-m4 l4 pull-l4 center">
+          <div class="col s12 m4 pull-m2 l4 pull-l2 center">
             <a class="waves-effect waves-light btn blue darken-1" id="hapus"><i class="material-icons left">delete</i>Hapus</a>
           </div>
           <div class="row"></div>
