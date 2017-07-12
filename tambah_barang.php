@@ -19,15 +19,7 @@
  <body>
    <nav>
      <div class="nav-wrapper grey darken-3">
-       <a href="index.php" class="brand-logo center">
-         <i class="material-icons left hide-on-med-and-down">shopping_cart&nbsp;&nbsp;</i>
-         <i class="material-icons left hide-on-med-and-down">event_note&nbsp;&nbsp;</i>
-         <i class="material-icons left hide-on-med-and-down">store</i>
-         <i class="material-icons right hide-on-med-and-down">exit_to_app</i>
-         <i class="material-icons right hide-on-med-and-down">account_circle</i>
-         <i class="material-icons right hide-on-med-and-down">assessment</i>
-         TOKO ZATI PARTS
-       </a>
+       <a href="index.php" class="brand-logo center">TOKO ZATI PARTS</a>
      </div>
    </nav>
    <div id="keterangan"></div>
