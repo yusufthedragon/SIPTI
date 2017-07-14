@@ -1,7 +1,7 @@
 <?php
   include 'proses_login.php';
 
-  if(isset($_SESSION['login'])){
+  if (isset($_SESSION['login'])) { //Jika telah login
     header("location: index.php");
   }
 
@@ -17,22 +17,18 @@
   <link href='http://fonts.googleapis.com/css?family=Roboto:400' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css" />
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
-  <script type="text/javascript">
-    <?php
-      if ($error != 1) {
-        $pesan = '';
-      } else {
-        $pesan = "<script>
-        swal({
-              title: 'SIGN IN GAGAL!',
-              text: 'Password Salah!',
-              type: 'error',
-              timer: 2000
-            });
-        </script>";
-      }
-    ?>
-  </script>
+  <?php
+    if ($error == 1) {
+      $pesan = "<script>
+                swal({
+                      title: 'SIGN IN GAGAL!',
+                      text: 'Password Salah!',
+                      type: 'error',
+                      timer: 2000
+                    });
+                </script>";
+    }
+  ?>
   <style>
       h1, input::-webkit-input-placeholder, button {
         font-family: 'roboto', sans-serif;
