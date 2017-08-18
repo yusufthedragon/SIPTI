@@ -9,10 +9,10 @@
   //Menerima Kode Barang yang diinput user
   $kode_barang = $_GET['kode'];
 
-  //Menghapus barang dari table Pengaruh
+  /*//Menghapus barang dari table Pengaruh
   $query = $koneksi->prepare("DELETE FROM pengaruh WHERE kode_barang = :kode");
   $query->bindParam(":kode", $kode_barang);
-  $query->execute();
+  $query->execute();*/
 
   //Menghapus barang dari table Inventory
   $query = $koneksi->prepare("DELETE FROM inventory WHERE kode_barang = :kode");

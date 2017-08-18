@@ -46,25 +46,10 @@
     //Mengambil selisih antara jumlah barang di pengaruh dan jumlah barang yang diinput
     $sum = $jumlah - $row['jumlah']; //Jumlah barang yang diinput dikurangi jumlah data yang di table pengaruh
 
-    if ($query2->rowCount() > 0) { //Jika ada
-      //Menambah stok barang yang dibeli dengan selisih antara jumlah barang di table pengaruh dan jumlah barang yang dinput
-      $query2 = $koneksi->prepare("UPDATE inventory SET stok = stok + :stok WHERE kode_barang = :kode_barang");
-      $query2->bindParam(':stok', $sum);
-      $query2->bindParam(':kode_barang', $no);
-      $query2->execute();
-    } else { //Jika tidak ada
-      //Mengembalikan stok barang di table inventory ke sedia kala sebelum terjadinya pembelian
-      $query2 = $koneksi->prepare("UPDATE inventory,pengaruh SET stok = -(stok - jumlah) WHERE pengaruh.no_transaksi = :no_transaksi AND pengaruh.kode_barang = :kode_barang AND inventory.kode_barang = pengaruh.kode_barang");
-      $query2->bindParam(':no_transaksi', $no_transaksi);
-      $query2->bindParam(':kode_barang', $no);
-      $query2->execute();
-
-      //Menambah stok barang yang dibeli dengan selisih antara jumlah barang di table pengaruh dan jumlah barang yang dinput
-      $query2 = $koneksi->prepare("UPDATE inventory SET stok = stok + :stok WHERE kode_barang = :kode_barang");
-      $query2->bindParam(':stok', $sum);
-      $query2->bindParam(':kode_barang', $no);
-      $query2->execute();
-    }
+    $query2 = $koneksi->prepare("UPDATE inventory SET stok = stok + :stok WHERE kode_barang = :kode_barang");
+    $query2->bindParam(':stok', $sum);
+    $query2->bindParam(':kode_barang', $no);
+    $query2->execute();
   }
 
   //Mengambil data kode barang yang ada di tabel pengaruh dengan No. Transaksi sekarang

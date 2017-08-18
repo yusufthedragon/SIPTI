@@ -62,7 +62,7 @@
       <div class="row"></div>
       <div class="row">
         <div class="col s6 l6 center">
-          <a class="waves-effect waves-light btn green accent-4" onclick="edit()"><i class="material-icons left">edit</i>EDIT</a>
+          <a class="waves-effect waves-light btn green accent-4" onclick="edit()"><i class="material-icons left">edit</i>PERBARUI</a>
         </div>
         <div class="col s6 l6 center">
           <a class="waves-effect waves-light btn blue darken-1" onclick="batal()"><i class="material-icons left">cancel</i>BATAL</a>
